@@ -1,19 +1,12 @@
 <!-- PROJECT LOGO -->
-<br />
 <div align="center">
   <a href="[https://github.com/othneildrew/Best-README-Template](https://github.com/raphi98/GreenGuru)">
-    <img src="images/logo-dark.png" alt="Logo" width="350" height="350">
+    <img src="images/logo-dark.png" alt="Logo" width="250" height="250">
   </a>
 
-  <h1 align="center">Green Guru</h1>
-
-  <p align="center">
+  <h3 align="center">Green Guru</h3>
+    <p align="center">
     You Plant - We Care
-    <h3>Team Members</h3>
-    David Possegger <br>
-    Philipp Legner <br>
-    Raphael Ofner <br>
-    Sebastian Schretter <br>
 </div>
 
 <!-- ABOUT THE PROJECT -->
@@ -27,7 +20,14 @@ Our app gives users a special plan for each plant, so they know exactly how much
 
 The app is fun to use because you can earn points for taking care of your plants and see how your friends are doing with their plants. This makes everyone want to do better.
 
-### Built With
+<p align="center">
+    <h3>Team Members</h3>
+    <li>David Possegger</li>
+    <li>Philipp Legner</li>
+    <li>Raphael Ofner</li>
+    <li>Sebastian Schretter</li>
+
+## Built With
 [![Python][Python.io]][Python-url]
 [![Angular][Angular.io]][Angular-url]
 
