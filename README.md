@@ -23,6 +23,7 @@ The app is fun to use because you can earn points for taking care of your plants
 <p align="center">
     <h3>Team Members</h3>
     <li>David Possegger</li>
+    <li>Florian Waltersdorfer</li>
     <li>Philipp Legner</li>
     <li>Raphael Ofner</li>
     <li>Sebastian Schretter</li>
