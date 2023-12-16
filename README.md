@@ -92,3 +92,6 @@ The app is fun to use because you can earn points for taking care of your plants
 ## Aufgaben und zugehörige Branches
 Die Feature Branches sollen wie die Tasks im Team Planning genannt, kleingeschrieben und die Leerzeichen mit Bindestrichen ersetzt werden (z.B. Task "Edit User Page (Frontend)" -> "task/edit-user-page").
 Bei Fragen schreibts mir einfach! :)
+
+## Fehlerbehebung
+Wenn der Django Server nicht start möchte `Error: Please select a Django Module`, dann über File -> Project Structure -> Modules -> Add Button(+) -> Import Module - >backend folder auswählen -> Next..Next..Next -> Assistenten abschließen -> Fertig
