@@ -50,7 +50,7 @@ The app is fun to use because you can earn points for taking care of your plants
 1. **Initialisierung und Setup:**
    - Alle Teammitglieder klonen das Repository und wechseln in den `dev`-Branch:
      ```bash
-     git clone https://github.com/raphi98/GreenGuru.git
+     git clone git@github.com:raphi98/GreenGuru.git
      git checkout dev
      ```
 
