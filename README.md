@@ -39,3 +39,51 @@ The app is fun to use because you can earn points for taking care of your plants
 [Angular-url]: https://angular.io/
 [Python.io]: https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white
 [Python-url]: https://www.python.org
+
+
+## Branching-Strategie
+- `main`: Nur für stabile Releases.
+- `dev`: Hauptentwicklungsbranch.
+- Feature-Branches: Entsprechend den Tasks im Team Planning, z.B. `task/add-plant-page`.
+
+## Git Workflow
+1. **Initialisierung und Setup:**
+   - Alle Teammitglieder klonen das Repository und wechseln in den `dev`-Branch:
+     ```bash
+     git clone https://github.com/raphi98/GreenGuru.git
+     git checkout dev
+     ```
+
+2. **Feature-Entwicklung (Beispiel: Sebastian mit `task/add-plant-page`):**
+   - Neuen Branch vom `dev`-Branch erstellen:
+     ```bash
+     git checkout -b task/add-plant-page
+     ```
+   - Entwickeln, commiten und pushen:
+     ```bash
+     git add .
+     git commit -m "added logic and validation to add plants in the frontend"
+     git push origin task/add-plant-page
+     ```
+   - Pull Request im GitHub-Repository erstellen.
+
+3. **Code Review und Merge:**
+   - Ein Teammitglied (z.B. Raphael) überprüft den Pull Request von Sebastian.
+   - Nach der Überprüfung wird `task/add-plant-page` in `dev` gemerged.
+
+4. **Regelmäßiges Update des `dev` Branches:**
+   - Andere Teammitglieder halten ihren `dev`-Branch aktuell:
+     ```bash
+     git checkout dev
+     git pull origin dev
+     ```
+
+5. **Konfliktlösung:**
+   - Bei auftretenden Konflikten diese im eigenen Branch vor dem Merge lösen.
+
+6. **Finalisierung und Release:**
+   - Nach Abschluss der Entwicklungsphase wird `dev` in `main` gemerged, um eine neue Version zu veröffentlichen.
+
+## Aufgaben und zugehörige Branches
+Die Feature Branches sollen wie die Tasks im Team Planning genannt, kleingeschrieben und die Leerzeichen mit Bindestrichen ersetzt werden (z.B. Task "Edit User Page (Frontend)" -> "task/edit-user-page").
+Bei Fragen schreibts mir einfach! :)
