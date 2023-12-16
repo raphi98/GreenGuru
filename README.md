@@ -44,7 +44,7 @@ The app is fun to use because you can earn points for taking care of your plants
 ## Branching-Strategie
 - `main`: Nur für stabile Releases.
 - `dev`: Hauptentwicklungsbranch.
-- Feature-Branches: Entsprechend den Tasks im Team Planning, z.B. `task/add-plant-page`.
+- Feature-Branches: Entsprechend den Tasks im Team Planning, z.B. für die Aufgabe "Add Plant Page (Frontend)" -> `task/add-plant-page`.
 
 ## Git Workflow
 1. **Initialisierung und Setup:**
@@ -72,7 +72,7 @@ The app is fun to use because you can earn points for taking care of your plants
    - Nach der Überprüfung wird `task/add-plant-page` in `dev` gemerged.
 
 4. **Regelmäßiges Update des `dev` Branches:**
-   - Andere Teammitglieder halten ihren `dev`-Branch aktuell:
+   - So halten alle Teammitglieder ihren `dev`-Branch aktuell:
      ```bash
      git checkout dev
      git pull origin dev
