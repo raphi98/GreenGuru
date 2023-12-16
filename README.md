@@ -54,6 +54,9 @@ The app is fun to use because you can earn points for taking care of your plants
      git checkout dev
      ```
 
+     Bei folgendem Fehler: `error: pathspec 'dev' did not match any file(s) known to git` einfach mit `git fetch` die Branches aktualisieren.
+
+
 2. **Feature-Entwicklung (Beispiel: Sebastian mit `task/add-plant-page`):**
    - Neuen Branch vom `dev`-Branch erstellen:
      ```bash
