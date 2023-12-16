@@ -44,7 +44,9 @@ The app is fun to use because you can earn points for taking care of your plants
 ## Branching-Strategie
 - `main`: Nur für stabile Releases.
 - `dev`: Hauptentwicklungsbranch.
-- Feature-Branches: Entsprechend den Tasks im Team Planning, z.B. für die Aufgabe "Add Plant Page (Frontend)" -> `task/add-plant-page`. Bitte bei den Feature-Branches nur an dem jeweiligen Feature arbeiten (Beispielsweise der Component in Angular) und nicht in anderen Features, damit wir möglichst wenig Probleme mit Konflikten haben.
+- `task/feature-name` : Feature-Branches wie im Team Planning, z.B. für "Add Plant Page (Frontend)" -> `task/add-plant-page`.
+  
+  Bitte bei den Feature-Branches nur an dem jeweiligen Feature arbeiten (Beispielsweise der Component in Angular) und nicht in anderen Bereichen des Codes Veränderungen durchführen, damit wir möglichst wenig Probleme mit Konflikten haben.
 
 ## Git Workflow
 1. **Initialisierung und Setup:**
