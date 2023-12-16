@@ -44,7 +44,7 @@ The app is fun to use because you can earn points for taking care of your plants
 ## Branching-Strategie
 - `main`: Nur für stabile Releases.
 - `dev`: Hauptentwicklungsbranch.
-- Feature-Branches: Entsprechend den Tasks im Team Planning, z.B. für die Aufgabe "Add Plant Page (Frontend)" -> `task/add-plant-page`.
+- Feature-Branches: Entsprechend den Tasks im Team Planning, z.B. für die Aufgabe "Add Plant Page (Frontend)" -> `task/add-plant-page`. Bitte bei den Feature-Branches versuchen wirklich nur an dem Feature zu arbeiten (Beispielsweise der Component in Angular) und nicht im restlichen Code rumzupfuschen, damit wir möglichst wenig Probleme mit Konflikten haben.
 
 ## Git Workflow
 1. **Initialisierung und Setup:**
@@ -59,13 +59,13 @@ The app is fun to use because you can earn points for taking care of your plants
      ```bash
      git checkout -b task/add-plant-page
      ```
-   - Entwickeln, commiten und pushen:
+   - Entwickeln, commiten und pushen (bitte nur wenn der Code auch funktioniert):
      ```bash
      git add .
      git commit -m "added logic and validation to add plants in the frontend"
      git push origin task/add-plant-page
      ```
-   - Pull Request im GitHub-Repository erstellen.
+   - Pull Request für den `dev`-Branch im GitHub-Repository erstellen.
 
 3. **Code Review und Merge:**
    - Ein Teammitglied (z.B. Raphael) überprüft den Pull Request von Sebastian.
