@@ -25,7 +25,6 @@ from rest_framework_simplejwt.views import (
 
 from userapi import views as user_views
 from plants import views as plants_views
-#from yamod import views as yamod_views
 
 urlpatterns = [
     # Django Admin URLs:
@@ -45,22 +44,11 @@ urlpatterns = [
     path('api/users/<user_pk>/groups/<group_pk>', user_views.UserGroupViewSet.as_view({"delete": "destroy", "get": "retrieve"})),
     path('api/groups', user_views.GroupViewSet.as_view({'get': "list", "post": "create"})),
     path('api/groups/<group_pk>', user_views.GroupViewSet.as_view({'put': "update", "delete": "destroy", "get": "retrieve"})),
-    # yamod urls
-    #path('genres/', yamod_views.GenreView.as_view(), name="genres"),
-    #path('episodes/', yamod_views.EpisodeView.as_view(), name="episodes"),
-    #path('movies/', yamod_views.MovieView.as_view(), name="movies"),
-    #path('users/', yamod_views.UserView.as_view(), name="users"),    
-    # yamod api urls
-    #path('api/genres/', yamod_views.GenreAPIViewSet.as_view({"get": "list", "post" : "create"}), name="genres_api"),
-    #path('api/genres/<pk>/', yamod_views.GenreAPIViewSet.as_view({'put': "update", "delete": "destroy", "get": "retrieve"}), name="genres_api"),
-    #path('api/movies/', yamod_views.MovieAPIViewSet.as_view({"get": "list", "post" : "create"}), name="movies_api"),
-    #path('api/movies/<pk>/', yamod_views.MovieAPIViewSet.as_view({'put': "update", "delete": "destroy", "get": "retrieve"}), name="movies_api"),
-
-    #path('api/countries/', yamod_views.CountryAPIViewSet.as_view({"get": "list"}))
-    #path('api/plants2/', yamod_views.PlantAPIViewSet.as_view({"get": "list"}), name="plants_api"),
-    
-    # Plant API URLs
+ 
+    # plant api urls
     path('api/plants/', plants_views.PlantAPIViewSet.as_view({"get": "list", "post": "create"}), name="plants_api"),
+    path('api/plants/<int:pk>/', plants_views.PlantAPIViewSet.as_view({"put": "update", "delete": "destroy", "get": "retrieve"}), name="plants_api"),
+    path('api/plants/<int:pk>/image', plants_views.PlantImageViewSet.as_view({"get": "retrieve", "post": "create"})),
 ]
 
 if settings.DEBUG:
