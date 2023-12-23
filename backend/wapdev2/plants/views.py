@@ -176,6 +176,6 @@ class PlantImageViewSet(viewsets.ViewSet):
         if plant.image is not None:
             # delete old image
             plant.image.delete()
-        plant.image = request.FILES.get("profile_image")
+        plant.image = request.FILES.get("plant_image")
         plant.save()
         return Response({"status": "Image successfully uploaded."}, status=200)
