@@ -44,7 +44,9 @@ The app is fun to use because you can earn points for taking care of your plants
 ## Branching-Strategie
 - `main`: Nur für stabile Releases.
 - `dev`: Hauptentwicklungsbranch.
-- Feature-Branches: Entsprechend den Tasks im Team Planning, z.B. für die Aufgabe "Add Plant Page (Frontend)" -> `task/add-plant-page`. Bitte bei den Feature-Branches versuchen wirklich nur an dem Feature zu arbeiten (Beispielsweise der Component in Angular) und nicht im restlichen Code rumzupfuschen, damit wir möglichst wenig Probleme mit Konflikten haben.
+- `task/feature-name` : Feature-Branches wie im Team Planning, z.B. für "Add Plant Page (Frontend)" -> `task/add-plant-page`.
+  
+  Bitte bei den Feature-Branches nur an dem jeweiligen Feature arbeiten (Beispielsweise der Component in Angular) und nicht in anderen Bereichen des Codes Veränderungen durchführen, damit wir möglichst wenig Probleme mit Konflikten haben.
 
 ## Git Workflow
 1. **Initialisierung und Setup:**
@@ -53,6 +55,9 @@ The app is fun to use because you can earn points for taking care of your plants
      git clone git@github.com:raphi98/GreenGuru.git
      git checkout dev
      ```
+
+     Bei folgendem Fehler: `error: pathspec 'dev' did not match any file(s) known to git` einfach mit `git fetch` die Branches aktualisieren.
+
 
 2. **Feature-Entwicklung (Beispiel: Sebastian mit `task/add-plant-page`):**
    - Neuen Branch vom `dev`-Branch erstellen:
@@ -87,3 +92,33 @@ The app is fun to use because you can earn points for taking care of your plants
 ## Aufgaben und zugehörige Branches
 Die Feature Branches sollen wie die Tasks im Team Planning genannt, kleingeschrieben und die Leerzeichen mit Bindestrichen ersetzt werden (z.B. Task "Edit User Page (Frontend)" -> "task/edit-user-page").
 Bei Fragen schreibts mir einfach! :)
+
+## Fehlerbehebung
+Wenn der Django Server nicht start möchte `Error: Please select a Django Module`, dann über File -> Project Structure -> Modules -> Add Button(+) -> Import Module - >backend folder auswählen -> Next..Next..Next -> Assistenten abschließen -> Fertig
+
+## Backend Server starten
+Das Backend wird gestartet und mit dem 'sample_data' script werden automatisch Beispieldaten erstellt. <br>
+Zum Einloggen im Backend gibt es einen Admin Account und drei User: <br>
+| **Username** | **Passwort** | **Userrole** |
+|--------------|:------------:|:------------:|
+| admin        | admin        | admin        |
+| Florian      | user         | user         |
+| Raphael      | user         | user         |
+| Sebastian    | user         | user         |
+<h3>Windows</h3>
+Einfach die 'startup.bat' Datei im backend Ordner ausführen.
+Danach einmal auf Nachfrage mit 'yes' bestätigen.
+<h3>Mac</h3>
+
+1. Das Python environment starten ('activate' script im Ordner `backend\venv_greenguru\Scripts`)
+
+2. In den Ordner `backend\wapdev2` wechseln
+
+3. Folgende commands ausführen:
+
+
+  ```bash 
+  python manage.py flush
+  python manage.py sample_data
+  python manage.py runserver
+  ```
