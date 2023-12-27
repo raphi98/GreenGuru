@@ -1,0 +1,52 @@
+<div class="registration-container">
+  <div class="logo-column">
+    <img src="assets/logo-light.png" alt="Green Guru Logo" class="logo">
+    <div class="join-section">
+      <h1>JOIN</h1>
+    </div>
+  </div>
+  <div class="form-column">
+    <div class="header">
+      <span class="icon-user material-icons">person_add</span>
+      <h2>NEW USER</h2>
+    </div>
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="registration-form">
+      <!-- Username -->
+      <div class="form-group">
+        <input type="text" id="username" placeholder="Username" formControlName="username" required>
+        <label for="username" class="material-icons">person</label>
+      </div>
+      <!-- Email -->
+      <div class="form-group">
+        <input type="text" id="email" placeholder="Email" formControlName="email" required>
+        <label for="email" class="material-icons">email</label>
+      </div>
+      <!-- Password -->
+      <div class="form-group">
+        <input type="password" id="password" placeholder="Password" formControlName="password" required>
+        <label for="password" class="material-icons">lock</label>
+      </div>
+      <!-- Repeat Password -->
+      <div class="form-group">
+        <input type="password" id="repeat-password" placeholder="Repeat Password" formControlName="repeatPassword" required>
+        <label for="repeat-password" class="material-icons">lock</label>
+      </div>
+      <!-- Submit Button -->
+      <button type="submit" class="register-btn">REGISTER</button>
+      <!-- Spezifische Fehlermeldungen -->
+      <div *ngIf="registrationForm.errors && registrationForm.errors['passwordsNotMatching'] && registrationForm.touched" class="alert alert-danger">
+        Passwords do not match.
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Erfolgsmeldung -->
+      <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
+      </div>
+      <!-- Login Link -->
+      <p class="login-link">Already a member? <a href="/login">LOGIN</a></p>
+    </form>
+  </div>
+</div>
