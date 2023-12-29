@@ -313,9 +313,11 @@
   <div class="spacer"></div>
 </div>
 
-<div class="content" role="main" *ngIf="!isRegisterRoute">
-  <button routerLink="/register">Registrieren</button>
+<div class="content" role="main" *ngIf="!isRegisterRoute && !isLoginRoute">
+  <button routerLink="/register">Register</button>
+  <button routerLink="/login">Login</button>
 </div>
+
 
 
 <router-outlet></router-outlet>

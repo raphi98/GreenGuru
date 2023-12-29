@@ -11,12 +11,14 @@ export class AppComponent {
   title = 'frontend';
 
   isRegisterRoute = false;
+  isLoginRoute = false;
 
   constructor(private router: Router) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
       this.isRegisterRoute = event.url === '/register';
+      this.isLoginRoute = event.url === '/login';
     });
   }
 }
