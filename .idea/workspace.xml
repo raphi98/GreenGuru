@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5776f89-ae84-41ed-819b-29431214fc98" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/angular.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/wapdev2/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/backend/wapdev2/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/user-registration/user-registration.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/user-registration/user-registration.component.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/user-registration/user-registration.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/user-registration/user-registration.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
