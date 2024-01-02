@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-registration',
@@ -12,7 +13,11 @@ export class UserRegistrationComponent implements OnInit {
   errorMessage: string = '';
   successMessage: string = '';
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.registrationForm = this.formBuilder.group({
@@ -31,45 +36,25 @@ export class UserRegistrationComponent implements OnInit {
 
   onSubmit() {
     if (this.registrationForm.valid) {
-      this.getTokenAndRegister();
-    } else {
-      this.errorMessage = 'Please fill out the form correctly.';
-      this.successMessage = '';
-    }
-  }
-
-  private getTokenAndRegister() {
-    this.http.post<any>('/api/token/', {
-      username: this.registrationForm.value.username,
-      password: this.registrationForm.value.password
-    }).subscribe({
-      next: (tokenResponse) => {
-        localStorage.setItem('token', tokenResponse.token);
-        this.registerUser();
-      },
-      error: (error) => {
-        this.errorMessage = 'Error fetching token.';
-        this.successMessage = '';
-      }
-    });
-  }
-
-  private registerUser() {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${localStorage.getItem('token')}`
-    });
-
-    this.http.post('/api/users/', this.registrationForm.value, { headers })
-      .subscribe({
-        next: (response) => {
+      this.authService.register({
+        username: this.registrationForm.value.username,
+        email: this.registrationForm.value.email,
+        password: this.registrationForm.value.password
+      }).subscribe({
+        next: () => {
           this.successMessage = 'User registered successfully!';
           this.registrationForm.reset();
           this.errorMessage = '';
+          this.router.navigate(['/login']);
         },
-        error: (error) => {
+        error: (error: any) => {
           this.errorMessage = error.error.message || 'An error occurred during registration.';
           this.successMessage = '';
         }
       });
+    } else {
+      this.errorMessage = 'Please fill out the form correctly.';
+      this.successMessage = '';
+    }
   }
 }

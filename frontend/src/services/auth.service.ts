@@ -15,10 +15,25 @@ export class AuthService {
     return this.http.post(this.tokenUrl, { username, password });
   }
 
+  register(user: { username: string; email: string; password: string; }): Observable<any> {
+    return this.http.post(this.userUrl, {
+      username: user.username,
+      email: user.email,
+      password1: user.password,
+      password2: user.password
+    });
+  }
 
+
+  getToken(): string {
+    return localStorage.getItem('token') || '';
+  }
+
+  setToken(token: string): void {
+    localStorage.setItem('token', token);
+  }
 
   validateToken(token: string): Observable<any> {
     return this.http.post(this.tokenUrl, { token });
   }
-
 }
