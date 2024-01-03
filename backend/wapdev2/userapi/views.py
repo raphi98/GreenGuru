@@ -82,7 +82,7 @@ class UserViewSet(viewsets.ViewSet):
             return Response({"error": "You must be superuser to access this endpoint."}, status=403)
 
     def _check_parameters(self, payload):
-        for required in ["username", "first_name", "last_name", "password1", "password2", "email"]:
+        for required in ["username", "password1", "password2", "email"]:
             if not(required) in payload:
                 raise ValidationError("Missing argument in request: %s" % required)
         if User.objects.filter(username=payload["username"]).exists():
@@ -96,14 +96,11 @@ class UserViewSet(viewsets.ViewSet):
         '''
         payload = request.data
         self._check_parameters(payload)
-        user = User.objects.create(
-            username=payload["username"],
-            first_name=payload["first_name"],
-            last_name=payload["last_name"],
-            email=payload["email"],
-            is_active=True
+        user = User.objects.create_user(
+            payload["username"],
+            payload["email"],
+            payload["password1"]
         )
-        user.set_password(payload["password1"])
         send_mail(
             "Welcome, %s" % user.username,
             "Your account has been created.",

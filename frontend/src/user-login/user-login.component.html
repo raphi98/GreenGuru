@@ -1,0 +1,38 @@
+<div class="login-container">
+  <div class="logo-column">
+    <img src="assets/logo-light.png" alt="Green Guru Logo" class="logo">
+    <div class="join-section">
+      <h1>LOGIN</h1>
+    </div>
+  </div>
+  <div class="form-column">
+    <div class="header">
+      <span class="icon-user material-icons">login</span>
+      <h2>LOGIN</h2>
+    </div>
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <!-- Username -->
+      <div class="form-group">
+        <input type="text" formControlName="username" placeholder="Username" required>
+        <label for="username" class="material-icons">person</label>
+      </div>
+      <!-- Password -->
+      <div class="form-group">
+        <input type="password" formControlName="password" placeholder="Password" required>
+        <label for="password" class="material-icons">lock</label>
+      </div>
+      <!-- Login Button -->
+      <button type="submit" class="login-btn">LOGIN</button>
+      <!-- Erfolgsmeldung -->
+      <div *ngIf="successMessage" class="success-message">
+        {{ successMessage }}
+      </div>
+      <!-- Fehlermeldung -->
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+      <!-- Forgot Password Link -->
+      <a href="#" class="forgot-password-link">Forgot Password?</a>
+    </form>
+  </div>
+</div>
