@@ -1,6 +1,7 @@
 {
   "dependencies": {
-    "@angular/cdk": "^17.0.4",
-    "@angular/material": "^17.0.4"
+    "@angular/cdk": "^16.2.10",
+    "@angular/cli": "^16.2.10",
+    "@angular/material": "^16.2.10"
   }
 }
