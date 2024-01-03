@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
+import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-user-registration',
@@ -23,18 +23,21 @@ export class UserRegistrationComponent implements OnInit {
     this.registrationForm = this.formBuilder.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(4)]],
       repeatPassword: ['', Validators.required]
     }, { validators: this.passwordMatchingValidator });
   }
 
-  private passwordMatchingValidator(control: AbstractControl): ValidationErrors | null {
+  private passwordMatchingValidator(control: FormGroup): ValidationErrors | null {
     const password = control.get('password')?.value;
     const repeatPassword = control.get('repeatPassword')?.value;
     return password === repeatPassword ? null : { passwordsNotMatching: true };
   }
 
   onSubmit() {
+    this.errorMessage = '';
+    this.successMessage = '';
+
     if (this.registrationForm.valid) {
       this.authService.register({
         username: this.registrationForm.value.username,
@@ -44,17 +47,14 @@ export class UserRegistrationComponent implements OnInit {
         next: () => {
           this.successMessage = 'User registered successfully!';
           this.registrationForm.reset();
-          this.errorMessage = '';
           this.router.navigate(['/login']);
         },
         error: (error: any) => {
-          this.errorMessage = error.error.message || 'An error occurred during registration.';
-          this.successMessage = '';
+          this.errorMessage = error.error.message || 'An error occurred during registration. Please try again.';
         }
       });
     } else {
       this.errorMessage = 'Please fill out the form correctly.';
-      this.successMessage = '';
     }
   }
 }
