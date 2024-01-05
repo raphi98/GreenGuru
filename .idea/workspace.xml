@@ -5,11 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5776f89-ae84-41ed-819b-29431214fc98" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/backend.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/wapdev2/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/backend/wapdev2/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/main-dashboard/main-dashboard.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main-dashboard/main-dashboard.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/services/auth.guard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/services/auth.guard.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/services/auth.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/user-login/user-login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/user-login/user-login.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/user-registration/user-registration.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/user-registration/user-registration.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/user-login/user-login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/user-login/user-login.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/user-login/user-login.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/user-login/user-login.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/user-registration/user-registration.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/user-registration/user-registration.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/user-registration/user-registration.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/user-registration/user-registration.component.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +35,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev" />
+        <entry key="$PROJECT_DIR$" value="task/main-dashboard" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -71,7 +81,8 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "task/main-dashboard",
+    "git-widget-placeholder": "task/add-plant-page",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/sschr/IdeaProjects/GreenGuru/backend/wapdev2/wapdev2/settings.py",
     "node.js.detected.package.eslint": "true",
@@ -89,7 +100,12 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Django Server.Django Server">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\sschr\IdeaProjects\GreenGuru\frontend\src\assets" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.Angular CLI Server (frontend)">
     <configuration default="true" type="DjangoTestsConfigurationType">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -170,7 +186,7 @@
       <option name="SDK_HOME" value="C:\Users\sschr\AppData\Local\Microsoft\WindowsApps\python3.11.exe" />
       <option name="SDK_NAME" value="Python 3.11" />
       <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="launchJavascriptDebuger" value="false" />
@@ -239,6 +255,8 @@
       <workItem from="1703618465356" duration="6851000" />
       <workItem from="1703665937113" duration="3071000" />
       <workItem from="1703671154406" duration="2042000" />
+      <workItem from="1704382217742" duration="6800000" />
+      <workItem from="1704465068576" duration="11027000" />
     </task>
     <servers />
   </component>

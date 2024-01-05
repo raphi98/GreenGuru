@@ -12,6 +12,7 @@ export class AppComponent {
 
   isRegisterRoute = false;
   isLoginRoute = false;
+  isAddPlantRoute: boolean = false;
 
   constructor(private router: Router) {
     this.router.events.pipe(
@@ -19,6 +20,7 @@ export class AppComponent {
     ).subscribe((event: any) => {
       this.isRegisterRoute = event.url === '/register';
       this.isLoginRoute = event.url === '/login';
+      this.isAddPlantRoute = event.url === '/add-plant';
     });
   }
 }

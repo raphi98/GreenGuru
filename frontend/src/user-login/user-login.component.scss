@@ -10,7 +10,7 @@
     align-items: center;
     justify-content: center;
 
-    .logo {
+    .login-logo {
       width: 120px;
       margin-bottom: 100px;
     }
@@ -76,7 +76,6 @@
           transform: translateY(-50%);
           color: #9e9e9e;
         }
-
       }
 
       .login-btn {
@@ -91,13 +90,7 @@
         margin-top: 10px;
       }
 
-      .forgot-password-link {
-        margin-top: 20px;
-        color: #1B4522;
-        text-decoration: none;
-        cursor: pointer;
-      }
-
+      .success-message,
       .error-message {
         width: 80%;
         margin: 10px auto;
@@ -113,8 +106,20 @@
         font-weight: bold;
         animation: fadeIn 0.3s ease-in-out;
       }
+
+      .success-message {
+        background-color: #4CAF50;
+      }
+
+      .forgot-password-link {
+        margin-top: 20px;
+        color: #1B4522;
+        text-decoration: none;
+        cursor: pointer;
+      }
     }
   }
+
   @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
