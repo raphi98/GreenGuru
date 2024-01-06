@@ -313,10 +313,11 @@
   <div class="spacer"></div>
 </div>
 
-<div class="content" role="main">
-
-  <img id="hero" src="assets/logo-dark.png" alt="GreenGuru Logo" style="width:300px;">
+<div class="content" role="main" *ngIf="!isRegisterRoute && !isLoginRoute">
+  <button routerLink="/register">Register</button>
+  <button routerLink="/login">Login</button>
 </div>
+
 
 
 <router-outlet></router-outlet>

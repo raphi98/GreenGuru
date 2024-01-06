@@ -1,0 +1,101 @@
+.registration-container {
+  display: flex;
+  height: 100vh;
+
+  .logo-column {
+    background-color: #1B4522;
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .logo {
+      width: 120px;
+    }
+
+    .join-section {
+      text-align: center;
+      h1 {
+        color: #fff;
+        font-size: 3rem;
+      }
+    }
+  }
+
+  .form-column {
+    background-color: #E8ECDE;
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+
+    .header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+
+      .icon-user {
+        color: #1B4522;
+        margin-right: 10px;
+      }
+      h2 {
+        color: #1B4522;
+      }
+    }
+
+    .registration-form {
+      width: 100%;
+      max-width: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .form-group {
+        position: relative;
+        margin-bottom: 20px;
+        width: 80%;
+
+        input {
+          width: 100%;
+          padding: 15px;
+          padding-left: 40px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+        }
+
+        label {
+          position: absolute;
+          left: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          color: #9e9e9e;
+        }
+      }
+
+      .register-btn {
+        width: 80%;
+        padding: 15px;
+        border: none;
+        background-color: #1B4522;
+        color: #fff;
+        font-size: 1rem;
+        cursor: pointer;
+        border-radius: 4px;
+        margin-top: 10px;
+      }
+
+      .login-link {
+        margin-top: 20px;
+
+        a {
+          color: #1B4522;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
