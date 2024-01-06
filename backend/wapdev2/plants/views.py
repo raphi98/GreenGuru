@@ -28,7 +28,12 @@ class PlantAPIViewSet(viewsets.ViewSet):
 
             plants = []
             for plant in plants_all:
-                plants.append({"id": plant.pk, "name": plant.name, "owner": plant.owner.pk, "location": plant.location, "plant_type": plant.plant_type, "watering": plant.watering, "fertilizing": plant.fertilizing})
+                try:
+                    plant.image.size
+                    imagelink = f"http://localhost:8000/api/plants/{plant.pk}/image"
+                except:
+                    imagelink = ""
+                plants.append({"id": plant.pk, "name": plant.name, "owner": plant.owner.pk, "location": plant.location, "plant_type": plant.plant_type, "watering": plant.watering, "fertilizing": plant.fertilizing, "image": imagelink})
             return Response(plants)
         
         except Exception as e:
@@ -146,7 +151,12 @@ class PlantAPIViewSet(viewsets.ViewSet):
     
     def retrieve(self, request, pk):
         plant = get_object_or_404(models.Plant, pk=pk)
-        return Response({"id": plant.pk, "name": plant.name, "owner": plant.owner.pk, "location": plant.location, "plant_type": plant.plant_type, "watering": plant.watering, "fertilizing": plant.fertilizing}, status=200)
+        try:
+            plant.image.size
+            imagelink = f"http://localhost:8000/api/plants/{plant.pk}/image"
+        except:
+            imagelink = ""
+        return Response({"id": plant.pk, "name": plant.name, "owner": plant.owner.pk, "location": plant.location, "plant_type": plant.plant_type, "watering": plant.watering, "fertilizing": plant.fertilizing, "image": imagelink}, status=200)
     
     def destroy(self, request, pk):
         payload = request.data
@@ -172,7 +182,7 @@ class PlantImageViewSet(viewsets.ViewSet):
             
 
     def create(self, request, pk):
-        plant = get_object_or_404(User, pk=pk)
+        plant = get_object_or_404(models.Plant, pk=pk)
         if plant.image is not None:
             # delete old image
             plant.image.delete()
