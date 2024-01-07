@@ -43,61 +43,50 @@ class PlantAPIViewSet(viewsets.ViewSet):
                 raise ValidationError(f"You did something wrong that was unexpected: {e}")
     
     def create(self, request):
-        # everything in a try block for unforseen errors
         try:
             payload = request.data
-            location = None
-            plant_type = None
-            watering = None
-            fertilizing = None
+            location = payload.get("location")
+            plant_type = payload.get("plant_type")
+            watering = payload.get("watering")
+            fertilizing = payload.get("fertilizing")
 
-            # checking for name
-            if not("name" in payload) or not(type(payload["name"]) == str):
-                raise ValidationError("Property 'name' not found: must contain name of the plant")
+            if "name" not in payload or not isinstance(payload["name"], str):
+                raise ValidationError("Property 'name' not found or invalid: it must be a string")
 
-            # checking for user/owner
-            if not("owner" in payload) or (payload["owner"] == None) or not(type(payload["owner"]) == int):
-                raise ValidationError("Property 'owner' not found: owner must be the primary key of the user as integer")
-            user_pk = payload["owner"]
-            try:
-                owner = User.objects.get(pk=user_pk)
-            except:
-                raise ValidationError(f"User with pk {user_pk} not in database")
-        
-            # check if location is given
-            if "location" in payload and type(payload["location"]) == str:
-                location = payload["location"]
-
-            # check if plant_type is given
-            if "plant_type" in payload and type(payload["plant_type"]) == str:
-                plant_type = payload["plant_type"]
+            if not("owner" in payload) or (payload["owner"] == None):
+                raise ValidationError("Property 'owner' not found or invalid: it must be an integer representing the User ID")
             
-            # check if watering is given
-            if "watering" in payload and type(payload["watering"]) == int:
-                watering = payload["watering"]
+            owner_id = payload["owner"]
+            owner = User.objects.get(pk=owner_id)
 
-            # check if fertilizing is given
-            if "fertilizing" in payload and type(payload["fertilizing"]) == int:
-                fertilizing = payload["fertilizing"]
- 
-            models.Plant.objects.create(name=payload["name"], owner=owner, location=location, plant_type=plant_type, watering=watering, fertilizing=fertilizing)
+            image_file = request.FILES.get("image")
 
-            return Response(payload, status=201)
-    
+            # Create a Plant instance with provided details
+            plant = models.Plant.objects.create(
+                name=payload["name"],
+                owner=owner,
+                location=location,
+                plant_type=plant_type,
+                watering=watering,
+                fertilizing=fertilizing,
+                image=image_file  # Assign the image file directly to the image field
+            )
+
+            return Response({"status": "Plant created successfully!", "plant_id": plant.pk}, status=201)
+
+        except User.DoesNotExist:
+            raise ValidationError(f"User with ID {owner_id} does not exist")
         except Exception as e:
-            if e.__class__ == ValidationError:
-                raise e
-            else:
-                raise ValidationError(f"You did something wrong that was unexpected: {e}")
+            raise ValidationError(f"An unexpected error occurred: {e}")
             
     
     def update(self, request, pk):
-        # everything in a try block for unforseen errors
         try:
             payload = request.data
 
             plant = get_object_or_404(models.Plant, pk=pk)
 
+            # Extract existing plant details
             plant_pk = plant.pk
             name = plant.name
             owner_pk = plant.owner.pk
@@ -106,47 +95,74 @@ class PlantAPIViewSet(viewsets.ViewSet):
             watering = plant.watering
             fertilizing = plant.fertilizing
 
-            # cannot change pk of plant
-            if "id" in payload and payload["id"] != plant_pk:
+            # Cannot change the id/pk of a plant
+            if "id" in payload and int(payload["id"]) != plant_pk:
                 raise ValidationError("Cannot change the id/pk of a plant")
 
-
-            # checking for name
-            if not("name" in payload) or not(type(payload["name"]) == str):
-                raise ValidationError("Property 'name' not found: must contain name of the plant")
+            # Checking for name
+            if not ("name" in payload):
+                raise ValidationError("Property 'name' not found: must contain the name of the plant")
             name = payload["name"]
 
-            # cannot change owner of a plant
+            # Cannot change the owner of a plant
             if "owner" in payload and payload["owner"] != owner_pk:
                 raise ValidationError("Cannot change the owner of a plant")
-        
-            # check if location is given
-            if "location" in payload and type(payload["location"]) == str:
+
+            # Check if location is given
+            if "location" in payload:
                 location = payload["location"]
 
-            # check if plant_type is given
-            if "plant_type" in payload and type(payload["plant_type"]) == str:
+            # Check if plant_type is given
+            if "plant_type" in payload:
                 plant_type = payload["plant_type"]
-            
-            # check if watering is given
-            if "watering" in payload and type(payload["watering"]) == int:
+
+            # Check if watering is given
+            if "watering" in payload:
                 watering = payload["watering"]
 
-            # check if fertilizing is given
-            if "fertilizing" in payload and type(payload["fertilizing"]) == int:
+            # Check if fertilizing is given
+            if "fertilizing" in payload:
                 fertilizing = payload["fertilizing"]
 
-            models.Plant.objects.filter(pk=pk).update(name=name, location=location, plant_type=plant_type, watering=watering, fertilizing=fertilizing)
-            updated = get_object_or_404(models.Plant,pk=pk)
+            # Update plant details
+            models.Plant.objects.filter(pk=pk).update(
+                name=name,
+                location=location,
+                plant_type=plant_type,
+                watering=watering,
+                fertilizing=fertilizing
+            )
 
-            response = {"id": pk, "name": name, "owner": owner_pk, "location": location, "plant_type": plant_type, "watering": watering, "fertilizing": fertilizing}
+            # Update the image if provided
+            image_file = request.FILES.get("image")
+            imagelink = ""
+            if image_file:
+                plant = get_object_or_404(models.Plant, pk=pk)
+                plant.image.delete()  # Delete old image if exists
+                plant.image = image_file  # Assign the new image
+                plant.save()
+                imagelink = f"http://localhost:8000/api/plants/{pk}/image"
+
+            # Get the updated plant details
+            response = {
+                "id": pk,
+                "name": name,
+                "owner": owner_pk,
+                "location": location,
+                "plant_type": plant_type,
+                "watering": watering,
+                "fertilizing": fertilizing,
+                "image": imagelink
+            }
+
             return Response(response, status=200)
-        
+
         except Exception as e:
             if e.__class__ == ValidationError or e.__class__ == Http404:
                 raise e
             else:
-                raise ValidationError(f"You did something wrong that was unexpected: {e}")
+                raise ValidationError(f"An unexpected error occurred: {e}")
+
         
     
     def retrieve(self, request, pk):
