@@ -13,6 +13,7 @@ export class AddPlantComponent {
   imageToUpload: File | null = null;
   errorMessage: string = '';
   successMessage: string = '';
+  imagePreviewUrl: string | null = null;
 
   @ViewChild('fileInput') fileInput!: ElementRef;
 
@@ -43,35 +44,62 @@ export class AddPlantComponent {
       return;
     }
 
-    const formData = new FormData();
-    formData.append('owner', userId.toString());
-    Object.entries(this.addPlantForm.value).forEach(([key, value]) => {
-      if (value != null) {
-        const valueToSend = value instanceof Blob ? value : String(value);
-        formData.append(key, valueToSend);
-      }
-    });
+    const plantData = {
+      name: this.addPlantForm.value.name,
+      location: this.addPlantForm.value.location,
+      plant_type: this.addPlantForm.value.plant_type,
+      watering: this.addPlantForm.value.watering,
+      fertilizing: this.addPlantForm.value.fertilizing,
+      owner: userId
+    };
 
-    if (this.imageToUpload) {
-      formData.append('image', this.imageToUpload, this.imageToUpload.name);
-    }
-
-    this.plantService.addPlant(formData).subscribe(
+    this.plantService.addPlant(plantData).subscribe(
       response => {
-        this.successMessage = 'Plant added successfully';
-        this.errorMessage = '';
-        this.addPlantForm.reset();
+        this.successMessage = 'Pflanze erfolgreich hinzugefügt.';
+        const newPlantId = response.id;
+        if (this.imageToUpload && newPlantId != null) {
+          this.uploadImage(newPlantId, this.imageToUpload);
+        } else {
+          this.resetForm();
+        }
       },
       error => {
-        this.errorMessage = 'Failed to add plant: ' + error;
-        this.successMessage = '';
+        console.error('Fehler beim Hinzufügen der Pflanze:', error);
+        this.errorMessage = 'Fehler beim Hinzufügen der Pflanze: ' + (error.error.message || error.message);
       }
     );
+  }
+
+  uploadImage(plantId: number, imageFile: File): void {
+    this.plantService.uploadImage(imageFile, plantId).subscribe(
+      imageUrl => {
+        this.successMessage += ' Bild erfolgreich hochgeladen. Bild-URL: ' + imageUrl;
+        this.resetForm();
+        // Here you can also update the plant JSON with the image URL if needed
+      },
+      error => {
+        this.errorMessage = 'Fehler beim Hochladen des Bildes: ' + (error.error.message || error.message);
+      }
+    );
+  }
+
+  resetForm(): void {
+    this.addPlantForm.reset();
+    this.imagePreviewUrl = null;
+    this.imageToUpload = null;
+    setTimeout(() => this.successMessage = '', 5000); // Erfolgsmeldung nach 5 Sekunden löschen
   }
 
   handleFileInput(files: FileList | null): void {
     if (files && files.length > 0) {
       this.imageToUpload = files.item(0);
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.imagePreviewUrl = event.target.result;
+      };
+      if (this.imageToUpload) {
+        reader.readAsDataURL(this.imageToUpload);
+      }
     }
   }
 }

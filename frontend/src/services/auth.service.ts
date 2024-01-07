@@ -58,7 +58,7 @@ export class AuthService {
       }
 
       const payload = JSON.parse(atob(parts[1]));
-      return payload.user_id;
+      return parseInt(payload.user_id);
     } catch (error) {
       return null;
     }

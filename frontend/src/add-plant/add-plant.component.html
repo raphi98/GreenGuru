@@ -58,7 +58,7 @@
 
   <div class="image-column">
     <div class="image-preview">
-      <img [src]="imageToUpload ? (imageToUpload | safeUrl) : 'assets/placeholder_no_image_uploaded.png'" alt="Plant Image">
+      <img [src]="imagePreviewUrl ? imagePreviewUrl : 'assets/placeholder_no_image_uploaded.png'" alt="Plant Image">
     </div>
     <button (click)="fileInput.click()" class="form-btn">Choose Image</button>
   </div>

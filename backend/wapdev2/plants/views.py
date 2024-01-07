@@ -11,7 +11,7 @@ from userapi.views import JPEGRenderer, PNGRenderer
 from rest_framework.parsers import MultiPartParser, FormParser
 
 class PlantAPIViewSet(viewsets.ViewSet):
-    
+
     def list(self, request):
         # everything in a try block for unforseen errors
         try:
@@ -23,20 +23,25 @@ class PlantAPIViewSet(viewsets.ViewSet):
                 user_pk = queries["user"]
                 get_object_or_404(models.User, pk=user_pk)
                 plants_all = models.Plant.objects.filter(owner__pk=user_pk)
-            else: 
-                plants_all = models.Plant.objects.all()        
+            else:
+                plants_all = models.Plant.objects.all()
 
             plants = []
             for plant in plants_all:
-                plants.append({"id": plant.pk, "name": plant.name, "owner": plant.owner.pk, "location": plant.location, "plant_type": plant.plant_type, "watering": plant.watering, "fertilizing": plant.fertilizing})
+                try:
+                    plant.image.size
+                    imagelink = f"http://localhost:8000/api/plants/{plant.pk}/image"
+                except:
+                    imagelink = ""
+                plants.append({"id": plant.pk, "name": plant.name, "owner": plant.owner.pk, "location": plant.location, "plant_type": plant.plant_type, "watering": plant.watering, "fertilizing": plant.fertilizing, "image": imagelink})
             return Response(plants)
-        
+
         except Exception as e:
             if e.__class__ == Http404:
                 raise e
             else:
                 raise ValidationError(f"You did something wrong that was unexpected: {e}")
-    
+
     def create(self, request):
         # everything in a try block for unforseen errors
         try:
@@ -58,7 +63,7 @@ class PlantAPIViewSet(viewsets.ViewSet):
                 owner = User.objects.get(pk=user_pk)
             except:
                 raise ValidationError(f"User with pk {user_pk} not in database")
-        
+
             # check if location is given
             if "location" in payload and type(payload["location"]) == str:
                 location = payload["location"]
@@ -66,7 +71,7 @@ class PlantAPIViewSet(viewsets.ViewSet):
             # check if plant_type is given
             if "plant_type" in payload and type(payload["plant_type"]) == str:
                 plant_type = payload["plant_type"]
-            
+
             # check if watering is given
             if "watering" in payload and type(payload["watering"]) == int:
                 watering = payload["watering"]
@@ -74,18 +79,18 @@ class PlantAPIViewSet(viewsets.ViewSet):
             # check if fertilizing is given
             if "fertilizing" in payload and type(payload["fertilizing"]) == int:
                 fertilizing = payload["fertilizing"]
- 
+
             models.Plant.objects.create(name=payload["name"], owner=owner, location=location, plant_type=plant_type, watering=watering, fertilizing=fertilizing)
 
             return Response(payload, status=201)
-    
+
         except Exception as e:
             if e.__class__ == ValidationError:
                 raise e
             else:
                 raise ValidationError(f"You did something wrong that was unexpected: {e}")
-            
-    
+
+
     def update(self, request, pk):
         # everything in a try block for unforseen errors
         try:
@@ -114,7 +119,7 @@ class PlantAPIViewSet(viewsets.ViewSet):
             # cannot change owner of a plant
             if "owner" in payload and payload["owner"] != owner_pk:
                 raise ValidationError("Cannot change the owner of a plant")
-        
+
             # check if location is given
             if "location" in payload and type(payload["location"]) == str:
                 location = payload["location"]
@@ -122,7 +127,7 @@ class PlantAPIViewSet(viewsets.ViewSet):
             # check if plant_type is given
             if "plant_type" in payload and type(payload["plant_type"]) == str:
                 plant_type = payload["plant_type"]
-            
+
             # check if watering is given
             if "watering" in payload and type(payload["watering"]) == int:
                 watering = payload["watering"]
@@ -136,26 +141,31 @@ class PlantAPIViewSet(viewsets.ViewSet):
 
             response = {"id": pk, "name": name, "owner": owner_pk, "location": location, "plant_type": plant_type, "watering": watering, "fertilizing": fertilizing}
             return Response(response, status=200)
-        
+
         except Exception as e:
             if e.__class__ == ValidationError or e.__class__ == Http404:
                 raise e
             else:
                 raise ValidationError(f"You did something wrong that was unexpected: {e}")
-        
-    
+
+
     def retrieve(self, request, pk):
         plant = get_object_or_404(models.Plant, pk=pk)
-        return Response({"id": plant.pk, "name": plant.name, "owner": plant.owner.pk, "location": plant.location, "plant_type": plant.plant_type, "watering": plant.watering, "fertilizing": plant.fertilizing}, status=200)
-    
+        try:
+            plant.image.size
+            imagelink = f"http://localhost:8000/api/plants/{plant.pk}/image"
+        except:
+            imagelink = ""
+        return Response({"id": plant.pk, "name": plant.name, "owner": plant.owner.pk, "location": plant.location, "plant_type": plant.plant_type, "watering": plant.watering, "fertilizing": plant.fertilizing, "image": imagelink}, status=200)
+
     def destroy(self, request, pk):
         payload = request.data
         plant = get_object_or_404(models.Plant, pk=pk)
         models.Plant.objects.filter(pk=pk).delete()
         return Response(payload, status=204)
-        
 
-    
+
+
 class PlantImageViewSet(viewsets.ViewSet):
 
     renderer_classes = [JPEGRenderer, PNGRenderer]
@@ -169,10 +179,10 @@ class PlantImageViewSet(viewsets.ViewSet):
             return Response(plant.image.open(), status=200)
         except Exception as e:
             raise Http404(f"The image does not exist: {e}")
-            
+
 
     def create(self, request, pk):
-        plant = get_object_or_404(User, pk=pk)
+        plant = get_object_or_404(models.Plant, pk=pk)
         if plant.image is not None:
             # delete old image
             plant.image.delete()
