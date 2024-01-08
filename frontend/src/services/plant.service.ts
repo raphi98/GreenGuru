@@ -1,30 +1,28 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlantService {
-  public plantUrl = '/api/plants/';
+  private plantsUrl = '/api/plants/';
 
   constructor(private http: HttpClient) {}
 
-  addPlant(plantData: any): Observable<any> {
-    return this.http.post(this.plantUrl, plantData);
+  addPlant(plantData: FormData): Observable<any> {
+    return this.http.post(this.plantsUrl, plantData);
   }
 
-  uploadImage(image: File, pk: number): Observable<any> {
-    const uploadUrl = `${this.plantUrl}${pk}/image/`;
-    const formData = new FormData();
-    formData.append('plant_image', image, image.name);
-
-    // Use the map operator with proper typing for the response
-    return this.http.post<any>(uploadUrl, formData).pipe(
-      map((response: any) => response.imageUrl) // Properly type 'response' and extract the image URL
-    );
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'An unknown error occurred!';
+    if (error.error instanceof ErrorEvent) {
+      // Client-side error
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // Server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    return throwError(() => new Error(errorMessage));
   }
-
-  // Other plant-related methods...
 }

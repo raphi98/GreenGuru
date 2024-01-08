@@ -1,16 +1,12 @@
 <div class="add-plant-container">
-  <!-- Fehler- und Erfolgsmeldungen anzeigen -->
-  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-  <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
   <div class="form-column">
+    <h1 class="form-title">ADD A PLANT</h1>
     <form [formGroup]="addPlantForm" (ngSubmit)="onSubmit()" class="add-plant-form" enctype="multipart/form-data">
-
       <!-- Plant Name -->
       <div class="form-group">
         <input type="text" formControlName="name" placeholder="Plantname" required>
         <label class="material-icons">nature</label>
       </div>
-
       <!-- Location Dropdown/Textbox -->
       <div class="form-group">
         <input type="text" formControlName="location" placeholder="Location" list="locations" required>
@@ -20,7 +16,7 @@
         </datalist>
         <label class="material-icons">place</label>
       </div>
-      <input type="file" #fileInput (change)="handleFileInput(fileInput.files)" hidden>
+      <input type="file" #fileInput (change)="fileInput.files && handleFileInput(fileInput.files)" hidden>
       <!-- Type Dropdown/Textbox -->
       <div class="form-group">
         <input type="text" formControlName="plant_type" placeholder="Type" list="types" required>
@@ -51,15 +47,21 @@
         </label>
       </div>
 
+      <!-- Fehler- und Erfolgsmeldungen anzeigen -->
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+
       <!-- Add Button -->
       <button type="submit" class="form-btn" [disabled]="!addPlantForm.valid">ADD</button>
     </form>
   </div>
 
+  <!-- Image Preview & Choose Image Button -->
   <div class="image-column">
     <div class="image-preview">
       <img [src]="imagePreviewUrl ? imagePreviewUrl : 'assets/placeholder_no_image_uploaded.png'" alt="Plant Image">
+      <button (click)="fileInput.click()" class="choose-image-btn">Choose Image</button>
+      <input type="file" #fileInput (change)="fileInput.files && handleFileInput(fileInput.files)" hidden>
     </div>
-    <button (click)="fileInput.click()" class="form-btn">Choose Image</button>
   </div>
 </div>
