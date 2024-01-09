@@ -9,6 +9,7 @@ import { UserRegistrationComponent } from '../user-registration/user-registratio
 import { UserLoginComponent } from '../user-login/user-login.component';
 import { MainDashboardComponent } from '../main-dashboard/main-dashboard.component';
 import { AddPlantComponent } from '../add-plant/add-plant.component'
+import { EditPlantComponent } from '../edit-plant/edit-plant.component'
 import { SafeUrlPipe } from '../services/safeUrl.pipe'
 
 import { MatCardModule } from '@angular/material/card';
@@ -27,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     UserLoginComponent,
     MainDashboardComponent,
     AddPlantComponent,
+    EditPlantComponent,
     SafeUrlPipe
   ],
   imports: [

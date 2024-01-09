@@ -1,7 +1,7 @@
-<div class="add-plant-container">
+<div class="edit-plant-container">
   <div class="form-column">
-    <h1 class="form-title">ADD A PLANT</h1>
-    <form [formGroup]="addPlantForm" (ngSubmit)="onSubmit()" class="add-plant-form" enctype="multipart/form-data">
+    <h1 class="form-title">EDIT PLANT "{{editPlantForm.value.name || '...'}}"</h1>
+    <form [formGroup]="editPlantForm" (ngSubmit)="onSubmit()" class="edit-plant-form" enctype="multipart/form-data">
       <!-- Plant Name -->
       <div class="form-group">
         <input type="text" formControlName="name" placeholder="Plantname" required>
@@ -9,41 +9,37 @@
       </div>
       <!-- Location Dropdown/Textbox -->
       <div class="form-group">
-        <input type="text" formControlName="location" placeholder="Location" list="locations" required>
-        <datalist id="locations">
-        <option value="Living Room">
-        <option value="Kitchen">
-        <option value="Bedroom">
-        <option value="Bathroom">
-        <option value="Office">
-        <option value="Balcony">
-        <option value="Entrance Hall">
-        <option value="Garden">
-      </datalist>
+        <input type="text" formControlName="location" placeholder="Location" list="edit-locations" required>
+        <datalist id="edit-locations">
+          <option value="Living Room">
+          <option value="Kitchen">
+          <option value="Bedroom">
+          <option value="Bathroom">
+          <option value="Office">
+          <option value="Balcony">
+          <option value="Entrance Hall">
+          <option value="Garden">
+        </datalist>
         <label class="material-icons">place</label>
       </div>
-      <input type="file" #fileInput (change)="fileInput.files && handleFileInput(fileInput.files)" hidden>
       <!-- Type Dropdown/Textbox -->
       <div class="form-group">
-        <input type="text" formControlName="plant_type" placeholder="Type" list="types" required>
-        <datalist id="types">
+        <input type="text" formControlName="plant_type" placeholder="Type" list="edit-types" required>
+        <datalist id="edit-types">
           <!-- Options for types will go here -->
         </datalist>
         <label class="material-icons">filter_vintage</label>
       </div>
-
       <!-- Watering Period -->
       <div class="form-group">
         <input type="number" formControlName="watering" placeholder="Watering period" min="1" required>
         <label class="material-icons">opacity</label>
       </div>
-
       <!-- Fertilizing Period -->
       <div class="form-group">
         <input type="number" formControlName="fertilizing" placeholder="Fertilizing Period" min="1" required>
         <label class="material-icons">spa</label>
       </div>
-
       <!-- Email Reminder -->
       <div class="form-switch">
         <label>Email Reminder</label>
@@ -52,17 +48,14 @@
           <span class="slider round"></span>
         </label>
       </div>
-
       <!-- Fehler- und Erfolgsmeldungen anzeigen -->
       <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
       <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
-
-      <!-- Add Button -->
-      <button type="submit" class="form-btn" [disabled]="!addPlantForm.valid">ADD</button>
+      <!-- Save and Delete Buttons -->
+      <button type="submit" class="form-btn save-btn" [disabled]="!editPlantForm.valid">SAVE</button>
+      <button type="button" class="form-btn delete-btn" (click)="onDelete()">DELETE</button>
     </form>
   </div>
-
-  <!-- Image Preview & Choose Image Button -->
   <div class="image-column">
     <div class="image-preview">
       <img [src]="imagePreviewUrl ? imagePreviewUrl : 'assets/placeholder_no_image_uploaded.png'" alt="Plant Image">
