@@ -16,12 +16,23 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EditPlantComponent } from '../edit-plant/edit-plant.component';
+import {SafeUrlPipe} from "../services/safeUrl.pipe";
+import { MainDashboardComponent } from '../main-dashboard/main-dashboard.component';
+import { PlantCardComponent } from '../plant-card/plant-card.component';
+import { MenuBarComponent } from '../menu-bar/menu-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserRegistrationComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    EditPlantComponent,
+    SafeUrlPipe,
+    MainDashboardComponent,
+    PlantCardComponent,
+    MenuBarComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +43,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatFormFieldModule,
     MatIconModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

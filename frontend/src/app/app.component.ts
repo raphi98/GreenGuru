@@ -12,6 +12,8 @@ export class AppComponent {
 
   isRegisterRoute = false;
   isLoginRoute = false;
+  isEditPlantRoute: boolean = false;
+  isDashboardRoute: boolean = false;
 
   constructor(private router: Router) {
     this.router.events.pipe(
@@ -19,6 +21,8 @@ export class AppComponent {
     ).subscribe((event: any) => {
       this.isRegisterRoute = event.url === '/register';
       this.isLoginRoute = event.url === '/login';
+      this.isEditPlantRoute = event.url === '/edit-plant';
+      this.isDashboardRoute = event.url === '/dashboard';
     });
   }
 }

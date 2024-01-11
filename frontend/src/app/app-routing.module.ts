@@ -4,11 +4,13 @@ import { UserRegistrationComponent } from '../user-registration/user-registratio
 import { UserLoginComponent } from '../user-login/user-login.component';
 import {MainDashboardComponent } from '../main-dashboard/main-dashboard.component';
 import { AuthGuard } from '../services/auth.guard';
+import {EditPlantComponent} from "../edit-plant/edit-plant.component";
 
 const routes: Routes = [
   { path: 'register', component: UserRegistrationComponent },
   { path: 'login', component: UserLoginComponent },
   { path: 'dashboard', component: MainDashboardComponent, canActivate: [AuthGuard] },
+  { path: 'edit-plant', component: EditPlantComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
