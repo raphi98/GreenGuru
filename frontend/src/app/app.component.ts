@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ export class AppComponent {
   isRegisterRoute = false;
   isLoginRoute = false;
   isLandingPageRoute = false;
+  isEncyclopediaPageRoute = false;
 
   constructor(private router: Router) {
     this.router.events.pipe(
@@ -21,6 +23,7 @@ export class AppComponent {
       this.isRegisterRoute = event.url === '/register';
       this.isLoginRoute = event.url === '/login';
       this.isLandingPageRoute = event.url === '/landing-page';
+      this.isEncyclopediaPageRoute = event.url === '/encyclopedia-page';
     });
   }
 }
