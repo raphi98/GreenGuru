@@ -8,6 +8,11 @@ import { Plant } from '../models/plant';
 })
 export class PlantCardComponent implements OnInit {
   @Input() plant!: Plant;
+  imageLoaded: boolean = false;
+  onLoad(event: Event): void {
+    this.imageLoaded = true;
+    (event.target as HTMLImageElement).classList.add('loaded');
+  }
 
   ngOnInit(): void {
     // Component initialization logic if necessary

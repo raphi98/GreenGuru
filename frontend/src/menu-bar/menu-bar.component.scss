@@ -23,24 +23,38 @@
 .menu-items {
   list-style: none;
   display: flex;
-  gap: 30px;
-  padding: 20px 25px;
+  gap: 40px;
+  justify-content: center;
+  padding: 25px 25px;
   background-color:#c9ddae;
   border-radius: 50px;
   font-weight: 500;
   width: 400px;
 }
 
+.menu-items li {
+  background: #eaede000;
+  padding :15px 20px;
+  margin: -15px -20px;
+  border-radius: 50px;
+  transition: all 0.3s ease-in-out;
+}
+
+.menu-items li:hover {
+  background: #eaede0af;
+}
+
 .menu-items li a {
   text-decoration: none;
   color: #274525;
-  font-size: 16px;
+  font-size: 1.15em;
 }
 
 .active-link{
   color: #274525;
   background: #eaede0;
   padding :15px 20px;
+  margin: -15px -20px;
   border-radius: 50px;
 }
 
@@ -82,7 +96,9 @@
   }
 
   .menu-items li {
-    padding: 5px 0; /* Add some padding for touch targets */
+    padding :15px 20px;
+    border-radius: 50px;
+    transition: all 0.3s ease-in-out;
     width: 100%;
     text-align:center;
   }
@@ -93,7 +109,7 @@
   }
 
   .active-link{
-    padding: 15px 25px !important;
-    border-radius:f 50px;
+    padding: 15px 50px !important;
+    border-radius: 50px;
   }
 }

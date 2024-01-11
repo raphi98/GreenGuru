@@ -9,6 +9,12 @@
   margin-bottom: 20px; /* Space between rows of cards */
   width: 100%;
   height:400px;
+  transition: all 0.5s ease-in-out;
+}
+
+.plant-card:hover{
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  transform: scale(1.01);
 }
 
 .plant-image {
@@ -126,4 +132,35 @@
 
 .water .label{
   color: #000581;
+}
+
+
+.plant-image {
+  position: relative; /* Needed to position the spinner absolutely within */
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* Replace the following with your actual spinner image or CSS animation */
+  width: 50px; /* Example size - adjust as needed */
+  height: 50px; /* Example size - adjust as needed */
+  background-image: url('../assets/loader.gif');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Hide the spinner once the image is loaded */
+img {
+  display: block; /* Prevents the bottom margin on images */
+  width: 100%; /* Adjust as needed */
+  height: auto; /* Adjust as needed */
+  opacity: 0; /* Start with an invisible image */
+  transition: opacity 0.3s ease-in-out;
+}
+
+img.loaded {
+  opacity: 1; /* Fade in the loaded image */
 }

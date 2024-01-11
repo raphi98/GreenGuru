@@ -1,6 +1,7 @@
 <div class="plant-card">
   <div class="plant-image">
-    <img [src]="plant.image ? plant.image : '../assets/logo-dark-padding.png'" [alt]="plant.name">
+    <div class="spinner" *ngIf="!imageLoaded"></div>
+    <img [src]="plant.image ? plant.image : '../assets/logo-dark.png'" (load)="onLoad($event)" [alt]="plant.name">
   </div>
   <div class="plant-info">
     <h5 class="plant-title">{{ plant.name }}</h5>
