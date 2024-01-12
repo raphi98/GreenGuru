@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="27dba374-2383-4199-80bd-dc8ffd576dbb" name="Changes" comment="landing page implemented, including responsiveness and link to register page">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/landing-page/landing-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/landing-page/landing-page.component.html" afterDir="false" />
-    </list>
+    <list default="true" id="27dba374-2383-4199-80bd-dc8ffd576dbb" name="Changes" comment="Encyclopedia page implemented, Service for Plant Api calls implemented, search field, also Encyclopedia - PopUp Added but not fully implemented." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,6 +14,11 @@
     <execution />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="dev" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -32,6 +31,9 @@
   &quot;associatedIndex&quot;: 2
 }</component>
   <component name="ProjectId" id="2ZcSzvhMe0wIqNdlVUJ1ccqf3eK" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -210,6 +212,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="landing page implemented, including responsiveness and link to register page" />
-    <option name="LAST_COMMIT_MESSAGE" value="landing page implemented, including responsiveness and link to register page" />
+    <MESSAGE value="Encyclopedia page implemented, Service for Plant Api calls implemented, search field, also Encyclopedia - PopUp Added but not fully implemented." />
+    <option name="LAST_COMMIT_MESSAGE" value="Encyclopedia page implemented, Service for Plant Api calls implemented, search field, also Encyclopedia - PopUp Added but not fully implemented." />
   </component>
 </project>
