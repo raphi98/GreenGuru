@@ -1,0 +1,203 @@
+$dark-green: #1B4522;
+$light-green: #E8ECDE;
+$error-red: #FF6347;
+$success-green: #1B4522;
+
+.add-plant-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: $light-green;
+  height: 100vh;
+  align-items: center;
+
+  .form-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background-color: $dark-green;
+    color: $light-green;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+    &:hover {
+      background-color: darken($dark-green, 10%);
+    }
+  }
+
+  .form-column, .image-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+
+    .form-title {
+      color: $dark-green;
+      margin-bottom: 2rem;
+    }
+
+    .error-message {
+      color: $error-red;
+      margin: 10px 0;
+    }
+
+    .success-message {
+      color: $success-green;
+      margin: 10px 0;
+    }
+
+    .add-plant-form {
+      width: 100%;
+      max-width: 300px;
+
+      .form-group {
+        position: relative;
+        background-color: $light-green;
+        border-bottom: 2px solid $dark-green;
+        margin-bottom: 1rem;
+
+        input, select {
+          width: 100%;
+          padding: 15px;
+          padding-left: 40px;
+          border: none;
+          background-color: transparent;
+          color: $dark-green;
+
+          &::placeholder {
+            color: $dark-green;
+          }
+        }
+
+        label {
+          position: absolute;
+          left: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          color: $dark-green;
+        }
+      }
+
+      .form-switch {
+        display: flex;
+        align-items: center;
+        justify-content: space-between; // Zentriere zwischen den Elementen
+        width: 100%;
+        max-width: 300px;
+
+        .switch {
+          position: relative;
+          display: inline-block;
+          width: 60px;
+          height: 34px;
+
+          & input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+          }
+
+          .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #a94442;
+            transition: .4s;
+            border-radius: 34px;
+
+            &:before {
+              position: absolute;
+              content: "";
+              height: 26px;
+              width: 26px;
+              left: 4px;
+              bottom: 4px;
+              background-color: white;
+              transition: .4s;
+              border-radius: 50%;
+            }
+          }
+
+          input:checked + .slider {
+            background-color: $dark-green;
+          }
+
+          input:focus + .slider {
+            box-shadow: 0 0 1px $dark-green;
+          }
+
+          input:checked + .slider:before {
+            transform: translateX(26px);
+          }
+        }
+
+        label {
+          margin-left: 1rem;
+          color: $dark-green;
+        }
+      }
+
+      .form-btn {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        background-color: $dark-green;
+        color: $light-green;
+        font-size: 1rem;
+        cursor: pointer;
+        border-radius: 4px;
+        margin-top: 10px;
+        &:hover {
+          background-color: darken($dark-green, 10%);
+        }
+      }
+    }
+  }
+
+  .image-column {
+    text-align: center;
+
+    .image-preview {
+      border: 2px solid $dark-green;
+      margin-bottom: 1rem;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+
+      .choose-image-btn {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        background-color: $dark-green;
+        color: $light-green;
+        font-size: 1rem;
+        cursor: pointer;
+        border-radius: 4px;
+        margin-top: 10px;
+        &:hover {
+          background-color: lighten($dark-green, 10%);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .add-plant-container {
+    flex-direction: column;
+    .logo-column {
+      position: relative;
+      transform: none;
+      order: -1; // Logo nach oben
+    }
+    .form-column, .image-column {
+      width: 80%;
+    }
+  }
+}

@@ -6,7 +6,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { UserRegistrationComponent } from '../user-registration/user-registration.component';
-import { UserLoginComponent } from '../user-login/user-login.component'
+import { UserLoginComponent } from '../user-login/user-login.component';
+import { MainDashboardComponent } from '../main-dashboard/main-dashboard.component';
+import { AddPlantComponent } from '../add-plant/add-plant.component'
+import { EditPlantComponent } from '../edit-plant/edit-plant.component'
+import { SafeUrlPipe } from '../services/safeUrl.pipe'
 
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,7 +25,11 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     UserRegistrationComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    MainDashboardComponent,
+    AddPlantComponent,
+    EditPlantComponent,
+    SafeUrlPipe
   ],
   imports: [
     BrowserModule,
