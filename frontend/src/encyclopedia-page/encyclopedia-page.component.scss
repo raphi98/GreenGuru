@@ -1,0 +1,25 @@
+button {
+  margin-left: 1vw;
+  border-radius: 32px;
+  background: #274525;
+  padding: 8px 20px;
+  border: none;
+  color: #ddf8bd;
+  font-size: 1.5vw;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+input {
+  margin-left: 1vw;
+  border-radius: 32px;
+  background: white;
+  padding: 8px 20px;
+  border: solid #274525;
+  font-size: 1.5vw;
+  font-weight: bolder;
+}
+
+::placeholder {
+  color: #274525;
+}

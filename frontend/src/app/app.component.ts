@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,8 @@ export class AppComponent {
 
   isRegisterRoute = false;
   isLoginRoute = false;
+  isLandingPageRoute = false;
+  isEncyclopediaPageRoute = false;
   isAddPlantRoute: boolean = false;
   isEditPlantRoute: boolean = false;
 
@@ -21,6 +24,8 @@ export class AppComponent {
     ).subscribe((event: any) => {
       this.isRegisterRoute = event.url === '/register';
       this.isLoginRoute = event.url === '/login';
+      this.isLandingPageRoute = event.url === '/landing-page';
+      this.isEncyclopediaPageRoute = event.url === '/encyclopedia-page';
       this.isAddPlantRoute = event.url === '/add-plant';
       this.isEditPlantRoute = event.url === '/edit-plant'
     });

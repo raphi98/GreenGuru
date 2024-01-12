@@ -6,10 +6,14 @@ import { MainDashboardComponent } from '../main-dashboard/main-dashboard.compone
 import { AddPlantComponent } from '../add-plant/add-plant.component';
 import { EditPlantComponent } from '../edit-plant/edit-plant.component'
 import { AuthGuard } from '../services/auth.guard';
+import {LandingPageComponent} from "../landing-page/landing-page.component";
+import {EncyclopediaPageComponent} from "../encyclopedia-page/encyclopedia-page.component";
 
 const routes: Routes = [
   { path: 'register', component: UserRegistrationComponent },
   { path: 'login', component: UserLoginComponent },
+  { path: 'landing-page', component: LandingPageComponent },
+  { path: 'encyclopedia-page', component: EncyclopediaPageComponent },
   { path: 'dashboard', component: MainDashboardComponent, canActivate: [AuthGuard] },
   { path: 'add-plant', component: AddPlantComponent, canActivate: [AuthGuard] },
   { path: 'edit-plant', component: EditPlantComponent, canActivate: [AuthGuard] },

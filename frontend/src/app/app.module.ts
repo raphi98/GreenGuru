@@ -18,30 +18,44 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LandingPageComponent } from '../landing-page/landing-page.component';
+import { EncyclopediaPageComponent } from '../encyclopedia-page/encyclopedia-page.component';
+import { EncyclopediaComponentComponent } from '../encyclopedia-component/encyclopedia-component.component';
+import { EncyclopediaDialogComponent } from '../encyclopedia-dialog/encyclopedia-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
     AppComponent,
     UserRegistrationComponent,
     UserLoginComponent,
+    LandingPageComponent,
+    EncyclopediaPageComponent,
+    EncyclopediaComponentComponent,
+    EncyclopediaDialogComponent,
+    UserLoginComponent,
     MainDashboardComponent,
     AddPlantComponent,
     EditPlantComponent,
     SafeUrlPipe
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    MatCardModule,
-    MatButtonModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatIconModule,
-    ReactiveFormsModule,
-    HttpClientModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        MatCardModule,
+        MatButtonModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatIconModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        MatDialogModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

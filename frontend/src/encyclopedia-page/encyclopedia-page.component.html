@@ -1,0 +1,7 @@
+
+<input type="text" [(ngModel)]="searchQuery" placeholder="Search plants..." />
+<button (click)="search()">FIND</button>
+
+<div class="container">
+  <app-encyclopedia-component *ngFor="let plant of plants" [plant]="plant"></app-encyclopedia-component>
+</div>
