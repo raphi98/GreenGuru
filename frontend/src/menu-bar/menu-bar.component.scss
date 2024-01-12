@@ -25,7 +25,7 @@
   display: flex;
   gap: 40px;
   justify-content: center;
-  padding: 25px 25px;
+  padding: 23px 23px;
   background-color:#c9ddae;
   border-radius: 50px;
   font-weight: 500;
@@ -73,6 +73,10 @@
     margin:auto;
   }
 
+  .image-container{
+    margin:auto;
+  }
+
   .menu-items {
     margin:auto;
     margin-top: 20px;
@@ -112,4 +116,6 @@
     padding: 15px 50px !important;
     border-radius: 50px;
   }
+
+
 }
