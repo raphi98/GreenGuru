@@ -11,7 +11,7 @@ from userapi.views import JPEGRenderer, PNGRenderer
 from rest_framework.parsers import MultiPartParser, FormParser
 
 class PlantAPIViewSet(viewsets.ViewSet):
-
+    
     def list(self, request):
         # everything in a try block for unforseen errors
         try:
@@ -23,8 +23,8 @@ class PlantAPIViewSet(viewsets.ViewSet):
                 user_pk = queries["user"]
                 get_object_or_404(models.User, pk=user_pk)
                 plants_all = models.Plant.objects.filter(owner__pk=user_pk)
-            else:
-                plants_all = models.Plant.objects.all()
+            else: 
+                plants_all = models.Plant.objects.all()        
 
             plants = []
             for plant in plants_all:
@@ -35,13 +35,13 @@ class PlantAPIViewSet(viewsets.ViewSet):
                     imagelink = ""
                 plants.append({"id": plant.pk, "name": plant.name, "owner": plant.owner.pk, "location": plant.location, "plant_type": plant.plant_type, "watering": plant.watering, "fertilizing": plant.fertilizing, "image": imagelink})
             return Response(plants)
-
+        
         except Exception as e:
             if e.__class__ == Http404:
                 raise e
             else:
                 raise ValidationError(f"You did something wrong that was unexpected: {e}")
-
+    
     def create(self, request):
         try:
             payload = request.data
@@ -55,7 +55,7 @@ class PlantAPIViewSet(viewsets.ViewSet):
 
             if not("owner" in payload) or (payload["owner"] == None):
                 raise ValidationError("Property 'owner' not found or invalid: it must be an integer representing the User ID")
-
+            
             owner_id = payload["owner"]
             owner = User.objects.get(pk=owner_id)
 
@@ -78,8 +78,8 @@ class PlantAPIViewSet(viewsets.ViewSet):
             raise ValidationError(f"User with ID {owner_id} does not exist")
         except Exception as e:
             raise ValidationError(f"An unexpected error occurred: {e}")
-
-
+            
+    
     def update(self, request, pk):
         try:
             payload = request.data
@@ -163,8 +163,8 @@ class PlantAPIViewSet(viewsets.ViewSet):
             else:
                 raise ValidationError(f"An unexpected error occurred: {e}")
 
-
-
+        
+    
     def retrieve(self, request, pk):
         plant = get_object_or_404(models.Plant, pk=pk)
         try:
@@ -173,15 +173,15 @@ class PlantAPIViewSet(viewsets.ViewSet):
         except:
             imagelink = ""
         return Response({"id": plant.pk, "name": plant.name, "owner": plant.owner.pk, "location": plant.location, "plant_type": plant.plant_type, "watering": plant.watering, "fertilizing": plant.fertilizing, "image": imagelink}, status=200)
-
+    
     def destroy(self, request, pk):
         payload = request.data
         plant = get_object_or_404(models.Plant, pk=pk)
         models.Plant.objects.filter(pk=pk).delete()
         return Response(payload, status=204)
+        
 
-
-
+    
 class PlantImageViewSet(viewsets.ViewSet):
 
     renderer_classes = [JPEGRenderer, PNGRenderer]
@@ -195,7 +195,7 @@ class PlantImageViewSet(viewsets.ViewSet):
             return Response(plant.image.open(), status=200)
         except Exception as e:
             raise Http404(f"The image does not exist: {e}")
-
+            
 
     def create(self, request, pk):
         plant = get_object_or_404(models.Plant, pk=pk)

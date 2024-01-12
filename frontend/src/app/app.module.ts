@@ -26,6 +26,8 @@ import { EncyclopediaPageComponent } from '../encyclopedia-page/encyclopedia-pag
 import { EncyclopediaComponentComponent } from '../encyclopedia-component/encyclopedia-component.component';
 import { EncyclopediaDialogComponent } from '../encyclopedia-dialog/encyclopedia-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import { PlantCardComponent } from '../plant-card/plant-card.component';
+import { MenuBarComponent } from '../menu-bar/menu-bar.component';
 
 @NgModule({
   declarations: [
@@ -36,11 +38,12 @@ import {MatDialogModule} from "@angular/material/dialog";
     EncyclopediaPageComponent,
     EncyclopediaComponentComponent,
     EncyclopediaDialogComponent,
-    UserLoginComponent,
     MainDashboardComponent,
     AddPlantComponent,
     EditPlantComponent,
-    SafeUrlPipe
+    SafeUrlPipe,
+    PlantCardComponent,
+    MenuBarComponent
   ],
     imports: [
         BrowserModule,

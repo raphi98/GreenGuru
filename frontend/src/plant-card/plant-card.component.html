@@ -1,0 +1,21 @@
+<div class="plant-card">
+  <div class="plant-image">
+    <div class="spinner" *ngIf="!imageLoaded"></div>
+    <img [src]="plant.image ? plant.image : '../assets/logo-dark.png'" (load)="onLoad($event)" [alt]="plant.name">
+  </div>
+  <div class="plant-info">
+    <h5 class="plant-title">{{ plant.name }}</h5>
+    <h6 class="plant-type">{{ plant.plant_type }}</h6>
+    <h6 class="plant-location">{{ plant.location}}</h6>
+    <div class="plant-details">
+      <div class="fertilizer">
+        <span class="label">I need fertilizer in</span>
+        <span class="count">{{ plant.fertilizing === 'never' ? 'Never' : plant.fertilizing + ' days' }}</span>
+      </div>
+      <div class="water">
+        <span class="label">I need water in</span>
+        <span class="count">{{ plant.watering }} days</span>
+      </div>
+    </div>
+  </div>
+</div>

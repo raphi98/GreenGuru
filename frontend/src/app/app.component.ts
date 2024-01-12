@@ -17,6 +17,7 @@ export class AppComponent {
   isEncyclopediaPageRoute = false;
   isAddPlantRoute: boolean = false;
   isEditPlantRoute: boolean = false;
+  isDashboardRoute: boolean = false;
 
   constructor(private router: Router) {
     this.router.events.pipe(
@@ -28,6 +29,7 @@ export class AppComponent {
       this.isEncyclopediaPageRoute = event.url === '/encyclopedia-page';
       this.isAddPlantRoute = event.url === '/add-plant';
       this.isEditPlantRoute = event.url === '/edit-plant'
+      this.isDashboardRoute = event.url === '/dashboard';
     });
   }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Plant } from '../models/plant';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,12 @@ export class PlantService {
   private plantsUrl = '/api/plants/';
 
   constructor(private http: HttpClient) {}
+
+  getAllPlants(): Observable<Plant[]> {
+    return this.http.get<Plant[]>(this.plantsUrl).pipe(
+      catchError(this.handleError)
+    );
+  }
 
   getPlant(id: number): Observable<any> {
     return this.http.get(`${this.plantsUrl}${id}`).pipe(

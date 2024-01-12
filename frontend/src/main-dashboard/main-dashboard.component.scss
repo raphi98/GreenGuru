@@ -1,0 +1,76 @@
+.plant-dashboard {
+  display: flex;
+  justify-content: center; /* Center the container on the page */
+}
+
+.plant-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Distribute space between the cards */
+  gap: 20px; /* Space between cards */
+  max-width: 1500px; /* Maximum width of the container */
+  margin: auto; /* Center the container on the page */
+  margin-top: 50px;
+}
+
+app-plant-card {
+  flex: 0 0 calc(50% - 20px); /* Take up 50% of the container width minus the gap */
+}
+
+/* Responsive adjustment for smaller screens */
+@media (max-width: 768px) {
+  .plant-cards-container {
+    justify-content: center;
+  }
+
+  app-plant-card {
+    flex: 0 0 calc(100% - 20px); /* Take up 50% of the container width minus the gap */
+  }
+}
+
+.counter-container {
+  display: flex;
+  padding: 8px; /* Adjust the padding as needed */
+  width: 30%;
+  margin:auto;
+  justify-content: center;
+  justify-self: center;
+
+}
+
+.counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  padding-left: 20px;
+}
+
+.count {
+  font-size: 4em; /* Large font size for the count number */
+  font-weight: 600;
+  color: #274525; /* Adjust the font color as needed */
+  margin-bottom: 4px; /* Space between the count number and the label */
+}
+
+.label {
+  text-transform: uppercase;
+  font-size: 1.2em; /* Smaller font size for the label */
+  color: #274525; /* Adjust the font color as needed */
+  font-weight: 500;
+}
+
+/* Add responsive design adjustments if necessary */
+
+@media (max-width: 1500px) {
+  .counter-container {
+    width: 40%;
+  }
+}
+
+@media (max-width: 768px) {
+  .counter-container {
+    width: 60%;
+  }
+}
