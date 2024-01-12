@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="27dba374-2383-4199-80bd-dc8ffd576dbb" name="Changes" comment="Encyclopedia page implemented, Service for Plant Api calls implemented, search field, also Encyclopedia - PopUp Added but not fully implemented." />
+    <list default="true" id="27dba374-2383-4199-80bd-dc8ffd576dbb" name="Changes" comment="landing page implemented, including responsiveness and link to register page" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -12,6 +12,9 @@
   </component>
   <component name="ComposerSettings">
     <execution />
+  </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="origin/task/encyclopedia_page" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -211,8 +214,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="landing page implemented, including responsiveness and link to register page" />
     <MESSAGE value="Encyclopedia page implemented, Service for Plant Api calls implemented, search field, also Encyclopedia - PopUp Added but not fully implemented." />
-    <option name="LAST_COMMIT_MESSAGE" value="Encyclopedia page implemented, Service for Plant Api calls implemented, search field, also Encyclopedia - PopUp Added but not fully implemented." />
+    <MESSAGE value="landing page implemented, including responsiveness and link to register page" />
+    <option name="LAST_COMMIT_MESSAGE" value="landing page implemented, including responsiveness and link to register page" />
   </component>
 </project>
