@@ -16,6 +16,8 @@ const routes: Routes = [
   { path: 'dashboard', component: MainDashboardComponent, canActivate: [AuthGuard] },
   { path: 'add-plant', component: AddPlantComponent, canActivate: [AuthGuard] },
   { path: 'edit-plant', component: EditPlantComponent, canActivate: [AuthGuard] },
+  { path: 'edit-plant/:id', component: EditPlantComponent, canActivate: [AuthGuard] },
+
 ];
 
 @NgModule({

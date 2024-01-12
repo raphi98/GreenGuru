@@ -4,6 +4,8 @@
   align-items: center;
   padding: 30px;
   background-color: #eaede0;
+  width: 90% !important;
+  margin: auto;
   margin-bottom: 50px;
 }
 
@@ -29,7 +31,7 @@
   background-color:#c9ddae;
   border-radius: 50px;
   font-weight: 500;
-  width: 400px;
+  width: 430px;
 }
 
 .menu-items li {
@@ -58,7 +60,7 @@
   border-radius: 50px;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1250px) {
   .menu-bar {
     flex-direction: column;
     align-items: flex-start;
@@ -109,7 +111,7 @@
 
   .menu-items li a {
     width: 100%;
-    padding: 10px; /* Make the links easier to tap on small screens */
+    padding: 10px
   }
 
   .active-link{
