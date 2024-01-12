@@ -4,7 +4,7 @@
   <h4><span *ngIf="plantsNeedingWater$ | async as plantsNeedingWater">{{ plantsNeedingWater }}</span> Watering</h4>
   <h4><span *ngIf="plantsNeedingFertilizer$ | async as plantsNeedingFertilizer">{{ plantsNeedingFertilizer }}</span> Fertilizing</h4>
 </div>-->
-
+<div class="content">
 <div class="counter-container">
   <div class="counter">
     <span class="count" *ngIf="totalPlants$ | async as totalPlants">{{ totalPlants }}</span>
@@ -23,4 +23,5 @@
   <div class="plant-cards-container">
   <app-plant-card *ngFor="let plant of (plants$ | async)" [plant]="plant"></app-plant-card>
   </div>
+</div>
 </div>
