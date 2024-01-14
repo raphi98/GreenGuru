@@ -1,6 +1,5 @@
-
-
 <nav class="menu-bar">
+  <!-- menu elements for pages -->
   <div class="page-title">{{ pageTitle }}</div>
   <a class="image-container" routerLink="/dashboard"><img  src="./assets/logo-dark.png" class="logo" alt="Logo"></a>
   <ul class="menu-items">
@@ -9,4 +8,8 @@
     <li><a routerLink="/add-plant" routerLinkActive="active-link">Add</a></li>
     <li><a routerLink="/encyclopedia-page" routerLinkActive="active-link">Encyclopedia</a></li>
   </ul>
+  <!-- menu elemnt for username -->
+  <div class="user-menu">
+    <li><a routerLink="/edit-user" routerLinkActive="active-link">{{username}}</a></li>
+  </div>
 </nav>
