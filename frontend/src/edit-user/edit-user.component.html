@@ -1,0 +1,48 @@
+<app-menu-bar pageTitle="EDIT USER"></app-menu-bar>
+<div class="edit-user-container">
+    <div class="edit-logo-column">
+        <img src="assets/logo-light.png" alt="Green Guru Logo" class="edit-logo">
+        <div class="edit-section">
+            <h1>EDIT PROFILE</h1>
+        </div>
+    </div>
+    <div class="edit-form-column">
+        <div class="edit-header">
+            <span class="icon-edit material-icons">person</span>
+            <h2>username</h2>
+            <!--<h2>{{ username ? username : 'username' }}</h2>-->
+            <button class="edit-logout-btn" (click)="logout()">Logout</button>
+        </div>
+        <form class="user-edit-form" [formGroup]="editForm" (ngSubmit)="onSave()">
+            <!-- Username (nicht editierbar) -->
+            <div class="edit-form-group">
+                <input type="text" formControlName="username" placeholder="Username" [disabled]="true">
+                <label for="username" class="material-icons">person</label>
+            </div>
+            <!-- Email (editierbar) -->
+            <div class="edit-form-group">
+                <input type="email" formControlName="email" placeholder="Email" required>
+                <label for="email" class="material-icons">email</label>
+            </div>
+            <!-- Aktuelles Passwort (nicht editierbar) -->
+            <div class="edit-form-group">
+                <input type="password" formControlName="currentPassword" placeholder="Current Password" [disabled]="true">
+                <label for="currentPassword" class="material-icons">lock</label>
+            </div>
+            <!-- Neues Passwort (editierbar) -->
+            <div class="edit-form-group">
+                <input type="password" formControlName="newPassword" placeholder="New Password">
+                <label for="newPassword" class="material-icons">lock_open</label>
+            </div>
+            <!-- Passwort wiederholen (editierbar) -->
+            <div class="edit-form-group">
+                <input type="password" formControlName="repeatPassword" placeholder="Repeat New Password">
+                <label for="repeatPassword" class="material-icons">lock_outline</label>
+            </div>
+            <!-- Speichern Button -->
+            <button type="submit" class="edit-save-btn">Save</button>
+            <!-- Abbrechen Button -->
+            <button type="button" class="edit-cancel-btn" (click)="onCancel()">Cancel</button>
+        </form>
+    </div>
+</div>
