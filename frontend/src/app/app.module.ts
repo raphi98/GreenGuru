@@ -28,6 +28,7 @@ import { EncyclopediaDialogComponent } from '../encyclopedia-dialog/encyclopedia
 import {MatDialogModule} from "@angular/material/dialog";
 import { PlantCardComponent } from '../plant-card/plant-card.component';
 import { MenuBarComponent } from '../menu-bar/menu-bar.component';
+import {EditUserComponent} from "../edit-user/edit-user.component";
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { MenuBarComponent } from '../menu-bar/menu-bar.component';
     EditPlantComponent,
     SafeUrlPipe,
     PlantCardComponent,
-    MenuBarComponent
+    EditUserComponent,
+    MenuBarComponent,
   ],
     imports: [
         BrowserModule,

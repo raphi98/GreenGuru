@@ -70,6 +70,33 @@ export class AuthService {
     return !!token;
   }
 
+  getUserDetails(userId: number): Observable<any> {
+    return this.http.get(`${this.userUrl}${userId}`);
+  }
+
+  updateUserDetails(userId: number, userDetails: any): Observable<any> {
+    return this.http.put(`${this.userUrl}${userId}`, userDetails);
+  }
+
+  getUsernameFromToken(): string {
+    const accessToken = this.getToken();
+    if (!accessToken) return 'token error';
+
+    try {
+      const parts = accessToken.split('.');
+      if (parts.length !== 3){
+        console.error('Invalid token format', accessToken);
+        return 'token error';
+      }
+
+      const payload = JSON.parse(atob(parts[1]));
+      return payload.username || 'username';
+    } catch (error) {
+      console.error('Error decoding token', error);
+      return 'token error';
+    }
+  }
+
   logout(): void {
     localStorage.removeItem('authToken');
   }
