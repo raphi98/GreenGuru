@@ -74,9 +74,17 @@ class UserViewSet(viewsets.ViewSet):
                 results.append(
                     {"id": user.pk,
                      "username": user.username,
+                     "email": user.email,
                      "url": "http://localhost:8000/api/users/%s" % user.pk}
                 )
             usernames = [user.username for user in query]
+            return Response(results)
+        elif request.user.is_authenticated:
+            user = get_object_or_404(User, pk=request.user.pk)
+            results = {"id": user.pk,
+                       "username": user.username,
+                       "email": user.email,
+                       "url": "http://localhost:8000/api/users/%s" % user.pk}
             return Response(results)
         else:
             return Response({"error": "You must be superuser to access this endpoint."}, status=403)
@@ -96,11 +104,12 @@ class UserViewSet(viewsets.ViewSet):
         '''
         payload = request.data
         self._check_parameters(payload)
-        user = User.objects.create_user(
-            payload["username"],
-            payload["email"],
-            payload["password1"]
+        user = User.objects.create(
+            username=payload["username"],
+            email=payload["email"],
+            is_active=True
         )
+        user.set_password(payload["password1"])
         send_mail(
             "Welcome, %s" % user.username,
             "Your account has been created.",
@@ -120,15 +129,29 @@ class UserViewSet(viewsets.ViewSet):
                 {
                     "id": user.pk,
                     "username": user.username,
-                    "first_name": user.first_name,
-                    "last_name": user.last_name,
+                    "email": user.email,
                     "is_active": user.is_active,
                     "gender": user.gender,
                     "groups": "http://localhost:8000/api/users/%s/groups" % user.pk,
                     "security": "http://localhost:8000/api/users/%s/security" % user.pk,
                 }
             )
-        return Response({"error": "You must be superuser to access this endpoint."}, status=403)
+        elif request.user.is_authenticated:
+            if request.user.pk == int(pk):
+                user = get_object_or_404(User, pk=pk)
+                return Response(
+                    {
+                        "id": user.pk,
+                        "username": user.username,
+                        "email": user.email,
+                        "is_active": user.is_active,
+                        "gender": user.gender,
+                    }
+                )
+            else:
+                return Response({"error": f"You can only access your own userdata at: http://localhost:8000/api/users/{request.user.pk}"}, status=403)
+        else:
+            return Response({"error": "You must be superuser to access this endpoint."}, status=403)
 
     def update(self, request, pk=None):
         '''
@@ -139,8 +162,6 @@ class UserViewSet(viewsets.ViewSet):
             payload = request.data
             self._check_parameters(payload)
             user.username = payload["username"]
-            user.first_name = payload["first_name"]
-            user.last_name = payload["last_name"]
             user.set_password(payload["password1"])
             user.save()
             return Response(payload, status=200)
