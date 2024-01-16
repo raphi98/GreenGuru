@@ -13,11 +13,12 @@ export class EncyclopediaComponentComponent {
 
   @Input() plant: any;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog) {
+  }
 
-  openDialog(plantId:number) {
+  openDialog(plantId: number) {
     this.dialog.open(EncyclopediaDialogComponent, {
-      data: { plantId },
+      data: {plantId}, height: '80%', width: '90%'
     });
   }
 

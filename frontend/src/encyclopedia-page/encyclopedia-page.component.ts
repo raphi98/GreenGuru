@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ApiService} from "../services/plant-api.service";
 import {MatDialog} from "@angular/material/dialog";
 import {EncyclopediaDialogComponent} from "../encyclopedia-dialog/encyclopedia-dialog.component";
@@ -8,12 +8,13 @@ import {EncyclopediaDialogComponent} from "../encyclopedia-dialog/encyclopedia-d
   templateUrl: './encyclopedia-page.component.html',
   styleUrls: ['./encyclopedia-page.component.scss']
 })
-export class EncyclopediaPageComponent {
+export class EncyclopediaPageComponent implements OnInit{
 
   plants: any[] | undefined;
   searchQuery: string = '';
 
-  constructor(private apiService: ApiService, private dialog: MatDialog) {}
+  constructor(private apiService: ApiService) {
+  }
 
   ngOnInit() {
     this.fetchPlants();

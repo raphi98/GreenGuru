@@ -6,6 +6,23 @@
   <component name="ChangeListManager">
     <list default="true" id="27dba374-2383-4199-80bd-dc8ffd576dbb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/wapdev2/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/backend/wapdev2/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/add-plant/add-plant.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/add-plant/add-plant.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/add-plant/add-plant.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/add-plant/add-plant.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/add-plant/add-plant.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/add-plant/add-plant.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/encyclopedia-component/encyclopedia-component.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/encyclopedia-component/encyclopedia-component.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/encyclopedia-component/encyclopedia-component.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/encyclopedia-component/encyclopedia-component.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/encyclopedia-component/encyclopedia-component.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/encyclopedia-component/encyclopedia-component.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/encyclopedia-dialog/encyclopedia-dialog.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/encyclopedia-dialog/encyclopedia-dialog.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/encyclopedia-dialog/encyclopedia-dialog.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/encyclopedia-dialog/encyclopedia-dialog.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/encyclopedia-dialog/encyclopedia-dialog.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/encyclopedia-dialog/encyclopedia-dialog.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/encyclopedia-page/encyclopedia-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/encyclopedia-page/encyclopedia-page.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/encyclopedia-page/encyclopedia-page.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/encyclopedia-page/encyclopedia-page.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/encyclopedia-page/encyclopedia-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/encyclopedia-page/encyclopedia-page.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/menu-bar/menu-bar.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/menu-bar/menu-bar.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/services/plant-api.service.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/services/plant-api.service.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/services/plant-api.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/services/plant-api.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +42,9 @@
   &quot;associatedIndex&quot;: 2
 }</component>
   <component name="ProjectId" id="2ZcSzvhMe0wIqNdlVUJ1ccqf3eK" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -47,13 +67,18 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
+    "ts.external.directory.path": "/Users/philipplegner/Documents/GreenGuruOrdner/GreenGuru/frontend/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontend/src/assets" />
+    </key>
+  </component>
   <component name="RunManager" selected="Django Server.Django Server">
     <configuration default="true" type="DjangoTestsConfigurationType">
       <module name="GreenGuru" />
-      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -90,7 +115,6 @@
     </configuration>
     <configuration default="true" type="PyBehaveRunConfigurationType" factoryName="Behave">
       <module name="GreenGuru" />
-      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
@@ -104,7 +128,6 @@
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="GreenGuru" />
-      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -127,7 +150,6 @@
     </configuration>
     <configuration name="Django Server" type="Python.DjangoServer" factoryName="Django server">
       <module name="backend" />
-      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -135,7 +157,6 @@
         <env name="DJANGO_SETTINGS_MODULE" value="wapdev2.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.11 (project)" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -153,7 +174,6 @@
     </configuration>
     <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
       <module name="GreenGuru" />
-      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -177,7 +197,6 @@
     </configuration>
     <configuration default="true" type="Python.FlaskServer">
       <module name="GreenGuru" />
-      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
@@ -191,7 +210,6 @@
     </configuration>
     <configuration default="true" type="Tox" factoryName="Tox">
       <module name="GreenGuru" />
-      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
@@ -214,7 +232,6 @@
     </configuration>
     <configuration default="true" type="tests" factoryName="Autodetect">
       <module name="GreenGuru" />
-      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
@@ -230,7 +247,6 @@
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
       <module name="GreenGuru" />
-      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />

@@ -1,2 +1,46 @@
-<h1>HI, I am under construction.</h1>
-<h1>ID: {{ data.plantId }}</h1>
+<div class="content">
+  <div class="row">
+    <div class="column">
+      <div class="spinner" *ngIf="loading"></div>
+      <ng-container *ngIf="plant.default_image && plant.default_image.regular_url">
+        <img [src]="plant.default_image.regular_url" (load)="onLoad($event)" alt="Plant Image"/>
+      </ng-container>
+      <ng-container *ngIf="!plant.default_image || !plant.default_image.regular_url">
+        <img src="assets/no_image_encyclopedia.png" (load)="onLoad($event)" alt="No Image Available"/>
+      </ng-container>
+    </div>
+    <div class="column">
+      <h1>{{ plant.common_name }}</h1>
+      <h2><i>{{ plant.scientific_name }}</i></h2>
+      <h3>
+        <mat-icon fontIcon="water_drop"></mat-icon>
+        {{ plant.watering_general_benchmark.value }} {{ plant.watering_general_benchmark.unit }}</h3>
+    </div>
+    <div class="column">
+      <button mat-button mat-dialog-close class="cancel-button">
+        <mat-icon class="close-icon" fontIcon="close"></mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <p class="sunny chip">
+      <mat-icon fontIcon="sunny" class="inline-icon"></mat-icon>
+      {{plant.sunlight}}</p>
+    <p class="type chip">
+      <mat-icon fontIcon="title" class="inline-icon"></mat-icon>
+      {{plant.type}}</p>
+    <p class="dimension chip">
+      <mat-icon fontIcon="straighten" class="inline-icon"></mat-icon>
+      {{plant.dimension}}</p>
+    <p class="care_level chip">
+      <mat-icon fontIcon="child_friendly" class="inline-icon"></mat-icon>
+      {{plant.care_level}}</p>
+    <p class="pruning_month chip">
+      <mat-icon fontIcon="content_cut" class="inline-icon"></mat-icon>
+      {{plant.pruning_month}}</p>
+  </div>
+  <h4>Description</h4>
+  <p>{{plant.description}}</p>
+  <h4>Origin</h4>
+  <p>{{plant.origin}}</p>
+</div>
