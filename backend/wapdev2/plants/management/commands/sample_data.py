@@ -22,9 +22,9 @@ class Command(BaseCommand):
         admin_user = User.objects.create_superuser('admin', 'admin@example.com', 'admin')
 
         # Create 3 users
-        user1 = User.objects.create_user('Florian', 'user1@example.com', 'user')
-        user2 = User.objects.create_user('Sebastian', 'user2@example.com', 'user')
-        user3 = User.objects.create_user('Raphael', 'user3@example.com', 'user')
+        user1 = User.objects.create_user('Florian', 'user1@example.com', 'user', score=5)
+        user2 = User.objects.create_user('Sebastian', 'user2@example.com', 'user', score=23)
+        user3 = User.objects.create_user('Raphael', 'user3@example.com', 'user',score=1119)
 
         # Create plants
         models.Plant.objects.create(name="Jürgen", owner=user1, location="Bedroom", plant_type="Tree", watering=20, fertilizing=None)
@@ -54,25 +54,13 @@ class Command(BaseCommand):
                     # Assign the image to the Plant object
                     plant.image.save(os.path.basename(img_path), File(img_file))
 
+        # add friends to users
+        user1.add_friend(user2)
+        user1.add_friend(admin_user)
+
         create_plant_with_image("San Pedro", user1, "Living room", "Cactus", None, None, img1)
         create_plant_with_image("Blossom", user3, "Garden", "Orchid", 2, 1, img2)
         create_plant_with_image("Prickles", user3, "Kitchen", "Succulent", 7, 200, img3)
 
-
-        # adding profile pictures for users
-        pfp1 = os.path.join(image_folder, 'avatar1.jpg')
-        pfp2 = os.path.join(image_folder, 'avatar2.jfif')
-        if os.path.exists(pfp1):
-                with open(pfp1, 'rb') as img_file:
-                    user = get_object_or_404(User, pk=1)
-                    # Assign the image to the User object
-                    user.profile_image.save(os.path.basename(pfp1), File(img_file))
-
-        if os.path.exists(pfp2):
-                with open(pfp2, 'rb') as img_file:
-                    user = get_object_or_404(User, pk=1)
-                    # Assign the image to the User object
-                    user.profile_image.save(os.path.basename(pfp2), File(img_file))
-
-        self.stdout.write(self.style.SUCCESS('Plants with images: ID 5, 6, 7 \nUser with images: ID 1, 2'))
+        self.stdout.write(self.style.SUCCESS('Plants with images: ID 5, 6, 7'))
         self.stdout.write(self.style.SUCCESS('Sample data with images created successfully.'))
