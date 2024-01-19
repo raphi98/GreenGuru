@@ -40,8 +40,8 @@ class PlantAPIViewSet(viewsets.ViewSet):
                         imagelink = ""
                     plants.append({"id": plant.pk, "name": plant.name, "owner": plant.owner.pk, "location": plant.location, "plant_type": plant.plant_type, "watering": plant.watering, "fertilizing": plant.fertilizing, "image": imagelink})
                 return Response(plants)
-            
-            return Response({"error": "You must be logged in to access this endpoint. To see all plants you must be superuser"}, status=403)
+            else:
+                return Response({"error": "You must be logged in to access this endpoint. To see all plants you must be superuser"}, status=403)
         
         except Exception as e:
             if e.__class__ == Http404:
