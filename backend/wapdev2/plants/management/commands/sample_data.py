@@ -3,6 +3,7 @@ from userapi.models import User
 from ... import models
 from django.core.files import File
 import os
+import shutil
 from django.shortcuts import get_object_or_404
 
 
@@ -14,6 +15,12 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS('Deleting existing data...'))
         User.objects.all().delete()
         models.Plant.objects.all().delete()
+
+        # Delete existing plant images
+        self.stdout.write(self.style.SUCCESS('Deleting existing plant images...'))
+        image_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'uploads', 'plant_images'))
+        if os.path.exists(image_folder):
+            shutil.rmtree(image_folder)
 
         # Create example data
         self.stdout.write(self.style.SUCCESS('Creating sample data...'))

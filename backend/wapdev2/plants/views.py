@@ -15,26 +15,33 @@ class PlantAPIViewSet(viewsets.ViewSet):
     def list(self, request):
         # everything in a try block for unforseen errors
         try:
-            # get query parameters
-            queries = request.query_params
+            if request.user.is_authenticated:
 
-            # check for user query (?user=pk)
-            if "user" in queries:
-                user_pk = queries["user"]
-                get_object_or_404(models.User, pk=user_pk)
-                plants_all = models.Plant.objects.filter(owner__pk=user_pk)
-            else: 
-                plants_all = models.Plant.objects.all()        
+                # get query parameters
+                queries = request.query_params
 
-            plants = []
-            for plant in plants_all:
-                try:
-                    plant.image.size
-                    imagelink = f"http://localhost:8000/api/plants/{plant.pk}/image"
-                except:
-                    imagelink = ""
-                plants.append({"id": plant.pk, "name": plant.name, "owner": plant.owner.pk, "location": plant.location, "plant_type": plant.plant_type, "watering": plant.watering, "fertilizing": plant.fertilizing, "image": imagelink})
-            return Response(plants)
+                if request.user.is_superuser:
+                    # check for user query (?user=pk)
+                    if "user" in queries:
+                        user_pk = queries["user"]
+                        get_object_or_404(models.User, pk=user_pk)
+                        plants_all = models.Plant.objects.filter(owner__pk=user_pk)
+                    else: 
+                        plants_all = models.Plant.objects.all()   
+                else:
+                    plants_all = models.Plant.objects.filter(owner__pk=request.user.pk)
+
+                plants = []
+                for plant in plants_all:
+                    try:
+                        plant.image.size
+                        imagelink = f"http://localhost:8000/api/plants/{plant.pk}/image"
+                    except:
+                        imagelink = ""
+                    plants.append({"id": plant.pk, "name": plant.name, "owner": plant.owner.pk, "location": plant.location, "plant_type": plant.plant_type, "watering": plant.watering, "fertilizing": plant.fertilizing, "image": imagelink})
+                return Response(plants)
+            
+            return Response({"error": "You must be logged in to access this endpoint. To see all plants you must be superuser"}, status=403)
         
         except Exception as e:
             if e.__class__ == Http404:
@@ -167,13 +174,16 @@ class PlantAPIViewSet(viewsets.ViewSet):
     
     def retrieve(self, request, pk):
         plant = get_object_or_404(models.Plant, pk=pk)
-        try:
-            plant.image.size
-            imagelink = f"http://localhost:8000/api/plants/{plant.pk}/image"
-        except:
-            imagelink = ""
-        return Response({"id": plant.pk, "name": plant.name, "owner": plant.owner.pk, "location": plant.location, "plant_type": plant.plant_type, "watering": plant.watering, "fertilizing": plant.fertilizing, "image": imagelink}, status=200)
-    
+        if request.user.pk == plant.owner.pk or request.user.is_superuser:
+            try:
+                plant.image.size
+                imagelink = f"http://localhost:8000/api/plants/{plant.pk}/image"
+            except:
+                imagelink = ""
+            return Response({"id": plant.pk, "name": plant.name, "owner": plant.owner.pk, "location": plant.location, "plant_type": plant.plant_type, "watering": plant.watering, "fertilizing": plant.fertilizing, "image": imagelink}, status=200)
+        else:
+            return Response({"error": "As a user you can only access your own plants."}, status=403)
+
     def destroy(self, request, pk):
         payload = request.data
         plant = get_object_or_404(models.Plant, pk=pk)
