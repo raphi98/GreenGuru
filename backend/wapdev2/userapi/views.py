@@ -71,19 +71,25 @@ class UserViewSet(viewsets.ViewSet):
         if request.user.is_superuser:
             results = []
             for user in query:
+                friends_data = [{"id": friend.pk, "username":friend.username, "score": friend.score} for friend in user.friends.all()]
                 results.append(
                     {"id": user.pk,
                      "username": user.username,
                      "email": user.email,
-                     "url": "http://localhost:8000/api/users/%s" % user.pk}
+                     "score": user.score,
+                     "friends": friends_data,
+                     "url": "http://localhost:8000/api/users/%s" % user.pk},
                 )
             usernames = [user.username for user in query]
             return Response(results)
         elif request.user.is_authenticated:
             user = get_object_or_404(User, pk=request.user.pk)
+            friends_data = [{"id": friend.pk, "username":friend.username, "score": friend.score} for friend in user.friends.all()]
             results = {"id": user.pk,
                        "username": user.username,
                        "email": user.email,
+                       "score": user.score,
+                       "friends": friends_data,
                        "url": "http://localhost:8000/api/users/%s" % user.pk}
             return Response(results)
         else:
@@ -125,13 +131,15 @@ class UserViewSet(viewsets.ViewSet):
         '''
         if request.user.is_superuser:
             user = get_object_or_404(User, pk=pk)
+            friends_data = [{"id": friend.pk, "username":friend.username, "score": friend.score} for friend in user.friends.all()]
             return Response(
                 {
                     "id": user.pk,
                     "username": user.username,
                     "email": user.email,
+                    "score": user.score,
+                    "friends": friends_data,
                     "is_active": user.is_active,
-                    "gender": user.gender,
                     "groups": "http://localhost:8000/api/users/%s/groups" % user.pk,
                     "security": "http://localhost:8000/api/users/%s/security" % user.pk,
                 }
@@ -139,13 +147,15 @@ class UserViewSet(viewsets.ViewSet):
         elif request.user.is_authenticated:
             if request.user.pk == int(pk):
                 user = get_object_or_404(User, pk=pk)
+                friends_data = [{"id": friend.pk, "username":friend.username, "score": friend.score} for friend in user.friends.all()]
                 return Response(
                     {
                         "id": user.pk,
                         "username": user.username,
                         "email": user.email,
+                        "score": user.score,
+                        "friends": friends_data,
                         "is_active": user.is_active,
-                        "gender": user.gender,
                     }
                 )
             else:
@@ -157,12 +167,28 @@ class UserViewSet(viewsets.ViewSet):
         '''
         Updates user with primary key pk.
         '''
-        if request.user.is_superuser or request.user.pk == pk:
+        if request.user.is_superuser or request.user.pk == int(pk):
+            queries = request.query_params
+            
+
             user = get_object_or_404(User, pk=pk)
             payload = request.data
-            self._check_parameters(payload)
-            user.username = payload["username"]
-            user.set_password(payload["password1"])
+            if "add_friend" in queries:
+                friend = get_object_or_404(User, pk=queries["add_friend"])
+                user.add_friend(friend)
+                payload["friends"]= f"friend with pk {friend.pk} added succesfully"
+            if "remove_friend" in queries:
+                friend = get_object_or_404(User, pk=queries["remove_friend"])
+                user.remove_friend(friend)
+                payload["friends"]= f"friend with pk {friend.pk} removed succesfully"
+            if "username" in payload:
+                user.username = payload["username"]
+            if "password1" and "password2" in payload:
+                if payload["password1"] != payload["password2"]:
+                    raise ValidationError("Password do not match")
+                user.set_password(payload["password1"])
+            if "email" in payload:
+                user.email = payload["email"]
             user.save()
             return Response(payload, status=200)
         else:
@@ -172,10 +198,13 @@ class UserViewSet(viewsets.ViewSet):
         '''
         Deletes user with primary key pk
         '''
-        if request.user.is_superuser:
+        if request.user.is_superuser or request.user.pk == int(pk):
+            user = get_object_or_404(User,pk=pk)
+            for friend in user.friends.all():
+                user.remove_friend(friend)
             User.objects.filter(pk=pk).delete()
             return Response(status=204)
-        return Response({"error": "You must be superuser to delete user accounts."}, status=403)
+        return Response({"error": "You must be superuser to delete user accounts OR be the owner of user object."}, status=403)
 
 
 class SecurityViewSet(viewsets.ViewSet):
@@ -317,29 +346,3 @@ class GroupViewSet(viewsets.ViewSet):
         return Response({"error": "You must be superuser to delete user accounts."}, status=403)
 
 
-class ImageProfileViewSet(viewsets.ViewSet):
-
-    # We want to return the image directly, instead of embedding
-    # it into an JSON object, thus we provide the custom renderers
-    # here, one for JPEG and one for PNG renderes
-    renderer_classes = [JPEGRenderer, PNGRenderer]
-
-    # We use form parser and multipart parsers for incoming data,
-    # we do not expect JSON that includes images:
-    parser_classes = [MultiPartParser, FormParser]
-
-    def retrieve(self, request, user_pk):
-        user = get_object_or_404(User, pk=user_pk)
-        # the "profile_image" is a reference to a file in the file system.
-        # DRF requires us to return a link to an open file object (thus calling open):
-        return Response(user.profile_image.open(), status=200)
-
-    def create(self, request, user_pk):
-        user = get_object_or_404(User, pk=user_pk)
-        if user.profile_image is not None:
-            # delete old image
-            user.profile_image.delete()
-        user.profile_image = request.FILES.get("profile_image")
-        # user.profile_image.save()
-        user.save()
-        return Response({"status": "Image successfully uploaded."}, status=200)

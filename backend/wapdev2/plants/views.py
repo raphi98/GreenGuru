@@ -35,7 +35,6 @@ class PlantAPIViewSet(viewsets.ViewSet):
                     imagelink = ""
                 plants.append({"id": plant.pk, "name": plant.name, "owner": plant.owner.pk, "location": plant.location, "plant_type": plant.plant_type, "watering": plant.watering, "fertilizing": plant.fertilizing, "image": imagelink})
             return Response(plants)
-        
         except Exception as e:
             if e.__class__ == Http404:
                 raise e
@@ -173,7 +172,7 @@ class PlantAPIViewSet(viewsets.ViewSet):
         except:
             imagelink = ""
         return Response({"id": plant.pk, "name": plant.name, "owner": plant.owner.pk, "location": plant.location, "plant_type": plant.plant_type, "watering": plant.watering, "fertilizing": plant.fertilizing, "image": imagelink}, status=200)
-    
+
     def destroy(self, request, pk):
         payload = request.data
         plant = get_object_or_404(models.Plant, pk=pk)

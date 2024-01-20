@@ -39,7 +39,6 @@ urlpatterns = [
                                                            "put": "update",
                                                            "delete": "destroy", })),
     path('api/users/<user_pk>/security', user_views.SecurityViewSet.as_view({"put": "update", "get": "list"})),
-    path('api/users/<user_pk>/image', user_views.ImageProfileViewSet.as_view({"get": "retrieve", "post": "create"})),
     path('api/users/<user_pk>/groups', user_views.UserGroupViewSet.as_view({"post": "create", "get": "list"})),
     path('api/users/<user_pk>/groups/<group_pk>', user_views.UserGroupViewSet.as_view({"delete": "destroy", "get": "retrieve"})),
     path('api/groups', user_views.GroupViewSet.as_view({'get': "list", "post": "create"})),
