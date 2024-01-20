@@ -8,7 +8,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class MenuBarComponent implements OnInit {
   @Input() pageTitle!: string;
-  username: string = 'username';
+  username: string = '';
 
   constructor(private authService: AuthService) {}
 

@@ -9,25 +9,19 @@
   <div class="edit-form-column">
     <div class="edit-header">
       <span class="icon-edit material-icons">person</span>
-      <h2>username</h2>
-      <!--<h2>{{ username ? username : 'username' }}</h2>-->
+      <h2>{{ username }}</h2>
       <button class="edit-logout-btn" (click)="logout()">Logout</button>
     </div>
     <form class="user-edit-form" [formGroup]="editForm" (ngSubmit)="onSave()">
-      <!-- Username (nicht editierbar) -->
+      <!-- Username (editierbar) -->
       <div class="edit-form-group">
-        <input type="text" formControlName="username" placeholder="Username" [disabled]="true">
+        <input type="text" formControlName="username" placeholder="Username" [disabled]="false">
         <label for="username" class="material-icons">person</label>
       </div>
       <!-- Email (editierbar) -->
       <div class="edit-form-group">
         <input type="email" formControlName="email" placeholder="Email" required>
         <label for="email" class="material-icons">email</label>
-      </div>
-      <!-- Aktuelles Passwort (nicht editierbar) -->
-      <div class="edit-form-group">
-        <input type="password" formControlName="currentPassword" placeholder="Current Password" [disabled]="true">
-        <label for="currentPassword" class="material-icons">lock</label>
       </div>
       <!-- Neues Passwort (editierbar) -->
       <div class="edit-form-group">

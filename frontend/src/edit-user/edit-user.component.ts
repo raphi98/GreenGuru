@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class EditUserComponent implements OnInit {
     editForm: FormGroup;
     userId: number | null = null;
+    username: string = '';
 
     constructor(
         private formBuilder: FormBuilder,
@@ -18,16 +19,18 @@ export class EditUserComponent implements OnInit {
         private router: Router
     ) {
         this.editForm = this.formBuilder.group({
-            username: [{value: '', disabled: true}, Validators.required],
+            username: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],
-            currentPassword: [{value: '', disabled: true}, Validators.required],
-            newPassword: [''],
+            newPassword: ['', [Validators.minLength(4)]],
             repeatPassword: ['']
         });
     }
 
     ngOnInit(): void {
         this.userId = this.authService.getUserIdFromToken();
+        this.username = this.authService.getUsernameFromToken();
+        this.editForm.get('username')?.setValue(this.username);
+
         if (this.userId !== null) {
             this.loadUserDetails(this.userId);
         }
@@ -36,9 +39,10 @@ export class EditUserComponent implements OnInit {
     loadUserDetails(userId: number): void {
         this.authService.getUserDetails(userId).subscribe(
             userDetails => {
+                this.username = userDetails.username;
                 this.editForm.patchValue({
-                    username: userDetails.username,
-                    email: userDetails.email
+                    email: userDetails.email,
+                    username: userDetails.username
                 });
             },
             error => {
@@ -65,25 +69,33 @@ export class EditUserComponent implements OnInit {
         }
 
         const updateData = {
-            email: formData.email,
-            newPassword: formData.newPassword
+          username: formData.username, email: formData.email
         };
-
-        if (!formData.newPassword) {
-            delete updateData.newPassword;
-        }
 
         this.authService.updateUserDetails(this.userId, updateData).subscribe({
             next: () => {
-                this.router.navigate(['/dashboard']);
+                if (formData.newPassword) {
+                    this.authService.updatePassword(this.userId as number, formData.newPassword, formData.repeatPassword).subscribe({
+                        next: () => {
+                            alert('User details and password updated successfully');
+                            this.router.navigate(['/dashboard']);
+                        },
+                        error: err => {
+                            console.error('Error updating password', err);
+                            alert('There was an error updating the password: ' + err);
+                        }
+                    });
+                } else {
+                    alert('User details updated successfully');
+                    this.router.navigate(['/dashboard']);
+                }
             },
-            error: (err) => {
+            error: err => {
                 console.error('Error updating user details', err);
-                alert('There was an error: ' + err);
+                alert('There was an error updating user details: ' + err);
             }
         });
     }
-
     onCancel(): void {
         this.router.navigate(['/dashboard']);
     }
