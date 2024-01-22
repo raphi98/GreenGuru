@@ -217,7 +217,7 @@ class SecurityViewSet(viewsets.ViewSet):
         List active state of user and date of last login.
         '''
         user = get_object_or_404(User, pk=user_pk)
-        return Response({"is_active": user.is_active, "last_login": user.last_login})
+        return Response({"is_active": user.is_active, "last_login": user.last_login, "is_superuser": user.is_superuser})
 
     def update(self, request, user_pk):
         '''
