@@ -1,0 +1,84 @@
+.friends-dashboard {
+  text-align: center;
+  width: 50%;
+  margin: auto;
+}
+
+.score-circle {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  background-color: #274525;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d6fab6;
+  font-size: 4em;
+  margin-bottom: 10px;
+}
+
+.score-label {
+  text-transform: uppercase;
+  font-size: 2em;
+  margin-bottom: 5px;
+}
+
+.score-info {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+.friends-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.friends-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+  margin: auto;
+  margin-bottom: 15px;
+}
+
+.friend-rank {
+  font-weight: bold;
+  font-size: 2em;
+  margin-right: 30px;
+  color: #274525;
+}
+
+.friend-name {
+  flex: 1;
+  text-align: left;
+  font-size: 2em;
+  font-weight: 500;
+  color: #274525;
+}
+
+.friend-score {
+  font-weight: bold;
+  color: #274525;
+  font-size: 2em;
+}
+
+.remove-friend {
+  cursor: pointer;
+  color: #274525;
+  font-size: 2em;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.add-friend-btn {
+  background-color: #274525;
+  color: #d6fab6;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+}

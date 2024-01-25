@@ -11,6 +11,7 @@ import {EncyclopediaPageComponent} from "../encyclopedia-page/encyclopedia-page.
 import {EditUserComponent} from "../edit-user/edit-user.component";
 import {AdminComponent} from "../admin/admin.component";
 
+import {FriendsDashboardComponent} from "../friends-dashboard/friends-dashboard.component";
 const routes: Routes = [
   { path: 'register', component: UserRegistrationComponent },
   { path: 'login', component: UserLoginComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'add-plant', component: AddPlantComponent, canActivate: [AuthGuard] },
   { path: 'edit-plant', component: EditPlantComponent, canActivate: [AuthGuard] },
   { path: 'edit-plant/:id', component: EditPlantComponent, canActivate: [AuthGuard] },
+  { path: 'friends', component: FriendsDashboardComponent, canActivate: [AuthGuard] }
   { path: 'edit-user', component: EditUserComponent, canActivate: [AuthGuard] },
   { path: 'edit-user/:id', component: EditUserComponent, canActivate: [AuthGuard] },
   {

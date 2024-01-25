@@ -32,6 +32,8 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {EditUserComponent} from "../edit-user/edit-user.component";
 import {AdminComponent} from "../admin/admin.component";
+import { FriendsDashboardComponent } from '../friends-dashboard/friends-dashboard.component';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,9 @@ import {AdminComponent} from "../admin/admin.component";
     EditUserComponent,
     MenuBarComponent,
     AdminComponent
+    MenuBarComponent,
+    FriendsDashboardComponent,
+    ConfirmDialogComponent
   ],
     imports: [
         BrowserModule,

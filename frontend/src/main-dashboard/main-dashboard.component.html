@@ -7,7 +7,7 @@
 <div class="content">
 <div class="counter-container">
   <div class="counter">
-    <span class="count" *ngIf="totalPlants$ | async as totalPlants">{{ totalPlants }}</span>
+    <span class="count"> {{ totalPlants$ | async }}</span>
     <span class="label">PLANTS</span>
   </div>
   <div class="counter">
