@@ -51,8 +51,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
     PlantCardComponent,
     EditUserComponent,
     MenuBarComponent,
-    AdminComponent
-    MenuBarComponent,
+    AdminComponent,
     FriendsDashboardComponent,
     ConfirmDialogComponent
   ],

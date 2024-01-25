@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'add-plant', component: AddPlantComponent, canActivate: [AuthGuard] },
   { path: 'edit-plant', component: EditPlantComponent, canActivate: [AuthGuard] },
   { path: 'edit-plant/:id', component: EditPlantComponent, canActivate: [AuthGuard] },
-  { path: 'friends', component: FriendsDashboardComponent, canActivate: [AuthGuard] }
+  { path: 'friends', component: FriendsDashboardComponent, canActivate: [AuthGuard] },
   { path: 'edit-user', component: EditUserComponent, canActivate: [AuthGuard] },
   { path: 'edit-user/:id', component: EditUserComponent, canActivate: [AuthGuard] },
   {
