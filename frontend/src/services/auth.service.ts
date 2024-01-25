@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -64,6 +64,34 @@ export class AuthService {
     }
   }
 
+  getUsernameFromToken(): string {
+    const accessToken = this.getToken();
+    if (!accessToken) return 'token error';
+
+    try {
+      const parts = accessToken.split('.');
+      if (parts.length !== 3) {
+        console.error('Invalid token format', accessToken);
+        return 'token error';
+      }
+
+      const payload = JSON.parse(atob(parts[1]));
+      return payload.username || 'username';
+    } catch (error) {
+      console.error('Error decoding token', error);
+      return 'token error';
+    }
+  }
+
+  getUserDetails(userId: number): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.getToken()
+      })
+    };
+    return this.http.get(`${this.userUrl}${userId}`, httpOptions);
+  }
 
   isAuthenticated(): boolean {
     const token = this.getToken();

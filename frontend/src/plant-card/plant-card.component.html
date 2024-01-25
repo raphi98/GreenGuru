@@ -1,8 +1,8 @@
-<a style="text-decoration: none;" [routerLink]="['/edit-plant', plant.id]">
-<div class="plant-card">
+
+  <div class="plant-card" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
   <div class="plant-image">
     <div class="spinner" *ngIf="!imageLoaded"></div>
-    <img [src]="plant.image ? plant.image : '../assets/logo-dark.png'" (load)="onLoad($event)" [alt]="plant.name">
+    <img [src]="plant.image ? plant.image : '../assets/logo-dark-padding.png'" (load)="onLoad($event)" [alt]="plant.name">
   </div>
   <div class="plant-info">
     <h5 class="plant-title">{{ plant.name }}</h5>
@@ -19,5 +19,21 @@
       </div>
     </div>
   </div>
+    <div class="icons-container" *ngIf="hovering">
+      <a style="text-decoration: none;" [routerLink]="['/edit-plant', plant.id]">
+      <div class="icon-with-text">
+        <svg class="icon-edit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Pro 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2024 Fonticons, Inc.--><path fill="#efefef" d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4 .4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>
+        <span class="icon-text">Edit</span>
+      </div>
+      </a>
+      <div class="icon-with-text">
+        <svg class="icon-water" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#efefef" d="M205.2 22.1c-7.9-28.8-49.4-30.1-58.4 0C100 179.9 0 222.7 0 333.9 0 432.4 78.7 512 176 512s176-79.7 176-178.1c0-111.8-99.8-153.3-146.8-311.8zM176 448c-61.8 0-112-50.3-112-112 0-8.8 7.2-16 16-16s16 7.2 16 16c0 44.1 35.9 80 80 80 8.8 0 16 7.2 16 16s-7.2 16-16 16z"/></svg>
+        <span class="icon-text">Water</span>
+      </div>
+      <div class="icon-with-text">
+        <svg class="icon-fertilize" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--!Font Awesome Pro 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2024 Fonticons, Inc.--><path fill="#efefef" d="M480 0h-64c-40.7 0-77.5 15.7-105.8 40.8 25.4 32 40.9 72.2 41.6 116C424.9 142 480 77.5 480 0zM256 160v112c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V160C320 71.6 248.4 0 160 0H96c0 88.4 71.6 160 160 160zm309.3 168.1c-11.8-10.7-30.2-10-42.6 0L430.3 402c-11.3 9.1-25.4 14-40 14H272c-8.8 0-16-7.2-16-16s7.2-16 16-16h78.3c15.9 0 30.7-10.9 33.3-26.6 3.3-20-12.1-37.4-31.6-37.4H192c-27 0-53.1 9.3-74.1 26.3L71.4 384H16c-8.8 0-16 7.2-16 16v96c0 8.8 7.2 16 16 16h356.8c14.5 0 28.6-4.9 40-14L564 377c15.2-12.1 16.4-35.3 1.3-48.9z"/></svg>
+        <span class="icon-text">Fertilize</span>
+      </div>
+    </div>
 </div>
-</a>
+

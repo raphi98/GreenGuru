@@ -9,6 +9,15 @@ import { Plant } from '../models/plant';
 export class PlantCardComponent implements OnInit {
   @Input() plant!: Plant;
   imageLoaded: boolean = false;
+  hovering: boolean = false;
+
+  onMouseEnter(): void {
+    this.hovering = true;
+  }
+
+  onMouseLeave(): void {
+    this.hovering = false;
+  }
   onLoad(event: Event): void {
     this.imageLoaded = true;
     (event.target as HTMLImageElement).classList.add('loaded');

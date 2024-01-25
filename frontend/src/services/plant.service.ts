@@ -12,8 +12,8 @@ export class PlantService {
 
   constructor(private http: HttpClient) {}
 
-  getAllPlants(): Observable<Plant[]> {
-    return this.http.get<Plant[]>(this.plantsUrl).pipe(
+  getAllPlantsForUser(userid: number): Observable<Plant[]> {
+    return this.http.get<Plant[]>(`${this.plantsUrl}?user=${userid}`).pipe(
       catchError(this.handleError)
     );
   }
@@ -23,6 +23,8 @@ export class PlantService {
       catchError(this.handleError)
     );
   }
+
+
 
   updatePlant(id: number, plantData: FormData): Observable<any> {
     return this.http.put(`${this.plantsUrl}${id}/`, plantData).pipe(

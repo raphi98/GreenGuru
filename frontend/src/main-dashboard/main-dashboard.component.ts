@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {map, Observable} from 'rxjs';
 import { Plant } from '../models/plant';
 import { PlantService } from '../services/plant.service';
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-main-dashboard',
@@ -9,15 +10,26 @@ import { PlantService } from '../services/plant.service';
   styleUrls: ['./main-dashboard.component.scss']
 })
 export class MainDashboardComponent implements OnInit {
+  userId: number | null = null;
   plants$!: Observable<Plant[]>;
   totalPlants$!: Observable<number>;
   plantsNeedingWater$!: Observable<number>;
   plantsNeedingFertilizer$!: Observable<number>;
 
-  constructor(private plantService: PlantService) {}
+  constructor(private plantService: PlantService,
+              private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.plants$ = this.plantService.getAllPlants();
+    //get user ID from token
+//get all plants for user ID
+//get total plants
+//get plants needing water
+//get plants needing fertilizer
+    this.userId = this.authService.getUserIdFromToken();
+    if (!this.userId) {
+      throw new Error('User ID not found in token');
+    }
+    this.plants$ = this.plantService.getAllPlantsForUser(this.userId);
 
     this.totalPlants$ = this.plants$.pipe(
       map(plants => plants.length)

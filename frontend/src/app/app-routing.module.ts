@@ -8,6 +8,7 @@ import { EditPlantComponent } from '../edit-plant/edit-plant.component'
 import { AuthGuard } from '../services/auth.guard';
 import {LandingPageComponent} from "../landing-page/landing-page.component";
 import {EncyclopediaPageComponent} from "../encyclopedia-page/encyclopedia-page.component";
+import {FriendsDashboardComponent} from "../friends-dashboard/friends-dashboard.component";
 const routes: Routes = [
   { path: 'register', component: UserRegistrationComponent },
   { path: 'login', component: UserLoginComponent },
@@ -17,7 +18,7 @@ const routes: Routes = [
   { path: 'add-plant', component: AddPlantComponent, canActivate: [AuthGuard] },
   { path: 'edit-plant', component: EditPlantComponent, canActivate: [AuthGuard] },
   { path: 'edit-plant/:id', component: EditPlantComponent, canActivate: [AuthGuard] },
-
+  { path: 'friends', component: FriendsDashboardComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
