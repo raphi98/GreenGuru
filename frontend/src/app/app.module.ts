@@ -30,6 +30,8 @@ import { PlantCardComponent } from '../plant-card/plant-card.component';
 import { MenuBarComponent } from '../menu-bar/menu-bar.component';
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {EditUserComponent} from "../edit-user/edit-user.component";
+import {AdminComponent} from "../admin/admin.component";
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     EditPlantComponent,
     SafeUrlPipe,
     PlantCardComponent,
-    MenuBarComponent
+    EditUserComponent,
+    MenuBarComponent,
+    AdminComponent
   ],
     imports: [
         BrowserModule,

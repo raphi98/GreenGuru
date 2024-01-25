@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import { AuthService } from './auth.service';
-import {Observable, tap } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +11,29 @@ export class AuthGuard implements CanActivate {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(): boolean {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
     if (!this.authService.isAuthenticated()) {
       this.router.navigate(['/login']);
       return false;
     }
+
+    const expectedRole = route.data['expectedRole'];
+    if (expectedRole === 'admin') {
+      return this.authService.isSuperuser().pipe(
+        map(isSuperuser => {
+          if (!isSuperuser) {
+            this.router.navigate(['/dashboard']); // Normale Benutzer werden umgeleitet
+            return false;
+          }
+          return true;
+        }),
+        catchError(() => {
+          this.router.navigate(['/dashboard']); // Im Fehlerfall umleiten
+          return of(false);
+        })
+      );
+    }
+
     return true;
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {BehaviorSubject, Observable, of, throwError} from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
 interface LoginResponse {
   token: string;
@@ -13,6 +13,10 @@ interface LoginResponse {
 export class AuthService {
   private tokenUrl = '/api/token/';
   private userUrl = '/api/users/';
+
+
+  private usernameSource = new BehaviorSubject<string>(this.getUsernameFromToken());
+  currentUsername = this.usernameSource.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -42,9 +46,10 @@ export class AuthService {
   }
 
 
-  setToken(token: string): void {
-    localStorage.setItem('authToken', token);
-  }
+    setToken(token: string): void {
+        localStorage.setItem('authToken', token);
+        this.usernameSource.next(this.getUsernameFromToken());
+    }
 
   getUserIdFromToken(): number | null {
     const accessToken = this.getToken();
@@ -68,6 +73,103 @@ export class AuthService {
   isAuthenticated(): boolean {
     const token = this.getToken();
     return !!token;
+  }
+
+  getUserDetails(userId: number): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.getToken()
+      })
+    };
+    return this.http.get(`${this.userUrl}${userId}`, httpOptions);
+  }
+
+  updateUserDetails(userId: number, userDetails: any): Observable<any> {
+    const token = this.getToken();
+    if (!token) {
+      console.error('No token found');
+      return throwError('No token found');
+    }
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      })
+    };
+    return this.http.put(`${this.userUrl}${userId}`, userDetails, httpOptions);
+  }
+
+
+    getUsernameFromToken(): string {
+        const accessToken = this.getToken();
+        if (!accessToken) return 'token error';
+
+        try {
+            const parts = accessToken.split('.');
+            if (parts.length !== 3) {
+                console.error('Invalid token format', accessToken);
+                return 'token error';
+            }
+
+            const payload = JSON.parse(atob(parts[1]));
+            return payload.username || 'username';
+        } catch (error) {
+            console.error('Error decoding token', error);
+            return 'token error';
+        }
+    }
+
+  updatePassword(userId: number, newPassword: string, repeatPassword: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.getToken()
+      })
+    };
+    return this.http.put(`${this.userUrl}${userId}/security`, { password1: newPassword, password2: repeatPassword }, httpOptions);
+  }
+
+  getUserSecurityDetails(userId: number): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.getToken()
+      })
+    };
+    return this.http.get(`${this.userUrl}${userId}/security`, httpOptions);
+  }
+
+  isSuperuser(): Observable<boolean> {
+    const userId = this.getUserIdFromToken();
+    if (!userId) {
+      return of(false);
+    }
+
+    return this.getUserSecurityDetails(userId).pipe(
+      map(securityDetails => {
+        return securityDetails.is_superuser === true;
+      }),
+      catchError(error => {
+        return of(false);
+      })
+    );
+  }
+
+  getAllUsers(): Observable<any[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.getToken()
+      })
+    };
+    return this.http.get<any[]>(this.userUrl, httpOptions).pipe(
+      catchError(error => {
+        console.error('Error fetching all users:', error);
+        return throwError(error);
+      })
+    );
   }
 
   logout(): void {

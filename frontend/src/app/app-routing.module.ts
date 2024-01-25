@@ -8,6 +8,9 @@ import { EditPlantComponent } from '../edit-plant/edit-plant.component'
 import { AuthGuard } from '../services/auth.guard';
 import {LandingPageComponent} from "../landing-page/landing-page.component";
 import {EncyclopediaPageComponent} from "../encyclopedia-page/encyclopedia-page.component";
+import {EditUserComponent} from "../edit-user/edit-user.component";
+import {AdminComponent} from "../admin/admin.component";
+
 const routes: Routes = [
   { path: 'register', component: UserRegistrationComponent },
   { path: 'login', component: UserLoginComponent },
@@ -17,6 +20,14 @@ const routes: Routes = [
   { path: 'add-plant', component: AddPlantComponent, canActivate: [AuthGuard] },
   { path: 'edit-plant', component: EditPlantComponent, canActivate: [AuthGuard] },
   { path: 'edit-plant/:id', component: EditPlantComponent, canActivate: [AuthGuard] },
+  { path: 'edit-user', component: EditUserComponent, canActivate: [AuthGuard] },
+  { path: 'edit-user/:id', component: EditUserComponent, canActivate: [AuthGuard] },
+  {
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [AuthGuard],
+    data: { expectedRole: 'admin' }
+  }
 
 ];
 

@@ -6,6 +6,32 @@
   background-color: #eaede0;
   width: 90% !important;
   margin: auto;
+  margin-bottom: 50px;
+
+  // Styles für das Benutzermenü, angepasst, um dem Stil der .menu-items zu entsprechen
+  .user-menu {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 23px 23px;
+    background-color: #c9ddae;
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 1.15em; // Größe wie bei den anderen Menüpunkten
+
+    span {
+      background: transparent;
+      color: #274525;
+      padding: 15px 20px;
+      margin: -15px -20px;
+      border-radius: 50px;
+      transition: all 0.3s ease-in-out;
+      &:hover {
+        background: #eaede0af;
+      }
+    }
+  }
 }
 
 .page-title {
@@ -13,12 +39,12 @@
   color: #274525;
   font-weight: 600;
   width: 450px;
-  text-align:center;
+  text-align: center;
 }
 
 .logo {
   height: 150px;
-  margin:auto;
+  margin: auto;
 }
 
 .menu-items {
@@ -27,96 +53,92 @@
   gap: 40px;
   justify-content: center;
   padding: 23px 23px;
-  background-color:#c9ddae;
+  background-color: #c9ddae;
   border-radius: 50px;
   font-weight: 500;
-  width: 430px;
+  width: 430px; // or 'auto' if you want the width to adjust based on content
 }
 
 .menu-items li {
-  background: #eaede000;
-  padding :15px 20px;
+  background: transparent;
+  padding: 15px 20px;
   margin: -15px -20px;
   border-radius: 50px;
   transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background: #eaede0af;
+  }
+
+  a {
+    text-decoration: none;
+    color: #274525;
+    font-size: 1.15em;
+  }
 }
 
-.menu-items li:hover {
-  background: #eaede0af;
-}
-
-.menu-items li a {
-  text-decoration: none;
-  color: #274525;
-  font-size: 1.15em;
-}
-
-.active-link{
+.active-link {
   color: #274525;
   background: #eaede0;
-  padding :15px 20px;
+  padding: 15px 20px;
   margin: -15px -20px;
   border-radius: 50px;
 }
-
 @media (max-width: 1250px) {
   .menu-bar {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .page-title {
+  .page-title,
+  .logo
+
+  {
+    margin: auto;
     padding: 0;
-    margin:auto;
   }
 
-  .logo {
-    margin:auto;
-  }
-
-  .image-container{
-    margin:auto;
-  }
-
-  .menu-items {
-    margin:auto;
+  .menu-items,
+  .user-menu {
+    width: 100%;
     margin-top: 20px;
+    justify-content: center;
+  }
+
+  .menu-items li,
+  .user-menu span {
+    width: 100%;
+    text-align: center;
   }
 }
 
 @media (max-width: 768px) {
   .menu-bar {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
 
-  .menu-items {
+  .menu-items,
+  .user-menu {
     flex-direction: column;
-    align-items: flex-start;
-    border-radius: 40px;
+    align-items: center;
     padding: 20px 15px;
-    margin:auto;
-    margin-top: 20px;
-    width: 40%;
+    width: auto; // Adjust width as necessary
   }
 
-  .menu-items li {
-    padding :15px 20px;
-    border-radius: 50px;
-    transition: all 0.3s ease-in-out;
+  .menu-items li,
+  .user-menu span {
+    padding: 15px 20px;
     width: 100%;
-    text-align:center;
   }
 
-  .menu-items li a {
+  .menu-items li a,
+  .user-menu span {
+    padding: 10px;
     width: 100%;
-    padding: 10px
   }
 
-  .active-link{
-    padding: 15px 50px !important;
-    border-radius: 50px;
+  .active-link {
+    padding: 15px 20px;
   }
-
-
 }
