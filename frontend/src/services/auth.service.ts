@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BehaviorSubject, Observable, throwError} from 'rxjs';
-import { tap } from 'rxjs/operators';
+import {BehaviorSubject, Observable, of, throwError} from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
 interface LoginResponse {
   token: string;
@@ -131,6 +131,46 @@ export class AuthService {
     return this.http.put(`${this.userUrl}${userId}/security`, { password1: newPassword, password2: repeatPassword }, httpOptions);
   }
 
+  getUserSecurityDetails(userId: number): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.getToken()
+      })
+    };
+    return this.http.get(`${this.userUrl}${userId}/security`, httpOptions);
+  }
+
+  isSuperuser(): Observable<boolean> {
+    const userId = this.getUserIdFromToken();
+    if (!userId) {
+      return of(false);
+    }
+
+    return this.getUserSecurityDetails(userId).pipe(
+      map(securityDetails => {
+        return securityDetails.is_superuser === true;
+      }),
+      catchError(error => {
+        return of(false);
+      })
+    );
+  }
+
+  getAllUsers(): Observable<any[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.getToken()
+      })
+    };
+    return this.http.get<any[]>(this.userUrl, httpOptions).pipe(
+      catchError(error => {
+        console.error('Error fetching all users:', error);
+        return throwError(error);
+      })
+    );
+  }
 
   logout(): void {
     localStorage.removeItem('authToken');

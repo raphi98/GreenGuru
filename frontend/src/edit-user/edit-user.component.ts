@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
     selector: 'app-edit-user',
@@ -12,11 +12,13 @@ export class EditUserComponent implements OnInit {
     editForm: FormGroup;
     userId: number | null = null;
     username: string = '';
+    isEditedByAdmin: boolean = false;
 
     constructor(
         private formBuilder: FormBuilder,
         private authService: AuthService,
-        private router: Router
+        private router: Router,
+        private route: ActivatedRoute
     ) {
         this.editForm = this.formBuilder.group({
             username: ['', Validators.required],
@@ -26,76 +28,87 @@ export class EditUserComponent implements OnInit {
         });
     }
 
-    ngOnInit(): void {
-        this.userId = this.authService.getUserIdFromToken();
-        this.username = this.authService.getUsernameFromToken();
-        this.editForm.get('username')?.setValue(this.username);
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      const routeUserId = +params['id'];
+      this.userId = routeUserId || this.authService.getUserIdFromToken();
+      this.isEditedByAdmin = !!routeUserId;
 
-        if (this.userId !== null) {
-            this.loadUserDetails(this.userId);
-        }
+      if (this.userId) {
+        this.loadUserDetails(this.userId);
+      }
+    });
+  }
+
+  loadUserDetails(userId: number): void {
+    this.authService.getUserDetails(userId).subscribe(
+      userDetails => {
+        this.username = userDetails.username;
+        this.editForm.patchValue({
+          email: userDetails.email,
+          username: userDetails.username
+        });
+      },
+      error => {
+        console.error('Error loading user details', error);
+      }
+    );
+  }
+
+
+  onSave(): void {
+    if (this.editForm.invalid) {
+      return;
     }
 
-    loadUserDetails(userId: number): void {
-        this.authService.getUserDetails(userId).subscribe(
-            userDetails => {
-                this.username = userDetails.username;
-                this.editForm.patchValue({
-                    email: userDetails.email,
-                    username: userDetails.username
-                });
-            },
-            error => {
-                console.error('Error loading user details', error);
-            }
-        );
+    if (this.userId === null) {
+      alert('User ID is not available.');
+      return;
     }
 
-    onSave(): void {
-        if (this.editForm.invalid) {
-            return;
-        }
+    const formData = this.editForm.value;
 
-        if (this.userId === null) {
-            alert('User ID is not available.');
-            return;
-        }
+    if (formData.newPassword && formData.newPassword !== formData.repeatPassword) {
+      alert('New Password does not match with Repeat New Password');
+      return;
+    }
 
-        const formData = this.editForm.value;
+    const updateData = {
+      username: formData.username, email: formData.email
+    };
 
-        if (formData.newPassword && formData.newPassword !== formData.repeatPassword) {
-            alert('New Password does not match with Repeat New Password');
-            return;
-        }
-
-        const updateData = {
-          username: formData.username, email: formData.email
-        };
-
-        this.authService.updateUserDetails(this.userId, updateData).subscribe({
+    this.authService.updateUserDetails(this.userId, updateData).subscribe({
+      next: () => {
+        if (formData.newPassword) {
+          this.authService.updatePassword(this.userId as number, formData.newPassword, formData.repeatPassword).subscribe({
             next: () => {
-                if (formData.newPassword) {
-                    this.authService.updatePassword(this.userId as number, formData.newPassword, formData.repeatPassword).subscribe({
-                        next: () => {
-                            alert('User details and password updated successfully');
-                            this.router.navigate(['/dashboard']);
-                        },
-                        error: err => {
-                            console.error('Error updating password', err);
-                            alert('There was an error updating the password: ' + err);
-                        }
-                    });
-                } else {
-                    alert('User details updated successfully');
-                    this.router.navigate(['/dashboard']);
-                }
+              alert('User details and password updated successfully');
+              this.redirectAfterSave();
             },
             error: err => {
-                console.error('Error updating user details', err);
-                alert('There was an error updating user details: ' + err);
+              console.error('Error updating password', err);
+              alert('There was an error updating the password: ' + err);
             }
-        });
+          });
+        } else {
+          alert('User details updated successfully');
+          this.redirectAfterSave();
+        }
+      },
+      error: err => {
+        console.error('Error updating user details', err);
+        alert('There was an error updating user details: ' + err);
+      }
+    });
+  }
+
+  redirectAfterSave(): void {
+    if (this.isEditedByAdmin) {
+      this.router.navigate(['/admin']);
+    } else {
+      this.router.navigate(['/dashboard']);
     }
+  }
     onCancel(): void {
         this.router.navigate(['/dashboard']);
     }

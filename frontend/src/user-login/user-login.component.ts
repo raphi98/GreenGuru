@@ -27,8 +27,14 @@ export class UserLoginComponent {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value.username, this.loginForm.value.password).subscribe({
         next: () => {
-          this.router.navigate(['/dashboard']);
-          this.successMessage = 'Login erfolgreich!';
+          this.authService.isSuperuser().subscribe(isSuperuser => {
+            if (isSuperuser) {
+              this.router.navigate(['/admin']);
+            } else {
+              this.router.navigate(['/dashboard']);
+            }
+            this.successMessage = 'Login erfolgreich!';
+          });
         },
         error: () => {
           this.errorMessage = 'Login fehlgeschlagen. Bitte überprüfen Sie Ihre Anmeldedaten.';

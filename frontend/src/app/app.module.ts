@@ -29,6 +29,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import { PlantCardComponent } from '../plant-card/plant-card.component';
 import { MenuBarComponent } from '../menu-bar/menu-bar.component';
 import {EditUserComponent} from "../edit-user/edit-user.component";
+import {AdminComponent} from "../admin/admin.component";
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import {EditUserComponent} from "../edit-user/edit-user.component";
     PlantCardComponent,
     EditUserComponent,
     MenuBarComponent,
+    AdminComponent
   ],
     imports: [
         BrowserModule,
