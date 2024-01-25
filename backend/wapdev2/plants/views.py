@@ -11,7 +11,6 @@ from userapi.views import JPEGRenderer, PNGRenderer
 from rest_framework.parsers import MultiPartParser, FormParser
 
 class PlantAPIViewSet(viewsets.ViewSet):
-    
     def list(self, request):
         # everything in a try block for unforseen errors
         try:
@@ -33,7 +32,7 @@ class PlantAPIViewSet(viewsets.ViewSet):
                     imagelink = f"http://localhost:8000/api/plants/{plant.pk}/image"
                 except:
                     imagelink = ""
-                plants.append({"id": plant.pk, "name": plant.name, "owner": plant.owner.pk, "location": plant.location, "plant_type": plant.plant_type, "watering": plant.watering, "fertilizing": plant.fertilizing, "image": imagelink})
+                plants.append({"id": plant.pk, "name": plant.name, "owner": plant.owner.pk, "location": plant.location, "plant_type": plant.plant_type, "watering": plant.watering, "fertilizing": plant.fertilizing, "image": imagelink, "reminder": plant.reminder})
             return Response(plants)
         except Exception as e:
             if e.__class__ == Http404:
@@ -48,6 +47,7 @@ class PlantAPIViewSet(viewsets.ViewSet):
             plant_type = payload.get("plant_type")
             watering = payload.get("watering")
             fertilizing = payload.get("fertilizing")
+            reminder = payload.get("reminder")
 
             if "name" not in payload or not isinstance(payload["name"], str):
                 raise ValidationError("Property 'name' not found or invalid: it must be a string")
@@ -68,7 +68,8 @@ class PlantAPIViewSet(viewsets.ViewSet):
                 plant_type=plant_type,
                 watering=watering,
                 fertilizing=fertilizing,
-                image=image_file  # Assign the image file directly to the image field
+                image=image_file,  # Assign the image file directly to the image field
+                reminder=reminder
             )
 
             return Response({"status": "Plant created successfully!", "plant_id": plant.pk}, status=201)
@@ -93,6 +94,7 @@ class PlantAPIViewSet(viewsets.ViewSet):
             plant_type = plant.plant_type
             watering = plant.watering
             fertilizing = plant.fertilizing
+            reminder = plant.reminder
 
             # Cannot change the id/pk of a plant
             if "id" in payload and int(payload["id"]) != plant_pk:
@@ -123,13 +125,18 @@ class PlantAPIViewSet(viewsets.ViewSet):
             if "fertilizing" in payload:
                 fertilizing = payload["fertilizing"]
 
+            # Check if reminder is given
+            if "reminder" in payload:
+                reminder = payload["reminder"]
+
             # Update plant details
             models.Plant.objects.filter(pk=pk).update(
                 name=name,
                 location=location,
                 plant_type=plant_type,
                 watering=watering,
-                fertilizing=fertilizing
+                fertilizing=fertilizing,
+                reminder=reminder
             )
 
             # Update the image if provided
@@ -151,7 +158,8 @@ class PlantAPIViewSet(viewsets.ViewSet):
                 "plant_type": plant_type,
                 "watering": watering,
                 "fertilizing": fertilizing,
-                "image": imagelink
+                "image": imagelink,
+                "reminder": reminder
             }
 
             return Response(response, status=200)
@@ -162,8 +170,6 @@ class PlantAPIViewSet(viewsets.ViewSet):
             else:
                 raise ValidationError(f"An unexpected error occurred: {e}")
 
-        
-    
     def retrieve(self, request, pk):
         plant = get_object_or_404(models.Plant, pk=pk)
         try:
@@ -171,16 +177,15 @@ class PlantAPIViewSet(viewsets.ViewSet):
             imagelink = f"http://localhost:8000/api/plants/{plant.pk}/image"
         except:
             imagelink = ""
-        return Response({"id": plant.pk, "name": plant.name, "owner": plant.owner.pk, "location": plant.location, "plant_type": plant.plant_type, "watering": plant.watering, "fertilizing": plant.fertilizing, "image": imagelink}, status=200)
+        return Response({"id": plant.pk, "name": plant.name, "owner": plant.owner.pk, "location": plant.location, "plant_type": plant.plant_type, "watering": plant.watering, "fertilizing": plant.fertilizing, "image": imagelink, "reminder": plant.reminder}, status=200)
 
     def destroy(self, request, pk):
         payload = request.data
         plant = get_object_or_404(models.Plant, pk=pk)
         models.Plant.objects.filter(pk=pk).delete()
         return Response(payload, status=204)
-        
 
-    
+
 class PlantImageViewSet(viewsets.ViewSet):
 
     renderer_classes = [JPEGRenderer, PNGRenderer]

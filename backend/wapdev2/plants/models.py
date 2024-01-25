@@ -16,6 +16,7 @@ class Plant(models.Model):
     watering = models.IntegerField(default=None, null=True, help_text="watering period in days")
     fertilizing = models.IntegerField(default=None, null=True, help_text="fertilizing period in days")
     image = models.ImageField(upload_to=upload,blank=True,null=True)
-
+    temp_watering = models.IntegerField(default=None, null=True, help_text="temporary watering period in days")
+    reminder = models.BooleanField(default=False, help_text="email-remainder")
     def __str__(self):
         return self.name
