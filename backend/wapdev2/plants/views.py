@@ -9,6 +9,7 @@ from userapi.models import User
 from django.http import Http404
 from userapi.views import JPEGRenderer, PNGRenderer
 from rest_framework.parsers import MultiPartParser, FormParser
+from plants.tasks import schedule_temp_watering_update
 
 class PlantAPIViewSet(viewsets.ViewSet):
     def list(self, request):
@@ -172,6 +173,7 @@ class PlantAPIViewSet(viewsets.ViewSet):
 
     def retrieve(self, request, pk):
         plant = get_object_or_404(models.Plant, pk=pk)
+        schedule_temp_watering_update(repeat=30)
         try:
             plant.image.size
             imagelink = f"http://localhost:8000/api/plants/{plant.pk}/image"

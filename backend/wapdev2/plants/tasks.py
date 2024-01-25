@@ -10,12 +10,13 @@ def schedule_temp_watering_update():
     plants = models.Plant.objects.all()
 
     for plant in plants:
-        update_temp_watering(plant.id)
+        update_temp_watering(plant.pk)
 
 
 def update_temp_watering(plant_id):
-    plant = Plant.objects.get(id=plant_id)
+    plant = Plant.objects.get(pk=plant_id)
 
+    print(f"plant: {plant_id}")
     if plant.watering is not None:
         if plant.temp_watering is None:
             plant.temp_watering = plant.watering
