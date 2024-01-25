@@ -1,0 +1,115 @@
+.content {
+  padding: 25px;
+}
+
+.row {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+h1, h2, h3 {
+  color: #274525;
+  padding-left: 10px;
+}
+
+h1 {
+  font-size: xxx-large;
+}
+
+h2 {
+  font-weight: 100;
+  font-size: xx-large;
+}
+
+h3 {
+  color: #000581;
+  font-size: xx-large;
+}
+
+.chip {
+  font-size: 1em;
+  font-weight: 500;
+  padding: 10px 10px;
+  border-radius: 50px;
+  width: fit-content;
+  line-height: 24px;
+  margin-right: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.2s ease-in-out;
+}
+
+.chip:hover {
+  scale: 0.9;
+}
+
+.sunny {
+  background: #e9f5db;
+}
+
+.type {
+  background: #cfe1b9;
+}
+
+.dimension {
+  background: #b5c99a;
+}
+
+.care_level {
+  background: #97a97c;
+}
+
+.pruning_month {
+  background: #87986a;
+}
+
+.inline-icon {
+  display: inline-flex;
+  vertical-align: top;
+}
+
+img {
+  width: 350px;
+  height: 250px;
+  object-fit: cover;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+button {
+  position: absolute;
+  right: 1px;
+}
+
+.close-icon {
+  scale: 3;
+  color: #274525;
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  background-image: url('../assets/loader.gif');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+img.loaded {
+  opacity: 1;
+}
+
+@media screen and (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .chip {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}

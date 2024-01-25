@@ -1,29 +1,21 @@
-$dark-green: #1B4522;
-$light-green: #E8ECDE;
+$dark-green: #274525;
+$light-green: #eaede0;
+$green: #ddf8bd;
 $error-red: #FF6347;
 $success-green: #1B4522;
+
+mat-card {
+  padding: 1rem;
+  max-width: 80%;
+  margin: 0 auto;
+  border-radius: 30px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
 
 .add-plant-container {
   display: flex;
   justify-content: space-between;
-  background-color: $light-green;
-  height: 100vh;
   align-items: center;
-
-  .form-btn {
-    width: 100%;
-    padding: 15px;
-    border: none;
-    background-color: $dark-green;
-    color: $light-green;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 4px;
-    margin-top: 10px;
-    &:hover {
-      background-color: darken($dark-green, 10%);
-    }
-  }
 
   .form-column, .image-column {
     flex: 1;
@@ -31,11 +23,6 @@ $success-green: #1B4522;
     flex-direction: column;
     align-items: center;
     padding: 2rem;
-
-    .form-title {
-      color: $dark-green;
-      margin-bottom: 2rem;
-    }
 
     .error-message {
       color: $error-red;
@@ -53,7 +40,7 @@ $success-green: #1B4522;
 
       .form-group {
         position: relative;
-        background-color: $light-green;
+        background-color: white;
         border-bottom: 2px solid $dark-green;
         margin-bottom: 1rem;
 
@@ -68,6 +55,10 @@ $success-green: #1B4522;
           &::placeholder {
             color: $dark-green;
           }
+        }
+
+        input:focus{
+          outline: none;
         }
 
         label {
@@ -105,7 +96,7 @@ $success-green: #1B4522;
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: #a94442;
+            background-color: grey;
             transition: .4s;
             border-radius: 34px;
 
@@ -142,14 +133,15 @@ $success-green: #1B4522;
       }
 
       .form-btn {
-        width: 100%;
-        padding: 15px;
+        width: 50%;
+        padding: 10px;
         border: none;
         background-color: $dark-green;
-        color: $light-green;
-        font-size: 1rem;
+        color: $green;
+        font-weight: 600;
+        font-size: 1.5rem;
         cursor: pointer;
-        border-radius: 4px;
+        border-radius: 32px;
         margin-top: 10px;
         &:hover {
           background-color: darken($dark-green, 10%);
@@ -175,10 +167,10 @@ $success-green: #1B4522;
         padding: 15px;
         border: none;
         background-color: $dark-green;
-        color: $light-green;
-        font-size: 1rem;
+        color: $green;
+        font-weight: 600;
+        font-size: 1.5rem;
         cursor: pointer;
-        border-radius: 4px;
         margin-top: 10px;
         &:hover {
           background-color: lighten($dark-green, 10%);

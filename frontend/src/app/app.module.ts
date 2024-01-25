@@ -28,6 +28,8 @@ import { EncyclopediaDialogComponent } from '../encyclopedia-dialog/encyclopedia
 import {MatDialogModule} from "@angular/material/dialog";
 import { PlantCardComponent } from '../plant-card/plant-card.component';
 import { MenuBarComponent } from '../menu-bar/menu-bar.component';
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -57,7 +59,9 @@ import { MenuBarComponent } from '../menu-bar/menu-bar.component';
         HttpClientModule,
         BrowserAnimationsModule,
         FormsModule,
-        MatDialogModule
+        MatDialogModule,
+        MatSnackBarModule,
+        MatTooltipModule
     ],
   providers: [],
   bootstrap: [AppComponent]
