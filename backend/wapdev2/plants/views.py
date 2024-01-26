@@ -47,6 +47,7 @@ class PlantAPIViewSet(viewsets.ViewSet):
             location = payload.get("location")
             plant_type = payload.get("plant_type")
             watering = payload.get("watering")
+            watering_cycle = watering
             fertilizing = payload.get("fertilizing")
             reminder = payload.get("reminder")
 
@@ -70,6 +71,7 @@ class PlantAPIViewSet(viewsets.ViewSet):
                 watering=watering,
                 fertilizing=fertilizing,
                 image=image_file,  # Assign the image file directly to the image field
+                watering_cycle=watering_cycle,
                 reminder=reminder
             )
 
@@ -85,6 +87,9 @@ class PlantAPIViewSet(viewsets.ViewSet):
         try:
             payload = request.data
 
+            # get query parameters
+            queries = request.query_params
+
             plant = get_object_or_404(models.Plant, pk=pk)
 
             # Extract existing plant details
@@ -94,17 +99,22 @@ class PlantAPIViewSet(viewsets.ViewSet):
             location = plant.location
             plant_type = plant.plant_type
             watering = plant.watering
+            watering_cycle = plant.watering_cycle
             fertilizing = plant.fertilizing
             reminder = plant.reminder
+
+            # check if the plant was watered
+            if "watered" in queries:
+                watering = plant.watering_cycle
+                print("plant watered")
 
             # Cannot change the id/pk of a plant
             if "id" in payload and int(payload["id"]) != plant_pk:
                 raise ValidationError("Cannot change the id/pk of a plant")
 
             # Checking for name
-            if not ("name" in payload):
-                raise ValidationError("Property 'name' not found: must contain the name of the plant")
-            name = payload["name"]
+            if "name" in payload:
+                name = payload["name"]
 
             # Cannot change the owner of a plant
             if "owner" in payload and payload["owner"] != owner_pk:
@@ -120,6 +130,7 @@ class PlantAPIViewSet(viewsets.ViewSet):
 
             # Check if watering is given
             if "watering" in payload:
+                watering_cycle = payload["watering"]
                 watering = payload["watering"]
 
             # Check if fertilizing is given
@@ -135,7 +146,8 @@ class PlantAPIViewSet(viewsets.ViewSet):
                 name=name,
                 location=location,
                 plant_type=plant_type,
-                watering=watering,
+                watering = watering,
+                watering_cycle=watering_cycle,
                 fertilizing=fertilizing,
                 reminder=reminder
             )
@@ -173,7 +185,6 @@ class PlantAPIViewSet(viewsets.ViewSet):
 
     def retrieve(self, request, pk):
         plant = get_object_or_404(models.Plant, pk=pk)
-        schedule_temp_watering_update(repeat=30)
         try:
             plant.image.size
             imagelink = f"http://localhost:8000/api/plants/{plant.pk}/image"
@@ -211,3 +222,10 @@ class PlantImageViewSet(viewsets.ViewSet):
         plant.image = request.FILES.get("plant_image")
         plant.save()
         return Response({"status": "Image successfully uploaded."}, status=200)
+    
+class PlantReminderViewSet(viewsets.ViewSet):
+
+    def list(self, request):
+        schedule_temp_watering_update(schedule=0, repeat=86400)
+        response = {"purpose": "This endpoint has to be called once after the server is running, to start the email reminder"}
+        return Response(response)

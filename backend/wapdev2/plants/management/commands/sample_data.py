@@ -34,10 +34,10 @@ class Command(BaseCommand):
         user3 = User.objects.create_user('Raphael', 'user3@example.com', 'user',score=1119)
 
         # Create plants
-        models.Plant.objects.create(name="Jürgen", owner=user1, location="Bedroom", plant_type="Tree", watering=20, fertilizing=None)
-        models.Plant.objects.create(name="Spike", owner=user2, location="Living room", plant_type="Fern", watering=5, fertilizing=50)
-        models.Plant.objects.create(name="Lily", owner=user2, location="Kitchen", plant_type="Succulent", watering=7, fertilizing=200)
-        models.Plant.objects.create(name="Fern", owner=user3, location="Office", plant_type="Bonsai", watering=1, fertilizing=150)
+        models.Plant.objects.create(name="Jürgen", owner=user1, location="Bedroom", plant_type="Tree", watering=20, watering_cycle=20, fertilizing=None, reminder=True)
+        models.Plant.objects.create(name="Spike", owner=user2, location="Living room", plant_type="Fern", watering=5, watering_cycle=5, fertilizing=50)
+        models.Plant.objects.create(name="Lily", owner=user2, location="Kitchen", plant_type="Succulent", watering=3, watering_cycle=7, fertilizing=200)
+        models.Plant.objects.create(name="Fern", owner=user3, location="Office", plant_type="Bonsai", watering=1, watering_cycle=2, fertilizing=150, reminder=True)
         
 
 
@@ -47,7 +47,7 @@ class Command(BaseCommand):
         img3 = os.path.join(image_folder, 'colorful-succulents.jpg')
 
         # Helper function to create plants with images
-        def create_plant_with_image(name, owner, location, plant_type, watering, fertilizing, img_path):
+        def create_plant_with_image(name, owner, location, plant_type, watering, fertilizing, img_path, reminder=False):
             if os.path.exists(img_path):
                 with open(img_path, 'rb') as img_file:
                     plant = models.Plant.objects.create(
@@ -56,7 +56,9 @@ class Command(BaseCommand):
                         location=location,
                         plant_type=plant_type,
                         watering=watering,
+                        watering_cycle=watering,
                         fertilizing=fertilizing,
+                        reminder=reminder
                     )
                     # Assign the image to the Plant object
                     plant.image.save(os.path.basename(img_path), File(img_file))
@@ -66,7 +68,7 @@ class Command(BaseCommand):
         user1.add_friend(admin_user)
 
         create_plant_with_image("San Pedro", user1, "Living room", "Cactus", None, None, img1)
-        create_plant_with_image("Blossom", user3, "Garden", "Orchid", 2, 1, img2)
+        create_plant_with_image("Blossom", user3, "Garden", "Orchid", 2, 1, img2, True)
         create_plant_with_image("Prickles", user3, "Kitchen", "Succulent", 7, 200, img3)
 
         self.stdout.write(self.style.SUCCESS('Plants with images: ID 5, 6, 7'))
