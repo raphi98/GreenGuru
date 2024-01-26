@@ -95,3 +95,30 @@ Bei Fragen schreibts mir einfach! :)
 
 ## Fehlerbehebung
 Wenn der Django Server nicht start möchte `Error: Please select a Django Module`, dann über File -> Project Structure -> Modules -> Add Button(+) -> Import Module - >backend folder auswählen -> Next..Next..Next -> Assistenten abschließen -> Fertig
+
+## Backend Server starten
+Das Backend wird gestartet und mit dem 'sample_data' script werden automatisch Beispieldaten erstellt. <br>
+Zum Einloggen im Backend gibt es einen Admin Account und drei User: <br>
+| **Username** | **Passwort** | **Userrole** |
+|--------------|:------------:|:------------:|
+| admin        | admin        | admin        |
+| Florian      | user         | user         |
+| Raphael      | user         | user         |
+| Sebastian    | user         | user         |
+<h3>Windows</h3>
+Einfach die 'startup.bat' Datei im backend Ordner ausführen.
+Danach einmal auf Nachfrage mit 'yes' bestätigen.
+<h3>Mac</h3>
+
+1. Das Python environment starten ('activate' script im Ordner `backend\venv_greenguru\Scripts`)
+
+2. In den Ordner `backend\wapdev2` wechseln
+
+3. Folgende commands ausführen:
+
+
+  ```bash 
+  python manage.py flush
+  python manage.py sample_data
+  python manage.py runserver
+  ```
