@@ -1,0 +1,17 @@
+<app-menu-bar pageTitle="FRIENDS"></app-menu-bar>
+<div class="friends-dashboard">
+  <div class="score-circle">
+    <span>{{ score }}</span>
+  </div>
+  <div class="score-label">AQUASCORE</div>
+  <div class="score-info">You get one point for each time watering a plant.</div>
+  <ul class="friends-list">
+    <li *ngFor="let friend of friends; let i = index">
+      <span class="friend-rank">{{ i + 1 }}.</span>
+      <span class="friend-name">{{ friend.username }}</span>
+      <span class="friend-score">{{ friend.score }} </span>
+      <span class="remove-friend" (click)="openConfirmDialog(friend.id)">X</span>
+    </li>
+  </ul>
+  <button class="add-friend-btn">ADD A FRIEND</button>
+</div>

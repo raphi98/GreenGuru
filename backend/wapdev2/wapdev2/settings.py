@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import datetime
 from pathlib import Path
 from decouple import config
 
@@ -42,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'userapi',
-    'yamod'
+    'plants',
 ]
 
 MIDDLEWARE = [
@@ -133,6 +134,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "userapi.User"
 
 # API Configuration
+
+SIMPLE_JWT = {
+'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=3)
+}
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [

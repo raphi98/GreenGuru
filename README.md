@@ -121,4 +121,8 @@ Danach einmal auf Nachfrage mit 'yes' bestätigen.
   python manage.py flush
   python manage.py sample_data
   python manage.py runserver
+<<<<<<< HEAD
   ```
+=======
+  ```
+>>>>>>> dev

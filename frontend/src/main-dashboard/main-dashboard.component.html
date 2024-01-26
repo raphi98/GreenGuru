@@ -1,0 +1,27 @@
+<app-menu-bar pageTitle="DASHBOARD"></app-menu-bar>
+<!--<div class="counter-container">
+  <h4><span *ngIf="totalPlants$ | async as totalPlants">{{ totalPlants }}</span> Plants</h4>
+  <h4><span *ngIf="plantsNeedingWater$ | async as plantsNeedingWater">{{ plantsNeedingWater }}</span> Watering</h4>
+  <h4><span *ngIf="plantsNeedingFertilizer$ | async as plantsNeedingFertilizer">{{ plantsNeedingFertilizer }}</span> Fertilizing</h4>
+</div>-->
+<div class="content">
+<div class="counter-container">
+  <div class="counter">
+    <span class="count"> {{ totalPlants$ | async }}</span>
+    <span class="label">PLANTS</span>
+  </div>
+  <div class="counter">
+    <span class="count">{{ plantsNeedingWater$ | async }}</span>
+    <span class="label">WATERING</span>
+  </div>
+  <div class="counter">
+    <span class="count">{{ plantsNeedingFertilizer$ | async }}</span>
+    <span class="label">FERTILIZING</span>
+  </div>
+</div>
+<div class="plant-dashboard">
+  <div class="plant-cards-container">
+  <app-plant-card *ngFor="let plant of (plants$ | async)" [plant]="plant"></app-plant-card>
+  </div>
+</div>
+</div>

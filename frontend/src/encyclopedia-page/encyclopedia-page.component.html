@@ -1,0 +1,9 @@
+<app-menu-bar pageTitle="ENCYCLOPEDIA"></app-menu-bar>
+<div class="content">
+  <div class="input-content">
+    <input type="search" [(ngModel)]="searchQuery" (input)="search()" placeholder="Search for plants"/>
+  </div>
+  <div class="container">
+    <app-encyclopedia-component *ngFor="let plant of plants" [plant]="plant"></app-encyclopedia-component>
+  </div>
+</div>

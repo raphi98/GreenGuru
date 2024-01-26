@@ -5,7 +5,7 @@ from .models import User
 
 class UserAdminConfig(UserAdmin):
     # Fields that are shown in the list
-    list_display=['email','username','first_name','gender']
+    list_display=['email','username','first_name']
     # Searchable fields
     search_fields=['email','username']
     readonly_fields=['date_joined','last_login']
@@ -13,7 +13,7 @@ class UserAdminConfig(UserAdmin):
     # This fieldsets controls the layout of the form shown for EXISTING users:
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('username','first_name','last_name','gender','profile_image')}),
+        ('Personal info', {'fields': ('username','first_name','last_name')}),
         ('Activity', {'fields': ('date_joined','last_login')}),
         ('Permissions', {'fields': ('is_active','is_staff','is_superuser')}),
     )
@@ -21,7 +21,7 @@ class UserAdminConfig(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'gender', 'password1', 'password2'),
+            'fields': ('username', 'password1', 'password2'),
         }),
     )
 

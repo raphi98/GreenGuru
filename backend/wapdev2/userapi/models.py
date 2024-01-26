@@ -2,26 +2,29 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-def upload_to(instance, filename):
-    # Put upload files under uploads/profile_images, whereas each 
-    # user has its own directory (using the primary key)
-    # The filename as provided by the upload is preserved
-    return "uploads/profile_images/%s/%s" % (instance.pk,filename)
 
 class User(AbstractUser):
 
-    GENDER = (
-        ('m', 'Male'),
-        ('f', 'Female'),
-        ('x', 'Diverse'),
-    )
-    
-    gender = models.CharField(max_length=1,choices=GENDER,blank=True,null=True)
-    profile_image = models.ImageField(upload_to=upload_to,blank=True,null=True)
+    score = models.IntegerField(default=0, null=False, help_text="plantscore of the user")
+    friends = models.ManyToManyField("self",default=None, help_text="friendlist of the user")
 
-    # You can add additional fields here, as you need them. If you want 
-    # to appear these new fields in the admin as well, open admin.py 
-    # and change the Admin class accordingly.
+    def add_friend(self, friend):
+        """
+        Add a user to the friends list.
+        """
+        self.friends.add(friend)
+        friend.friends.add(self)  # Automatically add the user to the friend's friends list
+        self.save()
+        friend.save()
+
+    def remove_friend(self, friend):
+        """
+        Remove a user from the friends list.
+        """
+        self.friends.remove(friend)
+        friend.friends.remove(self)  # Automatically remove the user from the friend's friends list
+        self.save()
+        friend.save()
 
     def __str__(self):
         return self.username

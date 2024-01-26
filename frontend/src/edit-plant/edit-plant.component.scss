@@ -1,0 +1,121 @@
+$dark-green: #1B4522;
+$light-green: #E8ECDE;
+$error-red: #FF6347;
+$success-green: #1B4522;
+$delete-red: #a94442; // Farbe für den Delete-Button
+
+.edit-plant-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: $light-green;
+  height: 100vh;
+  align-items: center;
+
+  .form-column, .image-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+
+    .form-title {
+      color: $dark-green;
+      margin-bottom: 2rem;
+    }
+
+    .form-group, .form-switch {
+      position: relative;
+      background-color: $light-green;
+      border-bottom: 2px solid $dark-green;
+      margin-bottom: 1rem;
+
+      input, select, .slider {
+        color: $dark-green;
+      }
+
+      label {
+        color: $dark-green;
+      }
+    }
+
+    .error-message {
+      color: $error-red;
+      margin: 10px 0;
+    }
+
+    .success-message {
+      color: $success-green;
+      margin: 10px 0;
+    }
+
+    .edit-plant-form {
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .form-btn {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 4px;
+      margin-top: 10px;
+      background-color: $dark-green;
+      color: $light-green;
+
+      &.save-btn {
+        &:hover {
+          background-color: darken($dark-green, 10%);
+        }
+      }
+
+      &.delete-btn {
+        background-color: $delete-red;
+        color: white;
+        &:hover {
+          background-color: darken($delete-red, 10%);
+        }
+      }
+    }
+  }
+
+  .image-column {
+    text-align: center;
+
+    .image-preview {
+      border: 2px solid $dark-green;
+      margin-bottom: 1rem;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+
+      .choose-image-btn {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        background-color: $dark-green;
+        color: $light-green;
+        font-size: 1rem;
+        cursor: pointer;
+        border-radius: 4px;
+        margin-top: 10px;
+        &:hover {
+          background-color: lighten($dark-green, 10%);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .edit-plant-container {
+    flex-direction: column;
+
+    .form-column, .image-column {
+      width: 80%;
+    }
+  }
+}
