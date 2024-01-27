@@ -8,29 +8,16 @@
   margin: auto;
   margin-bottom: 50px;
 
-  // Styles für das Benutzermenü, angepasst, um dem Stil der .menu-items zu entsprechen
   .user-menu {
     list-style: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 23px 23px;
     background-color: #c9ddae;
-    border-radius: 50px;
+    padding: 7px;
+    border-radius:50px;
     font-weight: 500;
-    font-size: 1.15em; // Größe wie bei den anderen Menüpunkten
-
-    span {
-      background: transparent;
-      color: #274525;
-      padding: 15px 20px;
-      margin: -15px -20px;
-      border-radius: 50px;
-      transition: all 0.3s ease-in-out;
-      &:hover {
-        background: #eaede0af;
-      }
-    }
+    font-size: 1.15em;
   }
 }
 
@@ -56,7 +43,7 @@
   background-color: #c9ddae;
   border-radius: 50px;
   font-weight: 500;
-  width: 430px; // or 'auto' if you want the width to adjust based on content
+  width: 430px;
 }
 
 .menu-items li {
@@ -84,30 +71,28 @@
   margin: -15px -20px;
   border-radius: 50px;
 }
-@media (max-width: 1250px) {
+@media (max-width: 1350px) {
   .menu-bar {
     flex-direction: column;
-    align-items: flex-start;
   }
 
-  .page-title,
-  .logo
-
+  .page-title
   {
     margin: auto;
     padding: 0;
   }
 
-  .menu-items,
-  .user-menu {
-    width: 100%;
+  .logo, .image-container{
+    margin:auto;
+  }
+
+  .menu-items
+{
     margin-top: 20px;
     justify-content: center;
   }
 
-  .menu-items li,
-  .user-menu span {
-    width: 100%;
+  .menu-items li{
     text-align: center;
   }
 }
@@ -115,30 +100,123 @@
 @media (max-width: 768px) {
   .menu-bar {
     flex-direction: column;
-    align-items: center;
   }
 
-  .menu-items,
-  .user-menu {
+  .menu-items{
     flex-direction: column;
-    align-items: center;
-    padding: 20px 15px;
-    width: auto; // Adjust width as necessary
+    align-items: flex-start;
+    border-radius: 40px;
+    padding: 30px 10px;
+    margin:auto;
+    margin-top: 20px;
+    width: 40%;
   }
 
-  .menu-items li,
-  .user-menu span {
-    padding: 15px 20px;
+  .user-menu{
+    width: 40%;
+    margin-top:20px;
+  }
+
+  .menu-items li{
+    padding :15px 20px;
+    border-radius: 50px;
+    transition: all 0.3s ease-in-out;
     width: 100%;
+    text-align:center;
   }
 
-  .menu-items li a,
-  .user-menu span {
+
+  .menu-items li:hover{
+    padding: 15px 0 !important;
+  }
+
+  .menu-items li a{
     padding: 10px;
     width: 100%;
   }
 
   .active-link {
-    padding: 15px 20px;
+    padding: 15px 50px !important;
+    border-radius: 50px;
   }
+
+  .user-name:hover, .user-icon:hover{
+    padding: 13px 30% !important;
+  }
+
+}
+
+.user-name:hover, .user-icon:hover{
+  background: #eaede0af;
+  padding: 13px;
+  border-radius:50px;
+}
+
+.user-name{
+  display:flex;
+
+  font-weight: 500;
+  color: #274525;
+  padding: 13px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.user-name svg{
+  width: 20px;
+  height: 20px;
+}
+
+.user-name span{
+  margin-left: 10px;
+}
+
+.user-icon{
+  width: 20px;
+  height: 20px;
+  padding: 13px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.user-icon svg{
+  margin-top: -2px;
+}
+
+.user-menu {
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  padding: 10px;
+  transform: translateX(-50%);
+  background-color: #fff;
+  border-radius: 20px;
+  width: max-content;
+  min-width: 100%;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  display: none;
+  transition: all 0.3s ease-in-out;
+  z-index: 1;
+}
+
+.user-menu:hover .dropdown {
+  display: block;
+  transition: all 0.3s ease-in-out;
+}
+
+.dropdown a {
+  display: block;
+  padding: 12px 18px;
+  text-decoration: none;
+  color: #333;
+  white-space: nowrap;
+}
+
+.dropdown a:hover {
+  background-color: #f2f2f2;
+  border-radius: 15px;
 }

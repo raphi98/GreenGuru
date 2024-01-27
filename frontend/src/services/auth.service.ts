@@ -16,8 +16,6 @@ export class AuthService {
 
 
   private usernameSource = new BehaviorSubject<string>(this.getUsernameFromToken());
-  currentUsername = this.usernameSource.asObservable();
-
   constructor(private http: HttpClient) {}
 
   login(username: string, password: string): Observable<any> {
@@ -112,9 +110,8 @@ export class AuthService {
                 console.error('Invalid token format', accessToken);
                 return 'token error';
             }
-
             const payload = JSON.parse(atob(parts[1]));
-            return payload.username || 'username';
+            return payload.username;
         } catch (error) {
             console.error('Error decoding token', error);
             return 'token error';

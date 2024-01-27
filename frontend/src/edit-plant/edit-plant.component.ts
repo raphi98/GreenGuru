@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PlantService } from '../services/plant.service';
+import {ApiService} from "../services/plant-api.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-edit-plant',
@@ -23,18 +25,30 @@ export class EditPlantComponent implements OnInit {
   imagePreviewUrl: any = null;
   imageFile: File | null = null;
   plantId!: number;
+  plants: any[] | undefined;
+  searchQuery: string = '';
+  wateringPeriod: number = 0;
 
   @ViewChild('fileInput') fileInput!: ElementRef;
 
   constructor(
     private plantService: PlantService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private apiService: ApiService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
     this.plantId = Number(this.route.snapshot.paramMap.get('id'));
     this.loadPlantData();
+    this.fetchPlants();
+  }
+
+  fetchPlants() {
+    this.apiService.getPlantsFromAPI(this.searchQuery).subscribe((data: any) => {
+      this.plants = data.data.filter((plant: { default_image: null; }) => plant.default_image !== null);
+    });
   }
 
   loadPlantData(): void {
@@ -96,6 +110,32 @@ export class EditPlantComponent implements OnInit {
         this.imagePreviewUrl = event.target.result;
       };
       reader.readAsDataURL(file);
+    }
+  }
+
+  search() {
+    this.fetchPlants();
+    const selectedOption = document.querySelector(`datalist#types option[value="${this.searchQuery}"]`);
+
+    if (selectedOption) {
+      const selectedPlantIdString = selectedOption.getAttribute('data-id');
+      // @ts-ignore
+      const selectedPlantId = parseInt(selectedPlantIdString, 10); // Parse as a number
+      this.apiService.getPlantFromAPIById(selectedPlantId).subscribe((data: any) => {
+        if (data.watering_general_benchmark && data.watering_general_benchmark.value !== null) {
+          const wateringPeriod = data.watering_general_benchmark.value;
+          const wateringPeriodParts = wateringPeriod.split('-');
+          const firstNumber = wateringPeriodParts[0].trim();
+          const wateringPeriodValue = parseInt(firstNumber, 10);
+          this.wateringPeriod = wateringPeriodValue;
+          console.log(wateringPeriodValue);
+        } else {
+          console.log("Watering period data is null or undefined");
+          this.snackBar.open('Watering period is not available for this plant', 'Okay', {
+            duration: 5000,
+          });
+        }
+      });
     }
   }
 }

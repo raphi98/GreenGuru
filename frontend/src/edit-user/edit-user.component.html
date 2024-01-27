@@ -1,17 +1,9 @@
 <app-menu-bar pageTitle="EDIT USER"></app-menu-bar>
+<mat-card>
 <div class="edit-user-container">
-  <div class="edit-logo-column">
-    <img src="assets/logo-light.png" alt="Green Guru Logo" class="edit-logo">
-    <div class="edit-section">
-      <h1>EDIT PROFILE</h1>
-    </div>
-  </div>
   <div class="edit-form-column">
-    <div class="edit-header">
-      <span class="icon-edit material-icons">person</span>
-      <h2>{{ username }}</h2>
-      <button class="edit-logout-btn" (click)="logout()">Logout</button>
-    </div>
+    <span class="icon-edit material-icons">person</span>
+    <h2>Update User Information</h2>
     <form class="user-edit-form" [formGroup]="editForm" (ngSubmit)="onSave()">
       <!-- Username (editierbar) -->
       <div class="edit-form-group">
@@ -40,3 +32,4 @@
     </form>
   </div>
 </div>
+</mat-card>

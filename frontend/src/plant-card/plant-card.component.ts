@@ -25,5 +25,11 @@ export class PlantCardComponent implements OnInit {
 
   ngOnInit(): void {
     // Component initialization logic if necessary
+    if(this.plant.fertilizing === null) {
+      this.plant.fertilizing = 0;
+    }
+    if(this.plant.watering === null) {
+      this.plant.watering = 0;
+    }
   }
 }
