@@ -154,7 +154,11 @@ class PlantAPIViewSet(viewsets.ViewSet):
 
             # Check if reminder is given
             if "reminder" in payload:
-                reminder = payload["reminder"]
+                remind = payload["reminder"]
+                if remind == "True":
+                    reminder = True
+                elif remind == "False":
+                    reminder = False
 
             # Update plant details
             models.Plant.objects.filter(pk=pk).update(
