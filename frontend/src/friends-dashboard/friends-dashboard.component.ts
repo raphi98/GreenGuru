@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
+import { FriendsService } from '../services/friends.service';
+import {InviteFriendsComponent} from "../invite-friends/invite-friends.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-friends-dashboard',
@@ -15,7 +18,9 @@ export class FriendsDashboardComponent implements OnInit{
     friends: any[] = [];
 
     constructor(private authService: AuthService,
-                public dialog: MatDialog) {
+                public dialog: MatDialog,
+                private friendsService: FriendsService,
+                private snackBar: MatSnackBar) {
     }
 
     ngOnInit() {
@@ -38,20 +43,59 @@ export class FriendsDashboardComponent implements OnInit{
     );
   }
 
-  openConfirmDialog(friendId: number): void {
+  openConfirmDialog(name: string): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.removeFriend(friendId);
+        this.removeFriend(name);
       }
     });
   }
 
-  removeFriend(friendId: number): void {
-    // Logic to remove the friend from the user's friends list
-    // This could involve calling an API endpoint to update the user's friends list on the backend
-    this.friends = this.friends.filter(friend => friend.id !== friendId);
+  openAddFriendDialog(): void {
+    const dialogRef = this.dialog.open(InviteFriendsComponent, {
+      width: '250px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.addFriend(result.username);
+      }
+    });
   }
 
+  addFriend(username: string): void {
+    if(this.userId) {
+      this.friendsService.addFriend(this.userId, username).subscribe({
+        next: (response) => {
+          this.snackBar.open(`${username} is now your friend.`, '', {
+            duration: 5000,
+          });
+        },
+        error: (error) => {
+          this.snackBar.open(`${username} is not registered on this platform`, '', {
+            duration: 5000,
+          });
+        }
+      });
+    }
+  }
+  removeFriend(name: string): void {
+    if(this.userId) {
+      this.friendsService.removeFriend(this.userId, name).subscribe({
+        next: (response) => {
+          this.friends = this.friends.filter(friend => friend.name !== name);
+          this.snackBar.open(`${name} is removed from your friends list.`, '', {
+            duration: 5000,
+          });
+        },
+        error: (error) => {
+          this.snackBar.open(`${name} could not be removed.`, '', {
+            duration: 5000,
+          });
+        }
+      });
+    }
+  }
 }

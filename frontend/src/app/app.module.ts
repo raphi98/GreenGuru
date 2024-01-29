@@ -34,6 +34,7 @@ import {EditUserComponent} from "../edit-user/edit-user.component";
 import {AdminComponent} from "../admin/admin.component";
 import { FriendsDashboardComponent } from '../friends-dashboard/friends-dashboard.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { InviteFriendsComponent} from "../invite-friends/invite-friends.component";
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
     MenuBarComponent,
     AdminComponent,
     FriendsDashboardComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    InviteFriendsComponent
   ],
     imports: [
         BrowserModule,
