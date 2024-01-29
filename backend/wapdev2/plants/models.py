@@ -17,6 +17,7 @@ class Plant(models.Model):
     fertilizing = models.IntegerField(default=None, null=True, help_text="fertilizing period in days")
     image = models.ImageField(upload_to=upload,blank=True,null=True)
     watering_cycle = models.IntegerField(default=None, null=True, help_text="watering period in days")
+    fertilizing_cycle = models.IntegerField(default=None, null=True, help_text="fertilizing period in days")
     reminder = models.BooleanField(default=False, help_text="email-reminder")
-    def __str__(self):
+    def _str_(self):
         return self.name

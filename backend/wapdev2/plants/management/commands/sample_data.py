@@ -34,8 +34,8 @@ class Command(BaseCommand):
         user3 = User.objects.create_user('Raphael', 'user3@example.com', 'user',score=1119)
 
         # Create plants
-        models.Plant.objects.create(name="Jürgen", owner=user1, location="Bedroom", plant_type="Tree", watering=20, watering_cycle=20, fertilizing=None, reminder=True)
-        models.Plant.objects.create(name="Spike", owner=user2, location="Living room", plant_type="Fern", watering=5, watering_cycle=5, fertilizing=50)
+        models.Plant.objects.create(name="Jürgen", owner=user1, location="Bedroom", plant_type="Tree", watering=20, watering_cycle=20, fertilizing=2, fertilizing_cycle=5, reminder=True)
+        models.Plant.objects.create(name="Spike", owner=user2, location="Living room", plant_type="Fern", watering=5, watering_cycle=5, fertilizing=15, fertilizing_cycle=20)
         models.Plant.objects.create(name="Lily", owner=user2, location="Kitchen", plant_type="Succulent", watering=3, watering_cycle=7, fertilizing=200)
         models.Plant.objects.create(name="Fern", owner=user3, location="Office", plant_type="Bonsai", watering=1, watering_cycle=2, fertilizing=150, reminder=True)
         

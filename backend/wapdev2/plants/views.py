@@ -36,7 +36,7 @@ class PlantAPIViewSet(viewsets.ViewSet):
                 plants.append({"id": plant.pk, "name": plant.name, "owner": plant.owner.pk, "location": plant.location, "plant_type": plant.plant_type, "watering": plant.watering, "fertilizing": plant.fertilizing, "image": imagelink, "reminder": plant.reminder})
             return Response(plants)
         except Exception as e:
-            if e.__class__ == Http404:
+            if e._class_ == Http404:
                 raise e
             else:
                 raise ValidationError(f"You did something wrong that was unexpected: {e}")
@@ -49,6 +49,7 @@ class PlantAPIViewSet(viewsets.ViewSet):
             watering = payload.get("watering")
             watering_cycle = watering
             fertilizing = payload.get("fertilizing")
+            fertilizing_cycle = fertilizing
             reminder = payload.get("reminder")
 
             if "name" not in payload or not isinstance(payload["name"], str):
@@ -72,6 +73,7 @@ class PlantAPIViewSet(viewsets.ViewSet):
                 fertilizing=fertilizing,
                 image=image_file,  # Assign the image file directly to the image field
                 watering_cycle=watering_cycle,
+                fertilizing_cycle=fertilizing_cycle,
                 reminder=reminder
             )
 
@@ -101,12 +103,18 @@ class PlantAPIViewSet(viewsets.ViewSet):
             watering = plant.watering
             watering_cycle = plant.watering_cycle
             fertilizing = plant.fertilizing
+            fertilizing_cycle = plant.fertilizing_cycle
             reminder = plant.reminder
 
             # check if the plant was watered
             if "watered" in queries:
                 watering = plant.watering_cycle
                 print("plant watered")
+
+            # check if the plant was fertilized
+            if "fertilized" in queries:
+                fertilizing = plant.fertilizing_cycle
+                print("plant fertilized")
 
             # Cannot change the id/pk of a plant
             if "id" in payload and int(payload["id"]) != plant_pk:
@@ -149,6 +157,7 @@ class PlantAPIViewSet(viewsets.ViewSet):
                 watering = watering,
                 watering_cycle=watering_cycle,
                 fertilizing=fertilizing,
+                fertilizing_cycle=fertilizing_cycle,
                 reminder=reminder
             )
 
@@ -178,7 +187,7 @@ class PlantAPIViewSet(viewsets.ViewSet):
             return Response(response, status=200)
 
         except Exception as e:
-            if e.__class__ == ValidationError or e.__class__ == Http404:
+            if e._class_ == ValidationError or e._class_ == Http404:
                 raise e
             else:
                 raise ValidationError(f"An unexpected error occurred: {e}")
@@ -222,10 +231,11 @@ class PlantImageViewSet(viewsets.ViewSet):
         plant.image = request.FILES.get("plant_image")
         plant.save()
         return Response({"status": "Image successfully uploaded."}, status=200)
-    
+
+
 class PlantReminderViewSet(viewsets.ViewSet):
 
     def list(self, request):
-        schedule_temp_watering_update(schedule=0, repeat=86400)
+        schedule_temp_watering_update(schedule=0, repeat=10)
         response = {"purpose": "This endpoint has to be called once after the server is running, to start the email reminder"}
         return Response(response)
