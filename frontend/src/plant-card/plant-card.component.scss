@@ -248,3 +248,43 @@ img.loaded {
   opacity: 1;
 }
 
+@keyframes watering {
+  from {
+    background-color: transparent;
+  }
+  to {
+    background-color: #a2d2ff;
+  }
+}
+
+@keyframes fertilizing {
+  from {
+    background-color: transparent;
+  }
+  to {
+    background-color: #1e9e73;
+  }
+}
+
+.watering-animation {
+  animation: watering 1s ease-in-out;
+  z-index: 1;
+}
+
+.fertilizing-animation {
+  animation: fertilizing 1s ease-in-out;
+  z-index: 1;
+}
+
+/* Ensure the animation is removed after completion */
+@keyframes watering-done {
+  to {
+    background-color: transparent;
+  }
+}
+@keyframes fertilizing-done {
+  to {
+    background-color: transparent;
+  }
+}
+

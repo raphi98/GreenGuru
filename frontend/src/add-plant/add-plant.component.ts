@@ -57,6 +57,7 @@ export class AddPlantComponent implements OnInit {
         },
         error: (error) => {
           this.errorMessage = error.message;
+          alert(this.errorMessage);
         }
       });
     }
