@@ -50,13 +50,20 @@ class PlantAPIViewSet(viewsets.ViewSet):
             watering_cycle = watering
             fertilizing = payload.get("fertilizing")
             fertilizing_cycle = fertilizing
-            reminder = payload.get("reminder")
+            reminder = False
 
             if "name" not in payload or not isinstance(payload["name"], str):
                 raise ValidationError("Property 'name' not found or invalid: it must be a string")
 
             if not("owner" in payload) or (payload["owner"] == None):
                 raise ValidationError("Property 'owner' not found or invalid: it must be an integer representing the User ID")
+            
+            if "reminder" in payload:
+                remind = payload["reminder"]
+                if remind == "True":
+                    reminder = True
+                elif remind == "False":
+                    reminder = False
             
             owner_id = payload["owner"]
             owner = User.objects.get(pk=owner_id)
