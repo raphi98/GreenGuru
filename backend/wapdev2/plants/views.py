@@ -236,6 +236,6 @@ class PlantImageViewSet(viewsets.ViewSet):
 class PlantReminderViewSet(viewsets.ViewSet):
 
     def list(self, request):
-        schedule_temp_watering_update(schedule=0, repeat=10)
+        schedule_temp_watering_update(schedule=0, repeat=86400)
         response = {"purpose": "This endpoint has to be called once after the server is running, to start the email reminder"}
         return Response(response)
