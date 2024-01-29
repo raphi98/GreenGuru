@@ -127,7 +127,9 @@ export class EditPlantComponent implements OnInit {
           const wateringPeriodParts = wateringPeriod.split('-');
           const firstNumber = wateringPeriodParts[0].trim();
           const wateringPeriodValue = parseInt(firstNumber, 10);
-          this.wateringPeriod = wateringPeriodValue;
+          this.editPlantForm.patchValue({
+            watering: wateringPeriodValue
+          });
           console.log(wateringPeriodValue);
         } else {
           console.log("Watering period data is null or undefined");
