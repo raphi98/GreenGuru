@@ -1,23 +1,28 @@
 <app-menu-bar pageTitle="ADMIN DASHBOARD"></app-menu-bar>
-
-<div class="admin-container">
-  <table>
-    <thead>
-    <tr>
-      <th>Username</th>
-      <th>Email</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let user of users">
-      <td>{{ user.username }}</td>
-      <td>{{ user.email }}</td>
-      <td>
-        <!-- Buttons für Bearbeitungsaktionen -->
-        <button (click)="editUser(user)">Edit</button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
+<mat-card>
+  <div class="admin-container">
+    <table>
+      <thead>
+      <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+          <button (click)="editUser(user)" class="action-btn">
+            <span class="material-icons">edit</span>
+          </button>
+          <button (click)="deleteUser(user)" class="action-btn">
+            <span class="material-icons">delete</span>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</mat-card>

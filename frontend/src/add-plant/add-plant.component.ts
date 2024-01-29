@@ -41,9 +41,9 @@ export class AddPlantComponent implements OnInit {
       formData.append('location', this.addPlantForm.value.location ?? '');
       formData.append('plant_type', this.addPlantForm.value.plant_type ?? '');
       formData.append('watering', this.addPlantForm.value.watering?.toString() ?? '0');
-
       formData.append('fertilizing', this.addPlantForm.value.fertilizing?.toString() ?? '0');
       formData.append('owner', this.authService.getUserIdFromToken()?.toString() ?? '0');
+      formData.append('reminder', this.addPlantForm.value.reminder ? 'true' : 'false');
 
       if (this.imageFile) {
         formData.append('image', this.imageFile);

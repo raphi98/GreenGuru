@@ -18,7 +18,8 @@
     </div>
     <div class="dropdown" *ngIf="showDropdown">
       <!-- Dropdown menu items -->
-      <a style="cursor: pointer;" (click)="navigateToEditUser()" >Edit User</a>
+      <a style="cursor: pointer;" (click)="navigateToEditUser()">Edit User</a>
+      <a *ngIf="isAdmin" routerLink="/admin" style="cursor: pointer;">Admin Dashboard</a>
       <a (click)="logout()" style="cursor: pointer;">Logout</a>
     </div>
   </div>

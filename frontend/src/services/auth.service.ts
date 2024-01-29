@@ -172,4 +172,20 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('authToken');
   }
+
+  deleteUser(userId: number): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.getToken()
+      })
+    };
+    return this.http.delete(`${this.userUrl}${userId}`, httpOptions).pipe(
+      catchError(error => {
+        console.error('Error deleting user:', error);
+        return throwError(error);
+      })
+    );
+  }
+
 }

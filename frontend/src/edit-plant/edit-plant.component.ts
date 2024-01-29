@@ -55,7 +55,7 @@ export class EditPlantComponent implements OnInit {
     this.plantService.getPlant(this.plantId).subscribe({
       next: (plant) => {
         this.editPlantForm.patchValue(plant);
-        this.imagePreviewUrl = plant.image; // Update this line if you receive image URL differently
+        this.imagePreviewUrl = plant.image;
       },
       error: (error) => {
         this.errorMessage = error.message;
@@ -71,6 +71,7 @@ export class EditPlantComponent implements OnInit {
       formData.append('plant_type', this.editPlantForm.value.plant_type ?? '');
       formData.append('watering', this.editPlantForm.value.watering?.toString() ?? '0');
       formData.append('fertilizing', this.editPlantForm.value.fertilizing?.toString() ?? '0');
+      formData.append('reminder', this.editPlantForm.value.reminder ? 'true' : 'false');
       if (this.imageFile) {
         formData.append('image', this.imageFile);
       }
