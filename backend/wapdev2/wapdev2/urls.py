@@ -48,6 +48,7 @@ urlpatterns = [
     path('api/plants/', plants_views.PlantAPIViewSet.as_view({"get": "list", "post": "create"}), name="plants_api"),
     path('api/plants/<int:pk>/', plants_views.PlantAPIViewSet.as_view({"put": "update", "delete": "destroy", "get": "retrieve"}), name="plants_api"),
     path('api/plants/<int:pk>/image', plants_views.PlantImageViewSet.as_view({"get": "retrieve", "post": "create"})),
+    path('api/plants/reminder', plants_views.PlantReminderViewSet.as_view({"get": "list"}))
 ]
 
 if settings.DEBUG:
