@@ -71,7 +71,7 @@ export class EditPlantComponent implements OnInit {
       formData.append('plant_type', this.editPlantForm.value.plant_type ?? '');
       formData.append('watering', this.editPlantForm.value.watering?.toString() ?? '0');
       formData.append('fertilizing', this.editPlantForm.value.fertilizing?.toString() ?? '0');
-      formData.append('reminder', this.editPlantForm.value.reminder ? 'true' : 'false');
+      formData.append('reminder', this.editPlantForm.value.reminder ? 'True' : 'False');
       if (this.imageFile) {
         formData.append('image', this.imageFile);
       }
