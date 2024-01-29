@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import {Observable} from "rxjs";
-import {Plant} from "../models/plant";
 
 @Component({
   selector: 'app-menu-bar',
@@ -56,6 +54,10 @@ export class MenuBarComponent implements OnInit {
     if (this.userId !== null) {
       this.router.navigate(['/edit-user', this.userId]);
     }
+  }
+
+  navigateToAdminDashboard(): void {
+    this.router.navigate(['/admin']);
   }
 
   logout(): void {
