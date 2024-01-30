@@ -18,7 +18,7 @@
     .join-section {
       text-align: center;
       h1 {
-        color: #fff;
+        color: #ddf8bd;
         font-size: 3rem;
       }
     }
@@ -62,13 +62,12 @@
 
         input {
           border: none;
-          border-bottom: 2px solid #1B4522;
           background-color: transparent;
           width: 100%;
           padding: 15px;
           padding-left: 40px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
+          border-bottom: 2px solid #1B4522;
+          font-size: 1.2em;
           &:focus {
             outline: none;
             border-color: #1B4522;
@@ -93,7 +92,7 @@
         color: #fff;
         font-size: 1rem;
         cursor: pointer;
-        border-radius: 4px;
+        border-radius: 50px;
         margin-top: 10px;
         &:hover {
           background-color: darken(#1B4522, 10%);
