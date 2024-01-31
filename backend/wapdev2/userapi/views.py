@@ -223,7 +223,7 @@ class SecurityViewSet(viewsets.ViewSet):
         '''
         Updates the user password of given user.
         '''
-        if request.user.is_superuser or request.user.pk == user_pk:
+        if request.user.is_superuser or request.user.pk == int(user_pk):
             payload = request.data
             user = get_object_or_404(User, pk=user_pk)
             if not("password1" in payload) or not("password2" in payload):
