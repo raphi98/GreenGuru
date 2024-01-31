@@ -20,7 +20,7 @@ class PlantAPITestCase(TestCase):
 
     # Testing the successful retrieval of detailed information for a specific plant
     def test_retrieve_plant_detail(self):
-        url = reverse('plants_api', args=[self.plant.pk])
+        url = reverse('plants_api_pk', args=[self.plant.pk])
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -33,7 +33,7 @@ class PlantAPITestCase(TestCase):
 
     # Testing the successful update of an existing plant
     def test_update_plant(self):
-        url = reverse('plants_api', args=[self.plant.pk])
+        url = reverse('plants_api_pk', args=[self.plant.pk])
         data = {'name': 'Updated Plant', 'location': 'Updated Location', 'plant_type': 'Updated Type', 'watering': 10, 'fertilizing': 21, 'reminder': True}
         response = self.client.put(url, data, content_type='application/json')  # Set the content type explicitly
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -48,7 +48,7 @@ class PlantAPITestCase(TestCase):
 
     # Testing the successful deletion of an existing plant
     def test_delete_plant(self):
-        url = reverse('plants_api', args=[self.plant.pk])
+        url = reverse('plants_api_pk', args=[self.plant.pk])
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         # Check if the plant is deleted from the database
