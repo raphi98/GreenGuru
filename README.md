@@ -57,6 +57,12 @@ The app is fun to use because you can earn points for taking care of your plants
 
 ### Frontend
 
+1. Run npm-install in the frontend folder
+
+2. Run ```ng serve``` to start the Angular Development Server
+
+3. Visit [localhost:4200/landing-page](http://localhost:4200/landing-page) and enjoy the app.
+
 ## Built With
 [![Python][Python.io]][Python-url]
 [![Angular][Angular.io]][Angular-url]
@@ -123,7 +129,7 @@ Die Feature Branches sollen wie die Tasks im Team Planning genannt, kleingeschri
 Bei Fragen schreibts mir einfach! :)
 
 ## Fehlerbehebung
-Wenn der Django Server nicht start möchte `Error: Please select a Django Module`, dann über File -> Project Structure -> Modules -> Add Button(+) -> Import Module - >backend folder auswählen -> Next..Next..Next -> Assistenten abschließen -> Fertig
+Wenn der Django Server nicht starten möchte `Error: Please select a Django Module`, dann über File -> Project Structure -> Modules -> Add Button(+) -> Import Module - >backend folder auswählen -> Next..Next..Next -> Assistenten abschließen -> Fertig
 
 ## Backend Server starten
 Das Backend wird gestartet und mit dem 'sample_data' script werden automatisch Beispieldaten erstellt. <br>
