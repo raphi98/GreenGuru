@@ -33,7 +33,7 @@ The app is fun to use because you can earn points for taking care of your plants
 
 1. Create a python environment, install the requirements in the backend folder and run the environment
 
-2. Run ```python manage.py makemigrations```
+2. Run ```python manage.py migrate --run-syncdb```
 
 3. Optionally you can create generic sample data by running ```python manage.py sample_data```
 <br>This will create the following accounts: 
