@@ -22,8 +22,7 @@ class PlantAPIViewSet(viewsets.ViewSet):
             if "user" in queries:
                 user_pk = queries["user"]
                 get_object_or_404(models.User, pk=user_pk)
-                plants_all = models.Plant.objects.filter(owner__pk=user_pk)
-            else: 
+            else:
                 plants_all = models.Plant.objects.all()        
 
             plants = []
