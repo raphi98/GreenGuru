@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
     selector: 'app-edit-user',
@@ -18,7 +19,8 @@ export class EditUserComponent implements OnInit {
         private formBuilder: FormBuilder,
         private authService: AuthService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private snackBar: MatSnackBar
     ) {
         this.editForm = this.formBuilder.group({
             username: ['', Validators.required],
@@ -82,39 +84,46 @@ export class EditUserComponent implements OnInit {
         if (formData.newPassword) {
           this.authService.updatePassword(this.userId as number, formData.newPassword, formData.repeatPassword).subscribe({
             next: () => {
-              alert('User details and password updated successfully');
-              this.redirectAfterSave();
+              this.snackBar.open('User details and password updated successfully', '',{
+                duration: 2000,
+              });
+              setTimeout(() => {
+                this.redirectAfterSave();
+              }, 1000);
             },
             error: err => {
               console.error('Error updating password', err);
-              alert('There was an error updating the password: ' + err);
+              this.snackBar.open('There was an error updating the password: ' + err, '',{
+                duration: 5000,
+              });
             }
           });
         } else {
-          alert('User details updated successfully');
-          this.redirectAfterSave();
+          this.snackBar.open('User details updated successfully', '',{
+            duration: 2000,
+          });
+          setTimeout(() => {
+            this.redirectAfterSave();
+          }, 1000);
         }
       },
       error: err => {
         console.error('Error updating user details', err);
-        alert('There was an error updating user details: ' + err);
+        this.snackBar.open('There was an error updating user details: ' + err, '',{
+          duration: 5000,
+        });
       }
     });
   }
 
   redirectAfterSave(): void {
     if (this.isEditedByAdmin) {
-      this.router.navigate(['/admin']);
+      this.router.navigate(['/edit-user']);
     } else {
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/edit-user']);
     }
   }
     onCancel(): void {
-        this.router.navigate(['/dashboard']);
-    }
-
-    logout(): void {
-        this.authService.logout();
-        this.router.navigate(['/login']);
+        this.router.navigate(['/edit-user']);
     }
 }

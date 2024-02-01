@@ -1,76 +1,76 @@
 <app-menu-bar pageTitle="ADD A PLANT"></app-menu-bar>
 <mat-card>
-<div class="add-plant-container">
-  <div class="form-column">
-    <form [formGroup]="addPlantForm" (ngSubmit)="onSubmit()" class="add-plant-form" enctype="multipart/form-data">
-      <!-- Plant Name -->
-      <div class="form-group">
-        <input type="text" formControlName="name" placeholder="Plantname" required>
-        <label class="material-icons">nature</label>
-      </div>
-      <!-- Location Dropdown/Textbox -->
-      <div class="form-group">
-        <input type="text" formControlName="location" placeholder="Location" list="locations" required>
-        <datalist id="locations">
-        <option value="Living Room">
-        <option value="Kitchen">
-        <option value="Bedroom">
-        <option value="Bathroom">
-        <option value="Office">
-        <option value="Balcony">
-        <option value="Entrance Hall">
-        <option value="Garden">
-      </datalist>
-        <label class="material-icons">place</label>
-      </div>
-      <input type="file" #fileInput (change)="fileInput.files && handleFileInput(fileInput.files)" hidden>
-      <!-- Type Dropdown/Textbox -->
-      <div class="form-group">
-        <input type="text" formControlName="plant_type" [(ngModel)]="searchQuery" (input)="search()" placeholder="Type" list="types" required matTooltip="Search for the type of your plant. Choose it and the watering cycle will be autocompleted." matTooltipPosition="left">
-        <datalist id="types">
-          <!-- Options for types will go here -->
-          <option *ngFor="let plant of plants" [value]="plant.common_name" [attr.data-id]="plant.id">
-        </datalist>
-        <label class="material-icons">filter_vintage</label>
-      </div>
+  <div class="add-plant-container">
+    <div class="form-column">
+      <form [formGroup]="addPlantForm" (ngSubmit)="onSubmit()" class="add-plant-form" enctype="multipart/form-data">
+        <!-- Plant Name -->
+        <div class="form-group">
+          <input type="text" formControlName="name" placeholder="Plantname" required>
+          <label class="material-icons">nature</label>
+        </div>
+        <!-- Location Dropdown/Textbox -->
+        <div class="form-group">
+          <input type="text" formControlName="location" placeholder="Location" list="locations" required>
+          <datalist id="locations">
+            <option value="Living Room">
+            <option value="Kitchen">
+            <option value="Bedroom">
+            <option value="Bathroom">
+            <option value="Office">
+            <option value="Balcony">
+            <option value="Entrance Hall">
+            <option value="Garden">
+          </datalist>
+          <label class="material-icons">place</label>
+        </div>
+        <input type="file" #fileInput (change)="fileInput.files && handleFileInput(fileInput.files)" hidden>
+        <!-- Type Dropdown/Textbox -->
+        <div class="form-group">
+          <input type="text" formControlName="plant_type" [(ngModel)]="searchQuery" (input)="search()" placeholder="Type" list="types" required matTooltip="Search for the type of your plant. Choose it and the watering cycle will be autocompleted." matTooltipPosition="left">
+          <datalist id="types">
+            <!-- Options for types will go here -->
+            <option *ngFor="let plant of plants" [value]="plant.common_name" [attr.data-id]="plant.id">
+          </datalist>
+          <label class="material-icons">filter_vintage</label>
+        </div>
 
-      <!-- Watering Period -->
-      <div class="form-group">
-        <input type="number" [value]="wateringPeriod" formControlName="watering" placeholder="Watering period" min="1" required matTooltip="Watering period in days" matTooltipPosition="left">
-        <label class="material-icons">opacity</label>
+        <!-- Watering Period -->
+        <div class="form-group">
+          <input type="number" [value]="wateringPeriod" formControlName="watering" placeholder="Watering period" min="1" required matTooltip="Watering period in days" matTooltipPosition="left">
+          <label class="material-icons">opacity</label>
+        </div>
+
+        <!-- Fertilizing Period -->
+        <div class="form-group">
+          <input type="number" formControlName="fertilizing" placeholder="Fertilizing Period" min="1" required matTooltip="Fertilizing period in days" matTooltipPosition="left">
+          <label class="material-icons">spa</label>
+        </div>
+
+        <!-- Email Reminder -->
+        <div class="form-switch">
+          <label><b>Email Reminder</b></label>
+          <label class="switch">
+            <input type="checkbox" formControlName="reminder">
+            <span class="slider round"></span>
+          </label>
+        </div>
+
+        <!-- Fehler- und Erfolgsmeldungen anzeigen -->
+        <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+        <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+
+        <!-- Add Button -->
+        <button type="submit" class="form-btn" [disabled]="!addPlantForm.valid">ADD</button>
+      </form>
+    </div>
+
+    <!-- Image Preview & Choose Image Button -->
+    <div class="image-column">
+      <div class="image-preview">
+        <img [src]="imagePreviewUrl ? imagePreviewUrl : 'assets/placeholder_no_image_uploaded.png'" alt="Plant Image">
+        <button (click)="fileInput.click()" class="choose-image-btn">Choose Image</button>
+        <input type="file" #fileInput (change)="fileInput.files && handleFileInput(fileInput.files)" hidden>
       </div>
-
-      <!-- Fertilizing Period -->
-      <div class="form-group">
-        <input type="number" formControlName="fertilizing" placeholder="Fertilizing Period" min="1" required matTooltip="Fertilizing period in days" matTooltipPosition="left">
-        <label class="material-icons">spa</label>
-      </div>
-
-      <!-- Email Reminder -->
-      <div class="form-switch">
-        <label><b>Email Reminder</b></label>
-        <label class="switch">
-          <input type="checkbox" formControlName="reminder">
-          <span class="slider round"></span>
-        </label>
-      </div>
-
-      <!-- Fehler- und Erfolgsmeldungen anzeigen -->
-      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-      <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
-
-      <!-- Add Button -->
-      <button type="submit" class="form-btn" [disabled]="!addPlantForm.valid">ADD</button>
-    </form>
-  </div>
-
-  <!-- Image Preview & Choose Image Button -->
-  <div class="image-column">
-    <div class="image-preview">
-      <img [src]="imagePreviewUrl ? imagePreviewUrl : 'assets/placeholder_no_image_uploaded.png'" alt="Plant Image">
-      <button (click)="fileInput.click()" class="choose-image-btn">Choose Image</button>
-      <input type="file" #fileInput (change)="fileInput.files && handleFileInput(fileInput.files)" hidden>
     </div>
   </div>
-</div>
 </mat-card>

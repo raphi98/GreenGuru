@@ -30,15 +30,15 @@ urlpatterns = [
     # Django Admin URLs:
     path('admin/', admin.site.urls),
     # user and authentication apis:
-    path('api/', user_views.ApiView.as_view({'get': "list"})),
+    path('api/', user_views.ApiView.as_view({'get': "list"}), name="api"),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/users/', user_views.UserViewSet.as_view({"get": "list",
-                                                       "post": "create"})),
+                                                       "post": "create"}),name="api_users"),
     path('api/users/<pk>', user_views.UserViewSet.as_view({"get": "retrieve",
                                                            "put": "update",
                                                            "delete": "destroy", })),
-    path('api/users/<user_pk>/security', user_views.SecurityViewSet.as_view({"put": "update", "get": "list"})),
+    path('api/users/<user_pk>/security', user_views.SecurityViewSet.as_view({"put": "update", "get": "list"}), name="api_security"),
     path('api/users/<user_pk>/groups', user_views.UserGroupViewSet.as_view({"post": "create", "get": "list"})),
     path('api/users/<user_pk>/groups/<group_pk>', user_views.UserGroupViewSet.as_view({"delete": "destroy", "get": "retrieve"})),
     path('api/groups', user_views.GroupViewSet.as_view({'get': "list", "post": "create"})),
@@ -46,8 +46,9 @@ urlpatterns = [
  
     # plant api urls
     path('api/plants/', plants_views.PlantAPIViewSet.as_view({"get": "list", "post": "create"}), name="plants_api"),
-    path('api/plants/<int:pk>/', plants_views.PlantAPIViewSet.as_view({"put": "update", "delete": "destroy", "get": "retrieve"}), name="plants_api"),
+    path('api/plants/<int:pk>/', plants_views.PlantAPIViewSet.as_view({"put": "update", "delete": "destroy", "get": "retrieve"}), name="plants_api_pk"),
     path('api/plants/<int:pk>/image', plants_views.PlantImageViewSet.as_view({"get": "retrieve", "post": "create"})),
+    path('api/plants/reminder', plants_views.PlantReminderViewSet.as_view({"get": "list"}), name="plants_reminder")
 ]
 
 if settings.DEBUG:

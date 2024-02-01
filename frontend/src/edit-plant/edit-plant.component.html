@@ -1,4 +1,5 @@
 <app-menu-bar pageTitle="EDIT PLANT"></app-menu-bar>
+<mat-card>
 <div class="edit-plant-container">
   <div class="form-column">
     <h1 class="form-title">EDIT PLANT "{{editPlantForm.value.name || '...'}}"</h1>
@@ -24,21 +25,24 @@
         <label class="material-icons">place</label>
       </div>
       <!-- Type Dropdown/Textbox -->
+      <!-- Type Dropdown/Textbox -->
       <div class="form-group">
-        <input type="text" formControlName="plant_type" placeholder="Type" list="edit-types" required>
-        <datalist id="edit-types">
+        <input type="text" formControlName="plant_type" [(ngModel)]="searchQuery" (input)="search()" placeholder="Type" list="types" required matTooltip="Search for the type of your plant. Choose it and the watering cycle will be autocompleted." matTooltipPosition="left">
+        <datalist id="types">
           <!-- Options for types will go here -->
+          <option *ngFor="let plant of plants" [value]="plant.common_name" [attr.data-id]="plant.id">
         </datalist>
         <label class="material-icons">filter_vintage</label>
       </div>
       <!-- Watering Period -->
       <div class="form-group">
-        <input type="number" formControlName="watering" placeholder="Watering period" min="1" required>
+        <input type="number" [value]="wateringPeriod" formControlName="watering" placeholder="Watering period" min="1" required matTooltip="Watering period in days" matTooltipPosition="left">
         <label class="material-icons">opacity</label>
       </div>
+
       <!-- Fertilizing Period -->
       <div class="form-group">
-        <input type="number" formControlName="fertilizing" placeholder="Fertilizing Period" min="1" required>
+        <input type="number" formControlName="fertilizing" placeholder="Fertilizing Period" min="1" required matTooltip="Fertilizing period in days" matTooltipPosition="left">
         <label class="material-icons">spa</label>
       </div>
       <!-- Email Reminder -->
@@ -65,3 +69,5 @@
     </div>
   </div>
 </div>
+</mat-card>
+

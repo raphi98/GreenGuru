@@ -31,6 +31,7 @@
 
 .friends-list {
   list-style-type: none;
+  width:100%;
   padding: 0;
   margin: 0;
 }
@@ -81,4 +82,20 @@
   padding: 10px 20px;
   font-size: 1em;
   cursor: pointer;
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 1300px) {
+  .friends-list li {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .friends-dashboard {
+    width: 90%;
+  }
+  .friends-list li {
+    width: 90%;
+  }
 }

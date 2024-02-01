@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'userapi',
     'plants',
+    'background_task',
 ]
 
 MIDDLEWARE = [
@@ -151,5 +152,11 @@ REST_FRAMEWORK = {
 # E-Mails are not send out to real mail servers, but stored as
 # plain files in the folder given below:
 
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = './mails'
+#EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+#EMAIL_FILE_PATH = './mails'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025  # Default MailHog SMTP port
+
+BACKGROUND_TASK_RUN_ASYNC = True

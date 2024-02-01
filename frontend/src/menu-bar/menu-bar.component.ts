@@ -10,19 +10,59 @@ import { Router } from '@angular/router';
 export class MenuBarComponent implements OnInit {
   @Input() pageTitle!: string;
   username: string = '';
+  showDropdown: boolean = false;
   userId: number | null = null;
+  isAdmin: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.username = this.authService.getUsernameFromToken();
     this.userId = this.authService.getUserIdFromToken();
+    if (this.userId !== null) {
+      this.loadUserName(this.userId);
+      this.checkIfAdmin();
+    }
+  }
+
+  checkIfAdmin(): void {
+    this.authService.isSuperuser().subscribe(
+      isSuperuser => {
+        this.isAdmin = isSuperuser;
+      },
+      error => {
+        console.error('Error checking admin status', error);
+      }
+    );
+  }
+
+  loadUserName(userId: number): void {
+    this.authService.getUserDetails(userId).subscribe(
+      userName => {
+        if (userName.username.length > 10) {
+          this.username = 'icon';
+        } else {
+          this.username = userName.username;
+        }
+      },
+      error => {
+        console.error('Error loading username', error);
+      }
+    );
   }
 
   navigateToEditUser(): void {
     if (this.userId !== null) {
       this.router.navigate(['/edit-user', this.userId]);
     }
+  }
+
+  navigateToAdminDashboard(): void {
+    this.router.navigate(['/admin']);
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }
 

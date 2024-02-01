@@ -24,4 +24,13 @@ export class AdminComponent implements OnInit {
   editUser(userId: number): void {
     this.router.navigate(['/edit-user', userId]);
   }
+
+  deleteUser(user: any): void {
+    if (confirm(`Are you sure you want to delete ${user.username}?`)) {
+      this.authService.deleteUser(user.id).subscribe(() => {
+        this.users = this.users.filter(u => u.id !== user.id);
+      });
+    }
+  }
+
 }

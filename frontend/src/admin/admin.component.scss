@@ -1,7 +1,89 @@
+$dark-green: #274525;
+$light-green: #eaede0;
+$green: #ddf8bd;
+$error-red: #FF6347;
+$success-green: #1B4522;
+$hover-edit-color: #ddf8bd;
+$hover-delete-color: #FF6347;
+
+mat-card {
+  padding: 1rem;
+  max-width: 80%;
+  margin: 0 auto;
+  border-radius: 30px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
 .admin-container {
-  // Styling für die Admin-Tabelle
   table {
     width: 100%;
-    // Weitere Styling-Optionen...
+    border-collapse: collapse;
+    text-align: center;
+
+    thead {
+      tr {
+        th:first-child {
+          border-top-left-radius: 30px;
+        }
+
+        th:last-child {
+          border-top-right-radius: 30px;
+        }
+
+        th {
+          background-color: $light-green;
+          color: $dark-green;
+          padding: 15px;
+          font-size: 1.2em;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom: 1px solid $light-green;
+
+        td {
+          padding: 10px;
+          color: $dark-green;
+
+          .action-btn {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            color: $dark-green;
+
+            .material-icons {
+              font-size: 24px;
+              transition: color 0.3s;
+
+              &:hover {
+                color: $hover-edit-color;
+              }
+            }
+
+            &:last-child .material-icons:hover {
+              color: $hover-delete-color;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1350px) {
+  .choose-image-btn {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-container {
+    flex-direction: column;
+
+    .form-column, .image-column {
+      width: 80%;
+    }
   }
 }

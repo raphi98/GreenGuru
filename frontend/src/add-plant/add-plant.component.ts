@@ -43,6 +43,7 @@ export class AddPlantComponent implements OnInit {
       formData.append('watering', this.addPlantForm.value.watering?.toString() ?? '0');
       formData.append('fertilizing', this.addPlantForm.value.fertilizing?.toString() ?? '0');
       formData.append('owner', this.authService.getUserIdFromToken()?.toString() ?? '0');
+      formData.append('reminder', this.addPlantForm.value.reminder ? 'True' : 'False');
 
       if (this.imageFile) {
         formData.append('image', this.imageFile);
@@ -56,6 +57,7 @@ export class AddPlantComponent implements OnInit {
         },
         error: (error) => {
           this.errorMessage = error.message;
+          alert(this.errorMessage);
         }
       });
     }
@@ -97,7 +99,9 @@ export class AddPlantComponent implements OnInit {
           const wateringPeriodParts = wateringPeriod.split('-');
           const firstNumber = wateringPeriodParts[0].trim();
           const wateringPeriodValue = parseInt(firstNumber, 10);
-          this.wateringPeriod = wateringPeriodValue;
+          this.addPlantForm.patchValue({
+            watering: wateringPeriodValue
+          });
           console.log(wateringPeriodValue);
         } else {
           console.log("Watering period data is null or undefined");

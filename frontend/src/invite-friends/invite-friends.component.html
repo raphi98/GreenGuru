@@ -1,1 +1,13 @@
-<p>invite-friends works!</p>
+<h2 mat-dialog-title>Add a Friend</h2>
+<mat-dialog-content>
+  <form [formGroup]="addFriendForm">
+    <mat-form-field>
+      <mat-label>Friend's Username</mat-label>
+      <input matInput formControlName="username">
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="null">Cancel</button>
+  <button mat-button [mat-dialog-close]="addFriendForm.value" cdkFocusInitial>Add</button>
+</mat-dialog-actions>
