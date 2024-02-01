@@ -51,7 +51,9 @@ The app is fun to use because you can earn points for taking care of your plants
 
 - To start the email reminder task, in a seperate terminal, start the python environment and run ```python manage.py process_tasks```
 
-- Then visit the API endpoint /api/plants/reminder once to start the background task. <br> Emails will be sent when plants are due for watering or fertilizing. The check occurs once a day.
+- Then visit the API endpoint /api/plants/reminder once to start the background task. <br> Emails will be sent when plants are due for watering or fertilizing. The check occurs once a day
+
+- Use a program like Mailhog to view the emails
 
 ### Frontend
 
