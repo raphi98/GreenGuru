@@ -28,6 +28,33 @@ The app is fun to use because you can earn points for taking care of your plants
     <li>Raphael Ofner</li>
     <li>Sebastian Schretter</li>
 
+## Installation Guide
+### Backend
+
+1. Create a python environment, install the requirements in the backend folder and run the environment
+
+2. Run ```python manage.py makemigrations```
+
+3. Optionally you can create generic sample data by running ```python manage.py sample_data```
+<br>This will create the following accounts: 
+
+    | **Username** | **Passwort** | **Userrole** |
+    |--------------|:------------:|:------------:|
+    | admin        | admin        | admin        |
+    | Florian      | user         | user         |
+    | Raphael      | user         | user         |
+    | Sebastian    | user         | user         |
+
+4. Run ```python manage.py runserver```
+
+#### Starting the email reminder task
+
+- To start the email reminder task, in a seperate terminal, start the python environment and run ```python manage.py process_tasks```
+
+- Then visit the API endpoint /api/plants/reminder once to start the background task. <br> Emails will be sent when plants are due for watering or fertilizing. The check occurs once a day.
+
+### Frontend
+
 ## Built With
 [![Python][Python.io]][Python-url]
 [![Angular][Angular.io]][Angular-url]
