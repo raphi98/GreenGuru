@@ -10,8 +10,8 @@
       <span class="friend-rank">{{ i + 1 }}.</span>
       <span class="friend-name">{{ friend.username }}</span>
       <span class="friend-score">{{ friend.score }} </span>
-      <span class="remove-friend" (click)="openConfirmDialog(friend.id)">X</span>
+      <span class="remove-friend" (click)="openConfirmDialog(friend.username)">X</span>
     </li>
   </ul>
-  <button class="add-friend-btn">ADD A FRIEND</button>
+  <button class="add-friend-btn" (click)="openAddFriendDialog()">ADD A FRIEND</button>
 </div>

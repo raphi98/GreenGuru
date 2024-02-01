@@ -22,13 +22,13 @@ export class AuthGuard implements CanActivate {
       return this.authService.isSuperuser().pipe(
         map(isSuperuser => {
           if (!isSuperuser) {
-            this.router.navigate(['/dashboard']); // Normale Benutzer werden umgeleitet
+            this.router.navigate(['/dashboard']);
             return false;
           }
           return true;
         }),
         catchError(() => {
-          this.router.navigate(['/dashboard']); // Im Fehlerfall umleiten
+          this.router.navigate(['/dashboard']);
           return of(false);
         })
       );

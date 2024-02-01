@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import {Observable} from "rxjs";
-import {Plant} from "../models/plant";
 
 @Component({
   selector: 'app-menu-bar',
@@ -14,6 +12,7 @@ export class MenuBarComponent implements OnInit {
   username: string = '';
   showDropdown: boolean = false;
   userId: number | null = null;
+  isAdmin: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -21,8 +20,19 @@ export class MenuBarComponent implements OnInit {
     this.userId = this.authService.getUserIdFromToken();
     if (this.userId !== null) {
       this.loadUserName(this.userId);
+      this.checkIfAdmin();
     }
+  }
 
+  checkIfAdmin(): void {
+    this.authService.isSuperuser().subscribe(
+      isSuperuser => {
+        this.isAdmin = isSuperuser;
+      },
+      error => {
+        console.error('Error checking admin status', error);
+      }
+    );
   }
 
   loadUserName(userId: number): void {
@@ -44,6 +54,10 @@ export class MenuBarComponent implements OnInit {
     if (this.userId !== null) {
       this.router.navigate(['/edit-user', this.userId]);
     }
+  }
+
+  navigateToAdminDashboard(): void {
+    this.router.navigate(['/admin']);
   }
 
   logout(): void {

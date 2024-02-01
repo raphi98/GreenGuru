@@ -49,7 +49,7 @@ class PlantAPIViewSet(viewsets.ViewSet):
             watering_cycle = watering
             fertilizing = payload.get("fertilizing")
             fertilizing_cycle = fertilizing
-            reminder = payload.get("reminder")
+            reminder = False
 
             if "name" not in payload or not isinstance(payload["name"], str):
                 raise ValidationError("Property 'name' not found or invalid: it must be a string")
@@ -57,10 +57,18 @@ class PlantAPIViewSet(viewsets.ViewSet):
             if not("owner" in payload) or (payload["owner"] == None):
                 raise ValidationError("Property 'owner' not found or invalid: it must be an integer representing the User ID")
             
+            # convert string to bool because reminder is sent as string from frontend
+            if "reminder" in payload:
+                remind = payload["reminder"]
+                if remind == "True":
+                    reminder = True
+                elif remind == "False":
+                    reminder = False
+            
             owner_id = payload["owner"]
             owner = User.objects.get(pk=owner_id)
 
-            image_file = request.FILES.get("image")
+            
 
             # Create a Plant instance with provided details
             plant = models.Plant.objects.create(
@@ -70,11 +78,14 @@ class PlantAPIViewSet(viewsets.ViewSet):
                 plant_type=plant_type,
                 watering=watering,
                 fertilizing=fertilizing,
-                image=image_file,  # Assign the image file directly to the image field
                 watering_cycle=watering_cycle,
                 fertilizing_cycle=fertilizing_cycle,
                 reminder=reminder
             )
+
+            image_file = request.FILES.get("image")
+            plant.image=image_file
+            plant.save()
 
             return Response({"status": "Plant created successfully!", "plant_id": plant.pk}, status=201)
 
@@ -145,8 +156,13 @@ class PlantAPIViewSet(viewsets.ViewSet):
                 fertilizing = payload["fertilizing"]
 
             # Check if reminder is given
+            # convert string to bool because reminder is sent as string from frontend
             if "reminder" in payload:
-                reminder = payload["reminder"]
+                remind = payload["reminder"]
+                if remind == "True":
+                    reminder = True
+                elif remind == "False":
+                    reminder = False
 
             # Update plant details
             models.Plant.objects.filter(pk=pk).update(
@@ -235,6 +251,6 @@ class PlantImageViewSet(viewsets.ViewSet):
 class PlantReminderViewSet(viewsets.ViewSet):
 
     def list(self, request):
-        schedule_temp_watering_update(schedule=0, repeat=10)
+        schedule_temp_watering_update(schedule=0, repeat=60)
         response = {"purpose": "This endpoint has to be called once after the server is running, to start the email reminder"}
         return Response(response)

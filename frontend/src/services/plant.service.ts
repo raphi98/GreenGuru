@@ -24,7 +24,17 @@ export class PlantService {
     );
   }
 
+  waterPlant(plantId: number): Observable<any> {
+    return this.http.put(`${this.plantsUrl}${plantId}/?watered=True`, {}).pipe(
+      catchError(this.handleError)
+    );
+  }
 
+  fertilizePlant(plantId: number): Observable<any> {
+    return this.http.put(`${this.plantsUrl}${plantId}/?fertilized=True`, {}).pipe(
+      catchError(this.handleError)
+    );
+  }
 
   updatePlant(id: number, plantData: FormData): Observable<any> {
     return this.http.put(`${this.plantsUrl}${id}/`, plantData).pipe(

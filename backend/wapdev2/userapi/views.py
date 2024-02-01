@@ -116,13 +116,6 @@ class UserViewSet(viewsets.ViewSet):
             is_active=True
         )
         user.set_password(payload["password1"])
-        send_mail(
-            "Welcome, %s" % user.username,
-            "Your account has been created.",
-            "wapdev2-noreply@fh-joanneum.at",
-            [payload["email"]],
-            fail_silently=False,
-        )
         return Response(payload, status=201)
 
     def retrieve(self, request, pk):
@@ -167,32 +160,42 @@ class UserViewSet(viewsets.ViewSet):
         '''
         Updates user with primary key pk.
         '''
-        if request.user.is_superuser or request.user.pk == int(pk):
-            queries = request.query_params
-            
+        try:
+            if request.user.is_superuser or request.user.pk == int(pk):
+                queries = request.query_params
+                
 
-            user = get_object_or_404(User, pk=pk)
-            payload = request.data
-            if "add_friend" in queries:
-                friend = get_object_or_404(User, pk=queries["add_friend"])
-                user.add_friend(friend)
-                payload["friends"]= f"friend with pk {friend.pk} added succesfully"
-            if "remove_friend" in queries:
-                friend = get_object_or_404(User, pk=queries["remove_friend"])
-                user.remove_friend(friend)
-                payload["friends"]= f"friend with pk {friend.pk} removed succesfully"
-            if "username" in payload:
-                user.username = payload["username"]
-            if "password1" and "password2" in payload:
-                if payload["password1"] != payload["password2"]:
-                    raise ValidationError("Password do not match")
-                user.set_password(payload["password1"])
-            if "email" in payload:
-                user.email = payload["email"]
-            user.save()
-            return Response(payload, status=200)
-        else:
-            return Response({"error": "You must be superuser to access this endpoint OR be the owner of user object."}, status=403)
+                user = get_object_or_404(User, pk=pk)
+                payload = request.data
+                if "add_friend" in queries:
+                    friend = get_object_or_404(User, username=queries["add_friend"])
+                    user.add_friend(friend)
+                    payload["friends"]= f"friend with pk {friend.pk} added successfully"
+                if "remove_friend" in queries:
+                    friend = get_object_or_404(User, username=queries["remove_friend"])
+                    user.remove_friend(friend)
+                    payload["friends"]= f"friend with pk {friend.pk} removed successfully"
+
+                if "score_add" in queries:
+                    user.score += (int)(queries["score_add"])
+                    payload["score"] = f'{queries["score_add"]} added to score of user {user.username}. Current score: {user.score}'
+
+
+                if "username" in payload:
+                    user.username = payload["username"]
+                if "password1" and "password2" in payload:
+                    if payload["password1"] != payload["password2"]:
+                        raise ValidationError("Password do not match")
+                    user.set_password(payload["password1"])
+                if "email" in payload:
+                    user.email = payload["email"]
+                user.save()
+                return Response(payload, status=200)
+            else:
+                return Response({"error": "You must be superuser to access this endpoint OR be the owner of user object."}, status=403)
+        except Exception as e:
+            raise ValidationError(f"You did something wrong that was unexpected: {e}")
+    
 
     def destroy(self, request, pk=None):
         '''
